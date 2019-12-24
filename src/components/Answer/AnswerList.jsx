@@ -22,7 +22,6 @@ class AnswerList extends React.Component {
         ans : ans
     }
     render() {
-        // ans = 
         return (
             <div>
                 {this.state.ans.map((a) => (

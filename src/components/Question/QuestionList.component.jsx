@@ -39,10 +39,22 @@ const ques = [
 class QuestionList extends React.Component {
     state = {ques: ques, x : []};
 
+    addData = async() => {
+        console.log("Push Data");
+        var x = {username: "Sushma", question: "New Question", id: 0}
+        var q = firebase.database().ref("questions");
+        var k = q.push(x).key;
+        var s = q.child(k).update({"id": k});
+        console.log("key", k);
+        // var qq = q.push(x.set(key, q.key);
+        // var t = q.key;
+        // console.log(t);
+    }
+
     componentDidMount() {
-        this.state.x.push({s:"Sushma"});
-        this.state.x.push({s:"abcd"});
+        
         this.dataBase();
+        //this.addData();
         console.log("DB");
         // console.log(this.state.x);
       }
@@ -50,30 +62,34 @@ class QuestionList extends React.Component {
         dataBase = async() => {
           console.log("aaaa");
             console.log("Hello");
-            var  query = firebase.database().ref("questions").orderByKey().equalTo("q2");
+            // var y = this.state.x;
+            var x = [];
+            
+            var  query = firebase.database().ref("questions");
             await query.once("value")
               .then(function(snapshot) {
-                  console.log(snapshot.val());
                 snapshot.forEach(function(childSnapshot) {
-                  console.log(childSnapshot.val());
-                  console.log(snapshot.numChildren());
+                  console.log(childSnapshot.val().id);
+                  x.push(childSnapshot.val());
               });
+              
             });
-        //     this.state.x.push({s:"Sushma"});
-        // this.state.x.push({s:"abcd"});
+            this.setState({x: x});
+            console.log(this.state.x)
+
           }
 
     render() {
         return (
 
             <div>
-                {
-                console.log(this.state.x)
-                }
-                {this.state.ques.map( ({question, username, tag, answers, imageurl}) => 
+                {/* {this.state.ques.map( ({question, username, tag, answers, imageurl}) => 
                     <Question question = {question} username = {username} tag = {tag} answers = {answers} imageurl = {imageurl}  />
                 )};
-                <Question question = "How r u??" />
+                 */}
+                {this.state.x.map( ({question, user, tag, noOfAns}) => 
+                    <Question question = {question} username = {user} tag = {tag} answers = {noOfAns}  />
+                )}
             </div>
 
         );
