@@ -53,7 +53,7 @@ class QuestionList extends React.Component {
 
     componentDidMount() {
         
-        this.dataBase();
+       // this.dataBase();
         //this.addData();
         console.log("DB");
         // console.log(this.state.x);
