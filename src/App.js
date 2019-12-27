@@ -20,7 +20,7 @@ function App() {
         <Route exact path = '/'  component={QuestionPage}/>
         <Route path = '/a'  component={AnswerPage}/>
         <Route path = '/newQuestion' component = {NewQuestionPage}/>
-            </Switch>
+      </Switch>
       {/* <Route exact path = '/'  component={Title}/> */}
       {/* <AnswerPage /> */}
 
