@@ -19,7 +19,7 @@ class Question extends React.Component {
                     <Segment style={{backgroundColor: "#b5e6e1"}}>
                         <Grid>
                             <Grid.Column width = {5} floated = "left">
-                                Tag: {this.props.tag}
+                                Tag: {this.props.tags}
                             </Grid.Column>
                             <Grid.Column width = {5} floated = "right">
                                 {this.props.answers} answers

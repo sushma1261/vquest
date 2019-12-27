@@ -87,8 +87,8 @@ class QuestionList extends React.Component {
                     <Question question = {question} username = {username} tag = {tag} answers = {answers} imageurl = {imageurl}  />
                 )};
                  */}
-                {this.state.x.map( ({question, user, tag, noOfAns}) => 
-                    <Question question = {question} username = {user} tag = {tag} answers = {noOfAns}  />
+                {this.state.x.map( ({question, user, tags, noOfAns}) => 
+                    <Question question = {question} username = {user} tags = {tags} answers = {noOfAns}  />
                 )}
             </div>
 
