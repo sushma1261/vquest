@@ -1,43 +1,9 @@
 import React from 'react';
 import Question from './Question.component';
 import firebase from '../../Firebase/firebase';
-const ques = [
-    {
-        question: "What is a pointer?",
-        username:"Sushma",
-        tag: "data-structures, c++",
-        answers: "0",
-        imageurl: "https://randomuser.me/api/portraits/women/24.jpg"
-
-    },
-    {
-        question: "What is an array?",
-        username: "Preethi", 
-        tag: "data-structures",
-        answers:  "5", 
-        imageurl: "https://randomuser.me/api/portraits/women/28.jpg" 
-
-    },
-    {
-        question: "What is a String?",
-        username: "Naveena", 
-        tag: "data-structures, C",
-        answers:  "1", 
-        imageurl: "https://randomuser.me/api/portraits/women/30.jpg"
-    },
-    {
-        question: "What is a String?",
-        username: "Naveena", 
-        tag: "data-structures, C",
-        answers:  "1", 
-        imageurl: "https://randomuser.me/api/portraits/women/30.jpg"
-    }
-];
-
-
 
 class QuestionList extends React.Component {
-    state = {ques: ques, x : []};
+    state = {x : []};
 
     addData = async() => {
         console.log("Push Data");
@@ -53,7 +19,7 @@ class QuestionList extends React.Component {
 
     componentDidMount() {
         
-       this.dataBase();
+       //this.dataBase();
         //this.addData();
         console.log("DB");
         // console.log(this.state.x);

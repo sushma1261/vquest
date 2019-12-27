@@ -4,9 +4,10 @@ import Navbar from './components/NavBar/Navbar.component';
 import Title from './components/Title/Title';
 import QuestionPage from './pages/QuestionPage';
 import AnswerPage from './pages/AnswerPage';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import NewQuestionPage from './pages/NewQuestionPage';
 import LoginPage from './pages/LoginPage';
+import SignUp from './components/Login/SignUp.component';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
         <Route path = '/a'  component={AnswerPage}/>
         <Route path = '/newQuestion' component = {NewQuestionPage}/>
         <Route path = '/login' component = {LoginPage} />
-            </Switch>
+        <Route path = "/signup" component = {SignUp} />
+      </Switch>
       {/* <Route exact path = '/'  component={Title}/> */}
       {/* <AnswerPage /> */}
 

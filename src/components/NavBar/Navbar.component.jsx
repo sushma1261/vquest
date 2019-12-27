@@ -8,6 +8,7 @@ class Navbar extends React.Component {
     
     render() {
         const style = {color : "white"};
+        //console.log("username" + localStorage.getItem("username"));
         return (
             <Menu style = {{background : "#D73A49", height: "45px"}}>
                 <Container>
@@ -15,6 +16,7 @@ class Navbar extends React.Component {
                     <Menu.Item as = {Link} to = "/a" className = "topic" name = "Answer" style = {style} />
                     <Menu.Item as = {SearchBar}/>
                     <Menu.Item as = {Link} to = "/login" className = "topic" name = "Login" style = {style} />
+                    {localStorage.getItem("username")}
                 </Container>
             </Menu>
         )

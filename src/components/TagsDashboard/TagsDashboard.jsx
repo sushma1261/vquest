@@ -6,16 +6,16 @@ class TagsDashboard extends React.Component {
         return (
             <Segment.Group>
                 <Segment>
-                    <Header as = "h3"> Tags</Header>
+                    <Header as="h3"> Tags</Header>
                 </Segment>
                 <Segment>
                     <List>
-                        <List.Item><Icon name = "long arrow alternate right" />C</List.Item>
-                        <List.Item><Icon name = "long arrow alternate right" />C++</List.Item>
-                        <List.Item><Icon name = "long arrow alternate right" />Java</List.Item>
-                        <List.Item><Icon name = "long arrow alternate right" />ML    </List.Item>
+                        <List.Item><Icon name="long arrow alternate right" />C</List.Item>
+                        <List.Item><Icon name="long arrow alternate right" />C++</List.Item>
+                        <List.Item><Icon name="long arrow alternate right" />Java</List.Item>
+                        <List.Item><Icon name="long arrow alternate right" />ML</List.Item>
                     </List>
-                    
+
                 </Segment>
             </Segment.Group>
         );
