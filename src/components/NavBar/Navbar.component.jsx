@@ -14,7 +14,7 @@ class Navbar extends React.Component {
                     <Menu.Item as = {Link} to = "/" className = "topic" name = "Home" style = {style}/>
                     <Menu.Item as = {Link} to = "/a" className = "topic" name = "Answer" style = {style} />
                     <Menu.Item as = {SearchBar}/>
-                    <Menu.Item className = "topic" name = "Login" style = {style} />
+                    <Menu.Item as = {Link} to = "/login" className = "topic" name = "Login" style = {style} />
                 </Container>
             </Menu>
         )

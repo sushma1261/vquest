@@ -6,6 +6,7 @@ import QuestionPage from './pages/QuestionPage';
 import AnswerPage from './pages/AnswerPage';
 import {Route, Switch} from 'react-router-dom';
 import NewQuestionPage from './pages/NewQuestionPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Route exact path = '/'  component={QuestionPage}/>
         <Route path = '/a'  component={AnswerPage}/>
         <Route path = '/newQuestion' component = {NewQuestionPage}/>
-      </Switch>
+        <Route path = '/login' component = {LoginPage} />
+            </Switch>
       {/* <Route exact path = '/'  component={Title}/> */}
       {/* <AnswerPage /> */}
 
