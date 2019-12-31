@@ -1,6 +1,7 @@
 import React from 'react';
 import {Segment, Grid, Image} from 'semantic-ui-react';
 import './Question.component.scss';
+import { Link } from 'react-router-dom';
 class Question extends React.Component {
     render() {
         return (
@@ -11,7 +12,8 @@ class Question extends React.Component {
                             <Image size = "mini"  circular src = {this.props.imageurl}/>
         <span>{this.props.username}</span>
                             </Grid.Column>
-                            <Grid.Column width = {10} className = "questionText">
+                            <Grid.Column as = {Link} to = "/a/4" width = {10} className = "questionText">
+                                {/* {this.props.id} */}
                                 {this.props.question}
                             </Grid.Column>
                         </Grid>

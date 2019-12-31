@@ -11,24 +11,27 @@ import SignUp from './components/Login/SignUp.component';
 
 function App() {
   return (
-    <div className="App">
-      <Title />
-      <Navbar /><br />
-      <br />
-      <br />
+    <BrowserRouter>
+      <div className="App">
+        <Title />
+        <Navbar /><br />
+        <br />
+        <br />
 
-      {/* <QuestionPage />  */}
-      <Switch>
-        <Route exact path = '/'  component={QuestionPage}/>
-        <Route path = '/a'  component={AnswerPage}/>
-        <Route path = '/newQuestion' component = {NewQuestionPage}/>
-        <Route path = '/login' component = {LoginPage} />
-        <Route path = "/signup" component = {SignUp} />
-      </Switch>
-      {/* <Route exact path = '/'  component={Title}/> */}
-      {/* <AnswerPage /> */}
+        {/* <QuestionPage />  */}
+        <Switch>
+          <Route exact path = '/'  component={QuestionPage}/>
+          {/* <Route path = '/a'  component={AnswerPage}/> */}
+          <Route path = '/newQuestion' component = {NewQuestionPage}/>
+          <Route path = '/login' component = {LoginPage} />
+          <Route path = "/signup" component = {SignUp} />
+          <Route path = "/a/:id" component = {AnswerPage} />
+        </Switch>
+        {/* <Route exact path = '/'  component={Title}/> */}
+        {/* <AnswerPage /> */}
 
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -19,7 +19,7 @@ class QuestionList extends React.Component {
 
     componentDidMount() {
         
-       //this.dataBase();
+       this.dataBase();
         //this.addData();
         console.log("DB");
         // console.log(this.state.x);
@@ -53,8 +53,8 @@ class QuestionList extends React.Component {
                     <Question question = {question} username = {username} tag = {tag} answers = {answers} imageurl = {imageurl}  />
                 )};
                  */}
-                {this.state.x.map( ({question, user, tags, noOfAns}) => 
-                    <Question question = {question} username = {user} tags = {tags} answers = {noOfAns}  />
+                {this.state.x.map( ({question, user, tags, noOfAns, id}) => 
+                    <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id}  />
                 )}
             </div>
 
