@@ -12,8 +12,12 @@ class Question extends React.Component {
                             <Image size = "mini"  circular src = {this.props.imageurl}/>
         <span>{this.props.username}</span>
                             </Grid.Column>
-                            <Grid.Column as = {Link} to = "/a/4" width = {10} className = "questionText">
-                                {/* {this.props.id} */}
+                            <Grid.Column as = {Link} to = {
+                                {
+                                    pathname: '/a/' + this.props.id,
+                                }
+                            } 
+                            width = {10} className = "questionText">
                                 {this.props.question}
                             </Grid.Column>
                         </Grid>

@@ -3,6 +3,7 @@ import Question from './Question.component';
 import firebase from '../../Firebase/firebase';
 
 class QuestionList extends React.Component {
+  
     state = {x : []};
 
     addData = async() => {
@@ -20,9 +21,7 @@ class QuestionList extends React.Component {
     componentDidMount() {
         
        this.dataBase();
-        //this.addData();
         console.log("DB");
-        // console.log(this.state.x);
       }
     
         dataBase = async() => {
@@ -30,19 +29,16 @@ class QuestionList extends React.Component {
             console.log("Hello");
             // var y = this.state.x;
             var x = [];
-            
-            var  query = firebase.database().ref("questions");
+            var  query = firebase.database().ref("questions").limitToFirst(10);
             await query.once("value")
               .then(function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
                   console.log(childSnapshot.val().id);
                   x.push(childSnapshot.val());
               });
-              
             });
             this.setState({x: x});
             console.log(this.state.x)
-
           }
 
     render() {
@@ -54,7 +50,7 @@ class QuestionList extends React.Component {
                 )};
                  */}
                 {this.state.x.map( ({question, user, tags, noOfAns, id}) => 
-                    <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id}  />
+                    <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} />
                 )}
             </div>
 
