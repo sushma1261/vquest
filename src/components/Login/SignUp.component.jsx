@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-// import Login from './Login';
 import firebase from '../../Firebase/firebase';
 
 class SignUp extends React.Component {
@@ -38,8 +37,6 @@ class SignUp extends React.Component {
 
     dataBase = async () => {
         this.signup(this);
-
-        var users = [];
         console.log("Hello");
         var query1 = firebase.database().ref("users");
         query1.push({ username: this.state.username, email: this.state.email, place: this.state.place, password: this.state.password1 });

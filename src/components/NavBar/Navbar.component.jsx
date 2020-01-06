@@ -2,8 +2,6 @@ import React from 'react';
 import {Menu, Container} from 'semantic-ui-react';
 import SearchBar from '../SearchBar/SearchBar';
 import "./Navbar.scss";
-import firebase from '../../Firebase/firebase';
-
 import { Link, withRouter } from 'react-router-dom';
 import Login1 from '../Login/Login1';
 

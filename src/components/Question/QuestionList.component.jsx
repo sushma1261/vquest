@@ -38,7 +38,7 @@ class QuestionList extends React.Component {
               });
             });
             this.setState({x: x});
-            console.log(this.state.x)
+            console.log("state question "+this.state.x)
           }
 
     render() {

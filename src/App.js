@@ -23,7 +23,7 @@ function App() {
         <Switch>
           <Route exact path = '/'  component={QuestionPage}/>
           {/* <Route path = '/a'  component={AnswerPage}/> */}
-          <Route path = '/newQuestion' component = {NewQuestionPage}/>
+          <Route path = '/newQuestion' component = {NewQuestionPage} />
           <Route path = '/login' component = {LoginPage} />
           <Route path = "/signup" component = {SignUp} />
           <Route path = "/a/:id" component = {AnswerPage} />
