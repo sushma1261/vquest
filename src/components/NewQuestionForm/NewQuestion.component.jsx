@@ -18,13 +18,13 @@ class NewQuestion extends React.Component {
       }
 
       addToFB = async() => {
-        console.log("Push Data");
-        console.log(this.state.question);
+        // console.log("Push Data");
+        // console.log(this.state.question);
         var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: ""};
         var q = firebase.database().ref("questions");
         var k = q.push(data).key;
         var s = q.child(k).update({"id": k});
-        console.log("key", k);
+        //console.log("key", k);
         this.setState({
             question: '',
             tags: ''

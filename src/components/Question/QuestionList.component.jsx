@@ -7,12 +7,12 @@ class QuestionList extends React.Component {
     state = {x : []};
 
     addData = async() => {
-        console.log("Push Data");
+        // console.log("Push Data");
         var x = {username: "Sushma", question: "New Question", id: 0}
         var q = firebase.database().ref("questions");
         var k = q.push(x).key;
         var s = q.child(k).update({"id": k});
-        console.log("key", k);
+        // console.log("key", k);
         // var qq = q.push(x.set(key, q.key);
         // var t = q.key;
         // console.log(t);
@@ -21,24 +21,24 @@ class QuestionList extends React.Component {
     componentDidMount() {
         
        this.dataBase();
-        console.log("DB");
+        // console.log("DB");
       }
     
         dataBase = async() => {
-          console.log("aaaa");
-            console.log("Hello");
+          // console.log("aaaa");
+          //   console.log("Hello");
             // var y = this.state.x;
             var x = [];
             var  query = firebase.database().ref("questions").limitToFirst(10);
             await query.once("value")
               .then(function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
-                  console.log(childSnapshot.val().id);
+                  // console.log(childSnapshot.val().id);
                   x.push(childSnapshot.val());
               });
             });
             this.setState({x: x});
-            console.log("state question "+this.state.x)
+            // console.log("state question "+this.state.x)
           }
 
     render() {

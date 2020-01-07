@@ -1,30 +1,24 @@
 import React from 'react';
-import {Menu, Container} from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 import SearchBar from '../SearchBar/SearchBar';
 import "./Navbar.scss";
 import { Link, withRouter } from 'react-router-dom';
-import Login1 from '../Login/Login1';
-
+import { connect } from 'react-redux';
 class Navbar extends React.Component {
-    
-    state = {authenticated: false};
 
-    componentWillMount() {
-        localStorage.setItem("email", "");
-    }
+    state = { authenticated: false };
+
+
 
     render() {
-        const style = {color : "white"};
-        //console.log("username" + localStorage.getItem("username"));
+        const style = { color: "white" };
         return (
-            <Menu style = {{background : "#D73A49", height: "45px"}}>
+            <Menu style={{ background: "#993366", height: "45px" }}>
                 <Container>
-                    <Menu.Item as = {Link} to = "/" className = "topic" name = "Home" style = {style}/>
-                    <Menu.Item as = {Link} to = "/a" className = "topic" name = "Answer" style = {style} />
-                    <Menu.Item as = {SearchBar}/>
-                    <Menu.Item as = {Link} to = "/login" className = "topic" name = "Login" style = {style}/>
-                    {/* <Login /> */}
-                    {/* <Login1 signIn = {this.handleSignIn} name = "sushma"/> */}
+                    <Menu.Item as={Link} to="/" className="topic" name="Home" style={style} />
+                    <Menu.Item as={Link} to="/a" className="topic" name="Answer" style={style} />
+                    <Menu.Item as={SearchBar} />
+                    {this.state.authenticated && <Menu.Item as={Link} to="/login" className="topic" name="Login" style={style} />}
                     {localStorage.getItem("email")}
                 </Container>
             </Menu>
@@ -32,4 +26,13 @@ class Navbar extends React.Component {
     }
 }
 
-export default withRouter(Navbar);
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(Navbar));
+
+// D73A49 5900b3
