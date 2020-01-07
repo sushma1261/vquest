@@ -86,6 +86,11 @@ class SignUp extends React.Component {
                                 class="form-control"
                                 id="InputPassword2"
                             />
+                             <Button.Group>
+                                <Button>Faculty</Button>
+                                <Button.Or />
+                                <Button positive>Student</Button>
+                            </Button.Group>
 
                             <Button color='teal' fluid size='large'
                                 onClick={this.dataBase.bind(this)}
