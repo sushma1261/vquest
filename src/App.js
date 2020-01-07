@@ -17,23 +17,24 @@ function App() {
     <BrowserRouter>
         <Switch>
           <Route exact path = "/" component = {HomePage} />
+          {/* <Route exact path = '/login' component = {LoginPage} /> */}
+          <Route exact path = "/signup" component = {SignUp} />
+          <Route path = "/(.+)" render = {() => (
+            <div className = "App">
+              <Title />
+              <Navbar />
+              <Container className = "main">
+                <Switch>
+                  <Route path = '/q' component={QuestionPage}/>
+                  <Route path = '/newQuestion' component = {NewQuestionPage} />
+                  <Route path = "/a/:id" component = {AnswerPage} />
+                  <Route path = "/dummy" component = {Login1} />
+                </Switch>
+              </Container>
+              
+            </div>
+          )}/>
         </Switch>
-        <Route path = "/(.+)" render = {() => (
-          <div className = "App">
-            <Title />
-            <Navbar />
-            <Container className = "main">
-              <Switch>
-                <Route path = '/q' component={QuestionPage}/>
-                <Route path = '/newQuestion' component = {NewQuestionPage} />
-                <Route path = '/login' component = {LoginPage} />
-                <Route path = "/signup" component = {SignUp} />
-                <Route path = "/a/:id" component = {AnswerPage} />
-                <Route path = "/dummy" component = {Login1} />
-              </Switch>
-            </Container>
-          </div>
-        )}/>
     </BrowserRouter>
   );
 }

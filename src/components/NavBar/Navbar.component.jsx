@@ -1,26 +1,34 @@
 import React from 'react';
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import SearchBar from '../SearchBar/SearchBar';
 import "./Navbar.scss";
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import SignedInMenu from './SignedInMenu';
 class Navbar extends React.Component {
-
-    state = { authenticated: false };
-
-
+    state = {
+        username: localStorage.getItem("username")
+    }
+    handleSignOut = () => {
+        this.setState({authenticated : false});
+        this.props.history.push('/')
+    }
 
     render() {
+        console.log(localStorage.getItem("username"));
         const style = { color: "white" };
         return (
             <Menu style={{ background: "#993366", height: "45px" }}>
-                <Container>
-                    <Menu.Item as={Link} to="/" className="topic" name="Home" style={style} />
-                    <Menu.Item as={Link} to="/a" className="topic" name="Answer" style={style} />
+                {/* <Container> */}
+                    <Menu.Item />
+                    <Menu.Item as={NavLink} to="/q" className="topic" name="Home" style={style} />
                     <Menu.Item as={SearchBar} />
-                    {this.state.authenticated && <Menu.Item as={Link} to="/login" className="topic" name="Login" style={style} />}
-                    {localStorage.getItem("email")}
-                </Container>
+                    <Menu.Menu position = "right">
+                        <Menu.Item >
+                            <SignedInMenu signOut = {this.handleSignOut} username = {this.state.username}/>
+                        </Menu.Item>
+                    </Menu.Menu>
+                {/* </Container> */}
             </Menu>
         )
     }

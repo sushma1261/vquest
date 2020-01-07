@@ -2,11 +2,11 @@ import authReducer from './authReducer';
 import projectReducer from './projectReducer';
 
 import { combineReducers } from 'redux';
-import { firebaseReducer } from 'react-redux-firebase';
+// import { firebaseReducer } from 'react-redux-firebase';
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    project: projectReducer
+    project: projectReducer,
 });
 
 export default rootReducer;

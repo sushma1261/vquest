@@ -25,7 +25,6 @@ class Login extends React.Component {
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
             // console.log(this.props.history);
             this.dataBase();
-            this.props.history.push('/');
         }).catch((error) => {
             // console.log(error);
             alert(error.message);
@@ -46,6 +45,7 @@ class Login extends React.Component {
                     localStorage.setItem("username", uname);
                 });
             });
+        this.props.history.push('/q');
     }
 
     render() {

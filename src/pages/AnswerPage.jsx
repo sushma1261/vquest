@@ -59,7 +59,7 @@ class AnswerPage extends Component {
                             </Grid.Column>
                             <Header as="h1" style={{ fontSize: "35px", paddingBottom: "20px" }}>Answers</Header>
                         </Grid>
-                        {/* <AnswerList qid = {this.state.qid}/> */}
+                        <AnswerList qid = {this.state.qid}/>
                     </Grid.Column>
                     <Grid.Column width={4}>
                         <Button color = "violet"> Add an answer</Button>
