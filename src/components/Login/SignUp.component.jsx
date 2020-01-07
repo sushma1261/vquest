@@ -18,7 +18,7 @@ class SignUp extends React.Component {
     }
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
-        console.log(this.state);
+        //console.log(this.state);
     }
     signup(e) {
         if (this.state.password1 === this.state.password2) {
@@ -27,7 +27,7 @@ class SignUp extends React.Component {
                 this.props.history.push("/");
 
             }).catch((error) => {
-                console.log(error.message);
+                // console.log(error.message);
                 alert(error.message);
             })
         }
@@ -37,7 +37,7 @@ class SignUp extends React.Component {
 
     dataBase = async () => {
         this.signup(this);
-        console.log("Hello");
+        //console.log("Hello");
         var query1 = firebase.database().ref("users");
         query1.push({ username: this.state.username, email: this.state.email, place: this.state.place, password: this.state.password1 });
 

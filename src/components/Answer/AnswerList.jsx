@@ -38,18 +38,18 @@ class AnswerList extends React.Component {
         var query = ref.orderByChild("qid").equalTo(this.state.qid)
         await query.once("value")
             .then(function (snapshot) {
-                console.log("snap::", snapshot.val());
+                //console.log("snap::", snapshot.val());
                 snapshot.forEach(function (childSnapshot) {
                     childSnapshot.forEach(function (answer) {
                         if (answer.val().id) {
-                            console.log(ans);
+                            //console.log(ans);
                             ans.push(answer.val())
                         }
                     });
                 });
             });
         this.setState({ answers: ans });
-        console.log("state" + this.state.answers);
+        // console.log("state" + this.state.answers);
     }
 
     render() {
