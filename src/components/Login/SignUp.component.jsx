@@ -13,7 +13,6 @@ class SignUp extends React.Component {
             password1: '',
             password2: '',
             username: '',
-            place: ''
         };
     }
     handleChange(e) {
@@ -39,7 +38,7 @@ class SignUp extends React.Component {
         this.signup(this);
         //console.log("Hello");
         var query1 = firebase.database().ref("users");
-        query1.push({ username: this.state.username, email: this.state.email, place: this.state.place, password: this.state.password1 });
+        query1.push({ username: this.state.username, email: this.state.email, password: this.state.password1 });
 
     }
 
