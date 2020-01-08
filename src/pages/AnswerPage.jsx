@@ -63,7 +63,16 @@ class AnswerPage extends Component {
                         <AnswerList qid = {this.state.qid}/>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                    <Button color = "violet" as = {Link} to = "/newAnswer"> Add an answer</Button>
+                    <Button color = "violet"> 
+                        <Link to = {
+                                    {
+                                        pathname: '/newAnswer/' + this.state.qid,
+                                    }
+                                }
+                        >
+                            Add a new Answer
+                        </Link>
+                    </Button>
                     <TagsDashboard />
                     </Grid.Column>
                     <Grid.Column width={1}>

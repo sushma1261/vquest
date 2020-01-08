@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, Form, Button } from 'semantic-ui-react';
 import firebase from '../../Firebase/firebase';
+import { withRouter } from 'react-router-dom';
 
 class NewQuestion extends React.Component {
     constructor(props) {
@@ -58,4 +59,4 @@ class NewQuestion extends React.Component {
         );
     }
 }
-export default NewQuestion;
+export default withRouter(NewQuestion);

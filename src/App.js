@@ -28,7 +28,7 @@ function App() {
                   <Route path = '/newQuestion' component = {NewQuestionPage} />
                   <Route path = "/a/:id" component = {AnswerPage} />
                   <Route path = "/dummy" component = {Login1} />
-                  <Route path = "/newAnswer" component = {NewAnswerPage} />
+                  <Route path = "/newAnswer/:id" component = {NewAnswerPage} />
                 </Switch>
               </Container>
               
