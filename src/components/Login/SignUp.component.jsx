@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
-import AddTags from './AddTags.component';
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -92,8 +91,6 @@ class SignUp extends React.Component {
                                 <Button.Or />
                                 <Button positive>Student</Button>
                             </Button.Group>
-                            <form class="ui form"><textarea placeholder="Expertise in" rows="3"><AddTags/></textarea></form>                            
-
                             <Button color='teal' fluid size='large'
                                 onClick={this.dataBase.bind(this)}
                                 class="btn btn-primary">
