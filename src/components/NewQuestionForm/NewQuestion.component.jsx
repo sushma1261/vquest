@@ -21,14 +21,22 @@ class NewQuestion extends React.Component {
       addToFB = async() => {
         // console.log("Push Data");
         // console.log(this.state.question);
-        var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: "", user: this.state.username};
-        var q = firebase.database().ref("questions");
-        var k = q.push(data).key;
-        var s = q.child(k).update({"id": k});
-        this.setState({
-            question: '',
-            tags: ''
-        });
+        
+        if(this.state.question !== "" && this.state.tags !== "") {
+            var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: "", user: this.state.username};
+            var q = firebase.database().ref("questions");
+            var k = q.push(data).key;
+            var s = q.child(k).update({"id": k});
+            this.setState({
+                question: '',
+                tags: ''
+            });
+            
+            this.props.history.push("/q");
+        }
+        else {
+            alert("Incomplete data");
+        }
     }
 
     render() {
