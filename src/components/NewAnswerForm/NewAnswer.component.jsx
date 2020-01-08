@@ -43,7 +43,6 @@ class NewAnswer extends React.Component {
         console.log(this.state.answer);
         var ref = firebase.database().ref("answers");
         var answerKey = "";
-        var snap = null;
         var query = ref.orderByChild("qid").equalTo(this.state.qid);
         await query.once("value")
             .then(function (snapshot) {
@@ -54,21 +53,22 @@ class NewAnswer extends React.Component {
                     console.log("Answer key", answerKey);
                 }); 
             });
+            var k = "";
         console.log("after snap", answerKey);
         if(answerKey === "") {
             console.log("if", answerKey);
-            var q = firebase.database().ref("answers");
+            var qry = firebase.database().ref("answers");
             var x = {qid: this.state.qid};
-            var k = q.push(x).key;
+            k = qry.push(x).key;
             // console.log(k);
-            var q = firebase.database().ref("answers/"+k);
+            qry = firebase.database().ref("answers/"+k);
             var data = {
                 answer: this.state.answer,
                 user: this.state.username,
                 noOfLikes: 0,
             }
-            var k = q.push(data).key;
-            q.child(k).update({"id": k});
+            k = qry.push(data).key;
+            qry.child(k).update({"id": k});
             this.setState({
                 answer: ''
             });
@@ -82,7 +82,7 @@ class NewAnswer extends React.Component {
                 user: this.state.username,
                 noOfLikes: 0,
             }
-            var k = q.push(data).key;
+            k = q.push(data).key;
             q.child(k).update({"id": k});
             this.setState({
                 answer: ''
@@ -90,7 +90,7 @@ class NewAnswer extends React.Component {
         }
         
         var noOfAns = 0;
-        var query = firebase.database().ref("questions").orderByChild("id").equalTo(this.state.qid);
+        query = firebase.database().ref("questions").orderByChild("id").equalTo(this.state.qid);
         await query.once("value")
             .then(function (snapshot) {
                 //console.log("Snap::::", snapshot);

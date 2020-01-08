@@ -36,14 +36,14 @@ class NewQuestion extends React.Component {
             var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: "", user: this.state.username};
             var q = firebase.database().ref("questions");
             var k = q.push(data).key;
-            var s = q.child(k).update({"id": k});
+            q.child(k).update({"id": k});
             this.setState({
                 question: '',
                 tags: ''
             });
-            //console.log("userKey if",userKey, this.state.qid);
-            var q1 = firebase.database().ref("users/"+userKey+"/myQuestions");
-            var x = q1.push({id: k}).key;
+            // Code to add to myQuestions user data
+            // var q1 = firebase.database().ref("users/"+userKey+"/myQuestions");
+            // q1.push({id: k});
             //console.log("x",x);
             this.props.history.push("/q");
         }

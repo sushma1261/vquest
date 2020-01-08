@@ -69,8 +69,8 @@ class AnswerPage extends Component {
                                         pathname: '/newAnswer/' + this.state.qid,
                                     }
                                 }
-                        >
-                            Add a new Answer
+                        style = {{color: "white"}}>
+                            Add a new answer
                         </Link>
                     </Button>
                     <TagsDashboard />

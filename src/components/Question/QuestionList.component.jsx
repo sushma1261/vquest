@@ -6,17 +6,17 @@ class QuestionList extends React.Component {
   
     state = {x : []};
 
-    addData = async() => {
-        // console.log("Push Data");
-        var x = {username: "Sushma", question: "New Question", id: 0}
-        var q = firebase.database().ref("questions");
-        var k = q.push(x).key;
-        var s = q.child(k).update({"id": k});
-        // console.log("key", k);
-        // var qq = q.push(x.set(key, q.key);
-        // var t = q.key;
-        // console.log(t);
-    }
+    // addData = async() => {
+    //     // console.log("Push Data");
+    //     var x = {username: "Sushma", question: "New Question", id: 0}
+    //     var q = firebase.database().ref("questions");
+    //     var k = q.push(x).key;
+    //     q.child(k).update({"id": k});
+    //     // console.log("key", k);
+    //     // var qq = q.push(x.set(key, q.key);
+    //     // var t = q.key;
+    //     // console.log(t);
+    // }
 
     componentDidMount() {
         
