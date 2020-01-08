@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Image, Header, Button } from 'semantic-ui-react';
+import { Grid, Image, Header } from 'semantic-ui-react';
 import AnswerList from '../components/Answer/AnswerList';
 import TagsDashboard from '../components/TagsDashboard/TagsDashboard';
 import firebase from '../Firebase/firebase';
@@ -12,8 +12,8 @@ class AnswerPage extends Component {
     }
     componentDidMount() {
         this.getQuestion();
-        // this.getAnswers();
-       // console.log("DB");
+        //this.getAnswers();
+        console.log("DB");
     }
 
     getQuestion = async () => {
@@ -22,14 +22,14 @@ class AnswerPage extends Component {
         var query = ref.orderByChild("id").equalTo(this.state.qid);
         await query.once("value")
             .then(function (snapshot) {
-                // console.log("Question", snapshot.val());
+                console.log("Question", snapshot.val());
                 snapshot.forEach(function (childSnapshot) {
-                    // console.log(childSnapshot.val());
+                    console.log(childSnapshot.val());
                     q = childSnapshot.val();
                 });
             });
         this.setState({ questionDetails: q });
-        // console.log("q", q);
+        console.log("q", q);
     }
 
     
@@ -59,10 +59,9 @@ class AnswerPage extends Component {
                             </Grid.Column>
                             <Header as="h1" style={{ fontSize: "35px", paddingBottom: "20px" }}>Answers</Header>
                         </Grid>
-                        {/* <AnswerList qid = {this.state.qid}/> */}
+                        <AnswerList qid = {this.state.qid}/>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                        <Button color = "violet"> Add an answer</Button>
                         <TagsDashboard />
                     </Grid.Column>
                     <Grid.Column width={1}>
