@@ -5,7 +5,7 @@ class SearchBar extends React.Component {
     render() {
         return (
             <Form>
-                <Input icon = "search" size = "large" style={{width: "870px"}}/>
+                <Input icon = "search" size = "large" style={{width: "700px"}}/>
             </Form>
         );
     }
