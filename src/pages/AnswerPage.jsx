@@ -3,6 +3,7 @@ import { Grid, Image, Header, Button } from 'semantic-ui-react';
 import AnswerList from '../components/Answer/AnswerList';
 import TagsDashboard from '../components/TagsDashboard/TagsDashboard';
 import firebase from '../Firebase/firebase';
+import { Link } from 'react-router-dom';
 
 class AnswerPage extends Component {
     state = {
@@ -62,7 +63,7 @@ class AnswerPage extends Component {
                         <AnswerList qid = {this.state.qid}/>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                        <Button color = "violet"> Add an answer</Button>
+                        <Button color = "violet" as = {Link} to = "/newAnswer"> Add an answer</Button>
                         <TagsDashboard />
                     </Grid.Column>
                     <Grid.Column width={1}>

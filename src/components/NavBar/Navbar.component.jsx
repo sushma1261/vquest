@@ -3,20 +3,37 @@ import { Menu } from 'semantic-ui-react';
 import SearchBar from '../SearchBar/SearchBar';
 import "./Navbar.scss";
 import { Link, withRouter, NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import firebase from '../../Firebase/firebase';
 import SignedInMenu from './SignedInMenu';
+import HomePage from '../../pages/HomePage';
 class Navbar extends React.Component {
     state = {
-        username: localStorage.getItem("username")
+        username: localStorage.getItem("username"),
+        authenticated: false
     }
-    handleSignOut = () => {
-        this.setState({authenticated : false});
-        this.props.history.push('/')
+    handleSignOut = async() => {
+        console.log("Sign out clicked");
+        await firebase.auth().signOut().then(function() {
+            //this.setState({authenticated : false});
+            console.log("signout");
+            localStorage.setItem("username", "");
+        }).catch(function(error) {
+            alert(error);
+        });
+        this.props.history.push('/'); 
+    }
+
+    componentDidMount() {
+        if(this.state.username !== "") {
+            this.setState({authenticated: true});
+        }
     }
 
     render() {
-        console.log(localStorage.getItem("username"));
-        const style = { color: "white" };
+        // console.log(localStorage.getItem("username"));
+        if(this.state.username !== "") {
+            //this.setState({authenticated: true});
+            const style = { color: "white" };
         return (
             <Menu style={{ background: "#993366", height: "45px" }}>
                 {/* <Container> */}
@@ -25,22 +42,24 @@ class Navbar extends React.Component {
                     <Menu.Item as={SearchBar} />
                     <Menu.Menu position = "right">
                         <Menu.Item >
+                            {this.state.authenticated &&
                             <SignedInMenu signOut = {this.handleSignOut} username = {this.state.username}/>
+                            }
                         </Menu.Item>
                     </Menu.Menu>
                 {/* </Container> */}
             </Menu>
         )
+        }
+        else {
+            return(
+                <HomePage />
+            );
+        }
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log(state)
-    return {
 
-    }
-}
-
-export default connect(mapStateToProps)(withRouter(Navbar));
+export default withRouter(Navbar);
 
 // D73A49 5900b3

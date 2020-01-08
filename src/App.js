@@ -6,18 +6,17 @@ import QuestionPage from './pages/QuestionPage';
 import AnswerPage from './pages/AnswerPage';
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import NewQuestionPage from './pages/NewQuestionPage';
-import LoginPage from './pages/LoginPage';
 import SignUp from './components/Login/SignUp.component';
 import Login1 from './components/Login/Login1';
 import HomePage from './pages/HomePage';
 import { Container } from 'semantic-ui-react';
+import NewAnswerPage from './pages/NewAnswerPage';
 
 function App() {
   return (
     <BrowserRouter>
         <Switch>
           <Route exact path = "/" component = {HomePage} />
-          {/* <Route exact path = '/login' component = {LoginPage} /> */}
           <Route exact path = "/signup" component = {SignUp} />
           <Route path = "/(.+)" render = {() => (
             <div className = "App">
@@ -29,6 +28,7 @@ function App() {
                   <Route path = '/newQuestion' component = {NewQuestionPage} />
                   <Route path = "/a/:id" component = {AnswerPage} />
                   <Route path = "/dummy" component = {Login1} />
+                  <Route path = "/newAnswer" component = {NewAnswerPage} />
                 </Switch>
               </Container>
               

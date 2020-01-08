@@ -9,7 +9,8 @@ class NewQuestion extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
           question: '',
-          tags: ''
+          tags: '',
+          username: localStorage.getItem("username")
         };
       }
       handleChange(e) {
@@ -20,11 +21,10 @@ class NewQuestion extends React.Component {
       addToFB = async() => {
         // console.log("Push Data");
         // console.log(this.state.question);
-        var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: ""};
+        var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: "", user: this.state.username};
         var q = firebase.database().ref("questions");
         var k = q.push(data).key;
         var s = q.child(k).update({"id": k});
-        //console.log("key", k);
         this.setState({
             question: '',
             tags: ''
