@@ -15,9 +15,6 @@ class NewAnswer extends React.Component {
         };
 
       }
-
-      
-
       handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
       }
@@ -52,12 +49,14 @@ class NewAnswer extends React.Component {
             .then(function (snapshot) {
                 console.log("Snap::::", snapshot.val());
                 snapshot.forEach(function (childSnapshot) {
-                    // console.log(childSnapshot.key);
+                     
                     answerKey = childSnapshot.key;
+                    console.log("Answer key", answerKey);
                 }); 
             });
-        //var q = ref.orderByChild(answerKey);
-        if(snap === null) {
+        console.log("after snap", answerKey);
+        if(answerKey === "") {
+            console.log("if", answerKey);
             var q = firebase.database().ref("answers");
             var x = {qid: this.state.qid};
             var k = q.push(x).key;
@@ -76,6 +75,7 @@ class NewAnswer extends React.Component {
             //console.log("No answers yet");
         }
         else {
+            console.log("else", answerKey);
             var q = firebase.database().ref("answers/"+answerKey);
             var data = {
                 answer: this.state.answer,

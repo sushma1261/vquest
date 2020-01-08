@@ -22,7 +22,16 @@ class NewQuestion extends React.Component {
       addToFB = async() => {
         // console.log("Push Data");
         // console.log(this.state.question);
-        
+        var userKey = "";
+        var qry = firebase.database().ref("users").orderByChild("username").equalTo(this.state.username);
+        await qry.once("value")
+        .then(function (snapshot) {
+            //console.log("User", snapshot.val());
+            snapshot.forEach(function (childSnapshot) {
+                // console.log(childSnapshot.key);
+                userKey = childSnapshot.key;
+            }); 
+        });
         if(this.state.question !== "" && this.state.tags !== "") {
             var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: "", user: this.state.username};
             var q = firebase.database().ref("questions");
@@ -32,7 +41,10 @@ class NewQuestion extends React.Component {
                 question: '',
                 tags: ''
             });
-            
+            //console.log("userKey if",userKey, this.state.qid);
+            var q1 = firebase.database().ref("users/"+userKey+"/myQuestions");
+            var x = q1.push({id: k}).key;
+            //console.log("x",x);
             this.props.history.push("/q");
         }
         else {

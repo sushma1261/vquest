@@ -11,6 +11,7 @@ import Login1 from './components/Login/Login1';
 import HomePage from './pages/HomePage';
 import { Container } from 'semantic-ui-react';
 import NewAnswerPage from './pages/NewAnswerPage';
+import MyQuestionsPage from './pages/MyQuestionsPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                   <Route path = "/a/:id" component = {AnswerPage} />
                   <Route path = "/dummy" component = {Login1} />
                   <Route path = "/newAnswer/:id" component = {NewAnswerPage} />
+                  <Route path = "/myQuestions" component = {MyQuestionsPage} />
                 </Switch>
               </Container>
               
