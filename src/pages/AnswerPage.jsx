@@ -17,6 +17,8 @@ class AnswerPage extends Component {
         console.log("DB");
     }
 
+   
+
     getQuestion = async () => {
         var ref = firebase.database().ref("questions");
         var q = {};

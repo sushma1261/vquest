@@ -2,13 +2,24 @@ import React from 'react';
 import { Segment, Grid, Image, Button, Icon, Label } from 'semantic-ui-react';
 
 class Answer extends React.Component {
+
+    state = {
+        likes : this.props.likes
+    }
+
+    handleLikes() {
+        //console.log(this.state.likes);
+        this.setState({likes: this.state.likes+1});
+    }
+
+
     render() {
         return (
             <div>
                 <Segment.Group style={{backgroundColor: "black"}} >
                     <Segment padded style={{backgroundColor: "#b5e6e1"}}>
                         <Grid>
-                            {this.props.number}
+                            {/* {this.props.number} */}
                             <Grid.Column width = {2}>
                             <Image size = "mini"  circular src = {this.props.imageurl}/>
         <span>{this.props.username}</span>
@@ -22,11 +33,11 @@ class Answer extends React.Component {
                         <br />
                         <div style = {{position : "absolute",right: "10px"}}>
                         <Button as='div' labelPosition='right' >
-                                <Button color='red'>
+                                <Button color='red' onClick = {this.handleLikes.bind(this)}>
                                     <Icon name='heart' />
                                 </Button>
                                 <Label as='a' basic color='red' pointing='left'>
-                                    {this.props.likes}
+                                    {this.state.likes}
                                 </Label>
                             </Button>
                         </div>

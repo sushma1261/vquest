@@ -31,7 +31,6 @@ class AnswerList extends React.Component {
         answers: []
     }
 
-
     getAnswers = async () => {
         var ans = [];
         var ref = firebase.database().ref("answers");
