@@ -1,15 +1,37 @@
 import React from 'react';
 import { Segment, Grid, Image, Button, Icon, Label } from 'semantic-ui-react';
-
+import firebase from '../../Firebase/firebase';
 class Answer extends React.Component {
 
     state = {
-        likes : this.props.likes
+        likes : this.props.likes,
+        flag : this.props.flag,
+        username: localStorage.getItem("username")
     }
 
-    handleLikes() {
+    handleLikes = async() => {
         //console.log(this.state.likes);
-        this.setState({likes: this.state.likes+1});
+        var qry = firebase.database().ref("answers/"+this.props.answerKey+"/"+this.props.id);
+        qry.child("likedBy").push({"user": this.state.username});
+        var l = this.state.likes + 1
+        this.setState({
+            likes: l,
+            flag: true
+        })
+        qry.update({"noOfLikes": l});
+        // console.log("Answer Key",this.props.answerKey);
+        // await qry.once("value")
+        //     .then(function (snapshot) {
+        //         console.log("snap::")
+        //         console.log(snapshot.val());
+        //         //ans.push(snapshot.val())
+        //     });
+
+    }
+
+    componentDidMount() {
+        console.log("Answer id");
+        console.log(this.props.id);
     }
 
 
@@ -32,8 +54,8 @@ class Answer extends React.Component {
                         </Grid>
                         <br />
                         <div style = {{position : "absolute",right: "10px"}}>
-                        <Button as='div' labelPosition='right' >
-                                <Button color='red' onClick = {this.handleLikes.bind(this)}>
+                        <Button as='div' labelPosition='right' onClick = {this.handleLikes.bind(this)} disabled = {this.state.flag}>
+                                <Button color='red'>
                                     <Icon name='heart' />
                                 </Button>
                                 <Label as='a' basic color='red' pointing='left'>

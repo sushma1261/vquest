@@ -28,27 +28,57 @@ class AnswerList extends React.Component {
     }
     state = {
         qid : this.props.qid,
-        answers: []
+        answers: [], 
+        flag: false,
+        answerKey: ""
     }
 
     getAnswers = async () => {
         var ans = [];
+        var flag = false;
+        var answerKey = "";
         var ref = firebase.database().ref("answers");
         var query = ref.orderByChild("qid").equalTo(this.state.qid)
         await query.once("value")
             .then(function (snapshot) {
-                //console.log("snap::", snapshot.val());
+                //console.log("snap::", snapshot.key);
+                //ans.push(snapshot.val())
                 snapshot.forEach(function (childSnapshot) {
+                    answerKey = childSnapshot.key
                     childSnapshot.forEach(function (answer) {
                         if (answer.val().id) {
-                            //console.log(ans);
-                            ans.push(answer.val())
+                            // console.log("Key")
+                            // console.log(answer.key);
+                            if(answer.val().likedBy) {
+                                //console.log(answer.val().likedBy);
+                                var x = answer.val().likedBy;
+                                for (var key in x) {
+                                    if (x.hasOwnProperty(key)) {           
+                                        //console.log(key, x[key]["user"]);
+                                        if(x[key]["user"] === localStorage.getItem("username")) {
+                                            flag = true;
+                                        }
+                                    }
+                                }
+                                //console.log(x);
+                            }
+                            //var data = {"flag": flag};
+                            var data = answer.val();
+                            data.flag = flag;
+                            //console.log("Data");
+                            //console.log(data);
+                            //console.log(answer.val());
+                            ans.push(data);
+                            //ans.push({flag: flag})
                         }
+                        flag = false;
                     });
                 });
             });
-        this.setState({ answers: ans });
-        // console.log("state" + this.state.answers);
+
+        this.setState({ answers: ans, answerKey: answerKey});
+        console.log("State::");
+        console.log(this.state);
     }
 
     render() {
@@ -56,7 +86,7 @@ class AnswerList extends React.Component {
         return (
             <div>
                 {this.state.answers.map((a) => (
-                    <Answer key = {a.id} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} />
+                    <Answer key = {a.id} id = {a.id} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} flag = {a.flag} answerKey = {this.state.answerKey}/>
                 ))}   
             </div>
         );

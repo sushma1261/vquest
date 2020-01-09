@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import SearchBar from '../SearchBar/SearchBar';
 import "./Navbar.scss";
-import { Link, withRouter, NavLink } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
 import SignedInMenu from './SignedInMenu';
 import HomePage from '../../pages/HomePage';
@@ -12,15 +12,20 @@ class Navbar extends React.Component {
         authenticated: false
     }
     handleSignOut = async() => {
+        var f = false;
         console.log("Sign out clicked");
         await firebase.auth().signOut().then(function() {
             //this.setState({authenticated : false});
             console.log("signout");
             localStorage.setItem("username", "");
+            f = true;
         }).catch(function(error) {
             alert(error);
         });
-        this.props.history.push('/'); 
+        if(f) {
+            this.props.history.push('/');
+        }
+        
     }
 
     componentDidMount() {

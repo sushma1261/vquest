@@ -33,7 +33,8 @@ class QuestionList extends React.Component {
             await query.once("value")
               .then(function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
-                  // console.log(childSnapshot.val().id);
+                  // console.log("Child");
+                  // console.log(childSnapshot.val());
                   x.push(childSnapshot.val());
               });
             });
@@ -52,6 +53,7 @@ class QuestionList extends React.Component {
                 {this.state.x.map( ({question, user, tags, noOfAns, id}) => 
                     <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} />
                 )}
+                {/* <Question question = "What is an array?" /> */}
             </div>
 
         );
