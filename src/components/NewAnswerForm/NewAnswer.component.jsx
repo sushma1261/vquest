@@ -4,6 +4,7 @@ import firebase from '../../Firebase/firebase';
 import { withRouter } from 'react-router-dom';
 
 class NewAnswer extends React.Component {
+    
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -11,13 +12,16 @@ class NewAnswer extends React.Component {
           answer: '',
           qid: this.props.qid,
           username: localStorage.getItem("username"),
-          question: ''
+          question: '',
         };
 
       }
       handleChange(e) {
+        e.preventDefault();
         this.setState({ [e.target.name]: e.target.value });
       }
+
+      
 
       componentDidMount() {
         this.getQuestion();
@@ -120,6 +124,7 @@ class NewAnswer extends React.Component {
                         type="text" name="answer" className="form-control" id="InputAnswer"
                         style={{ minHeight: 250, fontSize: 18 }}
                         />
+                
                 <Button primary onClick = {this.addAnswerToDB.bind(this)}>Submit</Button>
                 </Form>
             </div>

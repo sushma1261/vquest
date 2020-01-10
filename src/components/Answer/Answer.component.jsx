@@ -47,10 +47,10 @@ class Answer extends React.Component {
         <span>{this.props.username}</span>
                             </Grid.Column>
                             <Grid.Column width = {13} className = "questionText">
-                                <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px"}} >{this.props.answer}</p>
+                                <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px", whiteSpace: "pre-line"}}  >{this.props.answer}</p>
                             </Grid.Column>
                             
-                           
+
                         </Grid>
                         <br />
                         <div style = {{position : "absolute",right: "10px"}}>

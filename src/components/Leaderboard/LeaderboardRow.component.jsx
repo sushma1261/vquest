@@ -1,12 +1,12 @@
 import React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
-
+import './LeaderboardRow.scss';
 const style = {fontSize: "20px", width: "800px", padding: "25px", borderBottom: "1px solid black"}
 
 const LeaderBoardRow = ({rank, regd, username, score}) => {
     if(rank === "#1") {
         return (
-            <div style = {style} >
+            <div style = {style} className = "first" >
             <Grid>
                 
                 <Grid.Column width = {4}>
@@ -19,7 +19,7 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                     {username}
                 </Grid.Column>
                 <Grid.Column width = {4}>
-                    <Icon name = "certificate" color = "yellow"/>{score}
+                    <Icon name = "chess queen" color = "yellow"/>{score}
                 </Grid.Column>
                 
             </Grid>
@@ -41,7 +41,7 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                     {username}
                 </Grid.Column>
                 <Grid.Column width = {4}>
-                    <Icon name = "certificate" color = "brown"/>{score}
+                    <Icon name = "chess queen" color = "brown"/>{score}
                 </Grid.Column>
                 
             </Grid>
@@ -63,7 +63,7 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                         {username}
                     </Grid.Column>
                     <Grid.Column width = {4}>
-                        <Icon name = "certificate" color = "grey"/>{score}
+                        <Icon name = "chess queen" color = "grey"/>{score}
                     </Grid.Column>
                     
                 </Grid>
