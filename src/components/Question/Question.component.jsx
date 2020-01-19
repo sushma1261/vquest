@@ -3,6 +3,10 @@ import {Segment, Grid, Image} from 'semantic-ui-react';
 import './Question.component.scss';
 import { Link } from 'react-router-dom';
 class Question extends React.Component {
+    state = {
+        //questionDetails: this.props
+        username : this.props.username
+    }
     render() {
         return (
                 <Segment.Group style={{backgroundColor: "black"}} >
@@ -16,6 +20,13 @@ class Question extends React.Component {
                                 <Link to = {
                                 {
                                     pathname: '/a/' + this.props.id,
+                                    props: {
+                                        username: this.props.username,
+                                        question: this.props.question,
+                                        tags: this.props.tags,
+                                        noOfAns: this.props.answers
+                                    }
+                                    
                                 }
                             }
                             className = "questionText">

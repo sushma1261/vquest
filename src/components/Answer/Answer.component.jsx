@@ -6,7 +6,8 @@ class Answer extends React.Component {
     state = {
         likes : this.props.likes,
         flag : this.props.flag,
-        username: localStorage.getItem("username")
+        username: localStorage.getItem("username"),
+        
     }
 
     handleLikes = async() => {
@@ -46,8 +47,8 @@ class Answer extends React.Component {
                             <Image size = "mini"  circular src = {this.props.imageurl}/>
         <span>{this.props.username}</span>
                             </Grid.Column>
-                            <Grid.Column width = {13} className = "questionText">
-                                <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px", whiteSpace: "pre-line"}}  >{this.props.answer}</p>
+                            <Grid.Column width = {13}>
+                                <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px"}}>{this.props.answer}</p>
                             </Grid.Column>
                             
 

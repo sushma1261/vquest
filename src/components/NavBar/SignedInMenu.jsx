@@ -8,7 +8,7 @@ const SignedInMenu = ({signOut, username}) => {
             <Dropdown pointing = "top left" text = {username} style = {{color: 'white'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item as = {Link} to = "/myQuestions" text = "My Questions" icon = "question circle" />
-                    <Dropdown.Item text = "Liked Answers" icon = "like" />
+                    <Dropdown.Item as = {Link} to = "/likedAnswers" text = "Liked Answers" icon = "like" />
                     <Dropdown.Item as = {Link} text = "My Profile" to = "/myprofile" icon = "user" />
                     <Dropdown.Item text = "Sign Out" onClick = {signOut} icon = "power" />
                 </Dropdown.Menu>

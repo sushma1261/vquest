@@ -4,8 +4,10 @@ import image from '../../assests/questions.jpg';
 import './Login.scss';
 import { Link } from 'react-router-dom';
 class Login1 extends React.Component {
-
+    
     render() {
+        console.log("Props");
+        console.log(this.props.location.props);
         return (
             <div style = {{position: "absolute", paddingTop: "8%", paddingLeft: "20%"}}>
                 <div style={{ width: "450px", float: "left", height: "500px"}}>

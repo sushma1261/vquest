@@ -28,6 +28,7 @@ class AnswerList extends React.Component {
     }
     state = {
         qid : this.props.qid,
+
         answers: [], 
         flag: false,
         answerKey: ""
@@ -85,6 +86,7 @@ class AnswerList extends React.Component {
         //console.log("props"+JSON.stringify(this.props.answers));
         return (
             <div>
+                {/* <Answer id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo"/> */}
                 {this.state.answers.map((a) => (
                     <Answer key = {a.id} id = {a.id} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} flag = {a.flag} answerKey = {this.state.answerKey}/>
                 ))}   

@@ -15,7 +15,7 @@ class HomePage extends React.Component {
                     <LoginPage />
                     {/* <Login1 /> */}
                 </div>
-                
+                 
         )
     }
 }
