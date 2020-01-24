@@ -19,19 +19,37 @@ import firebase from '../../Firebase/firebase';
 //         likes: "3"
 //     }
 // ]
+
+const comments1 = [
+    { username: "Sushma",  comment: "Nice Answer!!!!"},
+    { username: "Naveena", comment: "Nice Answer!!!"},
+    { username: "Ramya", comment: "Nice Answer!"},
+    { username: "Sushma", comment: "Nice Answer!!" },
+    { username: "Naveena", comment: "Nice Answer!!!!!!"}
+];
+
+const comments2 = [
+    { username: "Sushma",  comment: "Nice Answer!!!!"},
+    { username: "Naveena", comment: "Nice Answer!!!"},
+    { username: "Preethi", comment: "Can you explain more elaborativelywjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu"},
+    { username: "Ramya", comment: "Nice Answer!"},
+]
+
 class AnswerList extends React.Component {
 
 
     componentDidMount() {
-        this.getAnswers();
-        // console.log("DB");
+        //this.getAnswers();
+        console.log("Comments::::");
+        console.log(comments1);
     }
     state = {
         qid : this.props.qid,
-
+        //comments: comments,
         answers: [], 
         flag: false,
-        answerKey: ""
+        answerKey: "",
+        
     }
 
     getAnswers = async () => {
@@ -48,8 +66,6 @@ class AnswerList extends React.Component {
                     answerKey = childSnapshot.key
                     childSnapshot.forEach(function (answer) {
                         if (answer.val().id) {
-                            // console.log("Key")
-                            // console.log(answer.key);
                             if(answer.val().likedBy) {
                                 //console.log(answer.val().likedBy);
                                 var x = answer.val().likedBy;
@@ -61,16 +77,10 @@ class AnswerList extends React.Component {
                                         }
                                     }
                                 }
-                                //console.log(x);
                             }
-                            //var data = {"flag": flag};
                             var data = answer.val();
                             data.flag = flag;
-                            //console.log("Data");
-                            //console.log(data);
-                            //console.log(answer.val());
                             ans.push(data);
-                            //ans.push({flag: flag})
                         }
                         flag = false;
                     });
@@ -86,10 +96,13 @@ class AnswerList extends React.Component {
         //console.log("props"+JSON.stringify(this.props.answers));
         return (
             <div>
-                {/* <Answer id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo"/> */}
-                {this.state.answers.map((a) => (
+                <Answer key = "1" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo"/>
+                <Answer key = "2" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments1}/>
+                <Answer key = "3" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>
+                <Answer key = "4" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>
+                {/* {this.state.answers.map((a) => (
                     <Answer key = {a.id} id = {a.id} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} flag = {a.flag} answerKey = {this.state.answerKey}/>
-                ))}   
+                ))}    */}
             </div>
         );
     }

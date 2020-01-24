@@ -9,6 +9,11 @@ class AnswerPage extends Component {
     state = {
         qid: this.props.match.params.id,
         answers: [],
+        tags:"pkejd",
+        username:"kd;",
+        noOfAns:9,
+        
+
     }
     componentDidMount() {
         //this.getQuestion();
@@ -47,18 +52,17 @@ class AnswerPage extends Component {
                     <Grid.Column width={1}>
                     </Grid.Column>
                     <Grid.Column width={10}>
-
                         <Grid>
                             <Grid.Column width={1}>
                                 <Image size="mini" circular src="https://randomuser.me/api/portraits/women/24.jpg" />
-                                <span>{this.props.location.props.username}</span>
+                                <span>{this.state.username}</span>
                             </Grid.Column>
                             <Grid.Column width={12} style={{ fontSize: "25px" }}>
-                                {this.props.location.props.question}
+                                {this.state.question}
                             </Grid.Column>
                             <Grid.Column width={3}>
-                                Tags: {this.props.location.props.tags}<br />
-                                {this.props.location.props.noOfAns} answers
+                                Tags: {this.state.tags}<br />
+                                {this.state.noOfAns} answers
                             </Grid.Column>
                             <Header as="h1" style={{ fontSize: "35px", paddingBottom: "20px" }}>Answers</Header>
                         </Grid>
@@ -71,7 +75,7 @@ class AnswerPage extends Component {
                                         pathname: '/newAnswer/' + this.state.qid,
                                     }
                                 }
-                        style = {{color: "white"}}>
+                        style = {{ color: "white" }}>
                             Add a new answer
                         </Link>
                     </Button>

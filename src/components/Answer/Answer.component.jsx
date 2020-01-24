@@ -1,13 +1,20 @@
 import React from 'react';
-import { Segment, Grid, Image, Button, Icon, Label } from 'semantic-ui-react';
+import { Segment, Grid, Image, Button, Icon, Label, Form, TextArea } from 'semantic-ui-react';
 import firebase from '../../Firebase/firebase';
-class Answer extends React.Component {
+import CommentList from '../Comment/CommentList';
+import { Link } from 'react-router-dom';
 
-    state = {
-        likes : this.props.likes,
-        flag : this.props.flag,
-        username: localStorage.getItem("username"),
-        
+class Answer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            likes : this.props.likes,
+            flag : this.props.flag,
+            username: localStorage.getItem("username"),
+            comment: "", 
+            comments: [],
+            showComment: false
+        }
     }
 
     handleLikes = async() => {
@@ -17,7 +24,8 @@ class Answer extends React.Component {
         var l = this.state.likes + 1
         this.setState({
             likes: l,
-            flag: true
+            flag: true,
+            
         })
         qry.update({"noOfLikes": l});
         // console.log("Answer Key",this.props.answerKey);
@@ -30,9 +38,69 @@ class Answer extends React.Component {
 
     }
 
-    componentDidMount() {
-        console.log("Answer id");
-        console.log(this.props.id);
+    addComment = () => {
+        console.log(this.state.comments);
+        var c = this.state.comments;
+        
+        if (this.state.comment !== "") {
+            c.unshift({username: this.state.username, comment: this.state.comment});
+            this.setState({comments: c, comment: "", showComment : true}, () => {
+                console.log("pkojqwiosa");
+                console.log(this.state.comments);
+            });
+        }
+    }
+
+    getComments = async () => {
+        var commentsList = [];
+        var ref = firebase.database().ref("comments");
+        var query = ref.orderByChild("aid").equalTo("-Ly3ngF57XVhPrGx0B-4");
+        await query.once("value")
+            .then(function (snapshot) {
+                snapshot.forEach(function (childSnapshot) {
+                    // console.log(childSnapshot.val());
+                    //console.log(childSnapshot.val().username)
+                    childSnapshot.forEach(function(c) {
+                        console.log(c.val());
+                        if(c.val().id) {
+                            //console.log(c.val().username);
+                            commentsList.push(c.val());
+                            // console.log(commentsList);
+                        }
+                    });
+                });
+            });
+            this.setState({comments: commentsList}, () => {
+                // console.log("pkojqwiosa");
+                this.forceUpdate();
+            });
+            // this.forceUpdate();
+            console.log("Comments are:");
+            console.log(this.state.comments);
+    }
+
+    toggleShowComment() {
+        // console.log(this.state.comments);
+        console.log(this.state.showComment);
+        this.setState({showComment : !this.state.showComment});
+        console.log(this.state.showComment);
+        if(this.state.showComment === false && this.state.comments.length === 0) {
+            this.setState({showComment: true}, () => {
+                this.getComments();
+                console.log("get comments true");
+                // console.log(this.state.showComment);
+
+            });
+            console.log("Fetch from DB");
+            //this.getComments();
+        }
+        else {
+            console.log("Show Normal data");
+            // console.log(this.state.comments);
+        }
+        console.log("Show Status");
+        console.log(this.state.showComment);
+
     }
 
 
@@ -65,12 +133,48 @@ class Answer extends React.Component {
                             </Button>
                         </div>
                         
-                        <span style = {{position : "absolute",left : "10px"}}>
-                            <Button primary>Add a comment</Button>
+                        {/* <span style = {{position : "absolute",left : "10px"}}>
+                            <Button primary onClick = {(e) => this.setState({toggle: !this.state.toggle})}>Add a comment</Button>
                         </span>
+                        {this.state.toggle && 
+                            <div>
+                                Sushma
+                            </div>
+                        } */}
+                        {
+                            !this.state.showComment && 
+                            <Button primary onClick = {this.toggleShowComment.bind(this)} style ={{ position: "absolute", left:"10px"}}>Show Comments</Button>
+                        }
+                        {
+                            this.state.showComment && 
+                            <Button onClick = {this.toggleShowComment.bind(this)} style ={{ position: "absolute", left:"10px"}}>Hide Comments</Button>
+                        }  
                             <br />
                             <br />
                     </Segment>
+                    <Segment padded style={{backgroundColor: "#b5e6e1", paddingBottom: "20px"}}>
+                        <Form size = "large">
+                            <Form.Field>
+                            <input placeholder='Add a comment' style ={{ position: "absolute", left:"10px", width: "500px"}} onChange = {(e) => {this.setState({comment: e.target.value})}} value = {this.state.comment}/>
+                            <span style = {{position : "absolute", top: "2.5px", right: "-10px"}}>
+                                <Button primary onClick = {this.addComment.bind(this)}>Add a comment</Button>
+                            </span>
+                            </Form.Field>
+                        </Form>
+                        <br />
+                        <br />
+                        <br />
+                        {
+                            this.state.showComment && 
+                            <div>
+                                hii
+                                <CommentList comments = {this.state.comments}/>
+                            </div>
+                            
+                        }
+                        
+                    </Segment>
+                    
                 </Segment.Group>
                 <br />
 
