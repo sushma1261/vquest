@@ -115,10 +115,12 @@ class Answer extends React.Component {
                             <Image size = "mini"  circular src = {this.props.imageurl}/>
         <span>{this.props.username}</span>
                             </Grid.Column>
-                            <Grid.Column width = {13}>
+                            <Grid.Column width = {12}>
                                 <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px"}}>{this.props.answer}</p>
                             </Grid.Column>
-                            
+                            <Grid.Column width = {2}>
+                            <Button negative circular icon = "trash" onClick = {this.props.fun1}></Button>
+                            </Grid.Column>
 
                         </Grid>
                         <br />

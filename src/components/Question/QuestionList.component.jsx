@@ -33,7 +33,7 @@ class QuestionList extends React.Component {
 
     componentDidMount() {
         
-        // this.dataBase();
+        this.dataBase();
         //this.addData();
         // console.log("DB");
       }
@@ -72,7 +72,9 @@ class QuestionList extends React.Component {
     removeFromDb = async(id) => {
       console.log(id);
       await firebase.database().ref("questions").child(id).remove();
+      await firebase.database().ref("answers").child(id).remove();
       notify.show("Deleted Question", "custom", 5000, myColor);
+
     }
 
     render() {

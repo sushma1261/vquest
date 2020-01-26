@@ -55,6 +55,7 @@ class NewAnswer extends React.Component {
         await ref.update({noOfAns: noOfAns+1});
         this.props.history.push("/a/"+this.state.qid);
    }
+   
       getQuestion = async() => {
         var ref = firebase.database().ref("questions");
         var q = {};
