@@ -167,7 +167,6 @@ class Answer extends React.Component {
                         {
                             this.state.showComment && 
                             <div>
-                                hii
                                 <CommentList comments = {this.state.comments}/>
                             </div>
                             

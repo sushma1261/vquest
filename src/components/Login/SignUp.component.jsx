@@ -88,7 +88,7 @@ class SignUp extends React.Component {
                              <Button.Group>
                                 <Button>Faculty</Button>
                                 <Button.Or />
-                                <Button positive>Student</Button>
+                                <Button>Student</Button>
                             </Button.Group>
                             <Button color='teal' fluid size='large'
                                 onClick={this.dataBase.bind(this)}

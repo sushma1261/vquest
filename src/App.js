@@ -14,6 +14,7 @@ import NewAnswerPage from './pages/NewAnswerPage';
 import MyQuestionsPage from './pages/MyQuestionsPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import LikedAnswersPage from './pages/LikedAnswersPage';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Switch>
           <Route exact path = "/" component = {HomePage} />
           <Route exact path = "/signup" component = {SignUp} />
+          <Route path = "/adminLogin" component = {AdminPage} />
           <Route path = "/(.+)" render = {() => (
             <div className = "App">
               <Title />
@@ -35,6 +37,7 @@ function App() {
                   <Route path = "/myQuestions" component = {MyQuestionsPage} />
                   <Route path = "/leaderboard" component = {LeaderboardPage} />
                   <Route path = "/likedAnswers" component = {LikedAnswersPage} />
+                  
                 </Switch>
               </Container>
               

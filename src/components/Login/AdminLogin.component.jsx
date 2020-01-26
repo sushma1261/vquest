@@ -1,54 +1,60 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
-import firebase from '../../Firebase/firebase';
-import { withRouter } from 'react-router';
-
-
-class Login extends React.Component {
+import { Grid, Header, Form, Segment, Button, Message } from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
+import firebase from '../../Firebase/firebase.js';
+class AdminLogin extends React.Component {
     constructor(props) {
         super(props);
-        this.login = this.login.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.state = {
             email: '',
             password: ''
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.login = this.login.bind(this);
     }
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
-        //console.log(this.state);
     }
 
     login(e) {
         e.preventDefault();
         // console.log("hi");
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-            // console.log(this.props.history);
-            this.dataBase();
+            this.validateUserAsAdmin();
+            
         }).catch((error) => {
             // console.log(error);
             alert(error.message);
         });
     }
 
-    dataBase = async () => {
-        // console.log("HiiiHello");
+    validateUserAsAdmin = async() => {
         var email = this.state.email;
-        // console.log("***&&&***");
-        var ref = firebase.database().ref("users");
+        var f = false;
+        console.log("Check if admin");
+        var ref = firebase.database().ref("admins");
         await ref.orderByChild("email").equalTo(email).once("value")
             .then(function (snapshot) {
                 // console.log("snap::");
                 snapshot.forEach(function (childSnapshot) {
-                    var uname = childSnapshot.val().username;
-                    // console.log(uname);
-                    localStorage.setItem("username", uname);
-                    localStorage.setItem("role", "");
+                    if(childSnapshot.val()) {
+                        var uname = childSnapshot.val().username;
+                        localStorage.setItem("username", uname);
+                        localStorage.setItem("role", "admin");
+                        f = true;
+                    }
                 });
             });
-        this.props.history.push('/q');
+            if(f) {
+                this.props.history.push('/q');
+            }
+            else {
+                alert("You are not an admin");
+            }
+            
     }
+
 
     render() {
         return (
@@ -78,8 +84,7 @@ class Login extends React.Component {
                             <Button color='teal' fluid size='large' onClick={this.login}>
                                 Login
                         </Button>
-                         <Link to="/adminLogin">Login as Admin</Link>
-                    
+                        <Link to="/">Login as user</Link>
                         </Segment>
                     </Form>
                     <Message>
@@ -91,4 +96,4 @@ class Login extends React.Component {
     }
 }
 
-export default withRouter(Login);
+export default withRouter(AdminLogin);
