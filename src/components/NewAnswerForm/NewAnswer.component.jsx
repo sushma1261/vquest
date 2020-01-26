@@ -21,12 +21,40 @@ class NewAnswer extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
       }
 
-      
-
       componentDidMount() {
-        this.getQuestion();
+        this.getQuestion();    
       }
 
+      addAnswerToDB = async() => {
+        if(this.state.answer !== "") {
+            var qid = this.state.qid;
+            var data = {
+                    answer: this.state.answer,
+                    user: this.state.username,
+                    noOfLikes: 0,
+            }
+            var ref = firebase.database().ref("answers")
+            var k = ref.child(qid).push(data).key;
+            await ref.child(qid).child(k).update({"id": k});
+            console.log(k);
+            this.setState({
+                answer: ''
+            });   
+            this.updateNoOfAnswers();         
+        }
+   }
+
+   updateNoOfAnswers = async() => {
+        var ref = firebase.database().ref("questions").child(this.state.qid);
+        var noOfAns = 0;
+        await ref.once("value")
+        .then(function (snapshot) {
+            noOfAns = snapshot.val().noOfAns
+        });
+        console.log(noOfAns);
+        await ref.update({noOfAns: noOfAns+1});
+        this.props.history.push("/a/"+this.state.qid);
+   }
       getQuestion = async() => {
         var ref = firebase.database().ref("questions");
         var q = {};
@@ -43,76 +71,7 @@ class NewAnswer extends React.Component {
         console.log("q", q);
       }
 
-      addAnswerToDB = async() => {
-        console.log(this.state.answer);
-        var ref = firebase.database().ref("answers");
-        var answerKey = "";
-        var query = ref.orderByChild("qid").equalTo(this.state.qid);
-        await query.once("value")
-            .then(function (snapshot) {
-                console.log("Snap::::", snapshot.val());
-                snapshot.forEach(function (childSnapshot) {
-                     
-                    answerKey = childSnapshot.key;
-                    console.log("Answer key", answerKey);
-                }); 
-            });
-            var k = "";
-        console.log("after snap", answerKey);
-        if(answerKey === "") {
-            console.log("if", answerKey);
-            var qry = firebase.database().ref("answers");
-            var x = {qid: this.state.qid};
-            k = qry.push(x).key;
-            // console.log(k);
-            qry = firebase.database().ref("answers/"+k);
-            var data = {
-                answer: this.state.answer,
-                user: this.state.username,
-                noOfLikes: 0,
-            }
-            k = qry.push(data).key;
-            qry.child(k).update({"id": k});
-            this.setState({
-                answer: ''
-            });
-            //console.log("No answers yet");
-        }
-        else {
-            console.log("else", answerKey);
-            var q = firebase.database().ref("answers/"+answerKey);
-            var data = {
-                answer: this.state.answer,
-                user: this.state.username,
-                noOfLikes: 0,
-            }
-            k = q.push(data).key;
-            q.child(k).update({"id": k});
-            this.setState({
-                answer: ''
-            });
-        }
-        
-        var noOfAns = 0;
-        query = firebase.database().ref("questions").orderByChild("id").equalTo(this.state.qid);
-        await query.once("value")
-            .then(function (snapshot) {
-                //console.log("Snap::::", snapshot);
-                snapshot.forEach(function (childSnapshot) {
-                    //console.log(childSnapshot.val().noOfAns);
-                    noOfAns = childSnapshot.val().noOfAns;
-                }); 
-            });
-
-
-        q = firebase.database().ref("questions/");
-        q.child(this.state.qid).update({noOfAns: noOfAns+1});
-        //console.log(k);
-        //console.log();
-        console.log("props");
-        this.props.history.push("/a/"+this.state.qid);
-    }
-
+      
       
     render() {
         return (
@@ -132,3 +91,71 @@ class NewAnswer extends React.Component {
     }
 }
 export default withRouter(NewAnswer);
+
+
+
+// addAnswerToDB = async() => {
+//     console.log(this.state.answer);
+//     var ref = firebase.database().ref("answers");
+//     var answerKey = "";
+//     var query = ref.orderByChild("qid").equalTo(this.state.qid);
+//     await query.once("value")
+//         .then(function (snapshot) {
+//             console.log("Snap::::", snapshot.val());
+//             snapshot.forEach(function (childSnapshot) {
+//                 answerKey = childSnapshot.key;
+//                 console.log("Answer key", answerKey);
+//             }); 
+//         });
+//         var k = "";
+//     console.log("after snap", answerKey);
+//     if(answerKey === "") {
+//         console.log("if", answerKey);
+//         var qry = firebase.database().ref("answers");
+//         var x = {qid: this.state.qid};
+//         k = qry.push(x).key;
+//         qry = firebase.database().ref("answers/"+k);
+//         var data = {
+//             answer: this.state.answer,
+//             user: this.state.username,
+//             noOfLikes: 0,
+//         }
+//         k = qry.push(data).key;
+//         qry.child(k).update({"id": k});
+//         this.setState({
+//             answer: ''
+//         });
+//         //console.log("No answers yet");
+//     }
+//     else {
+//         console.log("else", answerKey);
+//         var q = firebase.database().ref("answers/"+answerKey);
+//         var data = {
+//             answer: this.state.answer,
+//             user: this.state.username,
+//             noOfLikes: 0,
+//         }
+//         k = q.push(data).key;
+//         q.child(k).update({"id": k});
+//         this.setState({
+//             answer: ''
+//         });
+//     }
+//     // change no of  answers in questions data
+//     var noOfAns = 0;
+//     query = firebase.database().ref("questions").orderByChild("id").equalTo(this.state.qid);
+//     await query.once("value")
+//         .then(function (snapshot) {
+//             //console.log("Snap::::", snapshot);
+//             snapshot.forEach(function (childSnapshot) {
+//                 //console.log(childSnapshot.val().noOfAns);
+//                 noOfAns = childSnapshot.val().noOfAns;
+//             }); 
+//         });
+
+
+//     q = firebase.database().ref("questions/");
+//     q.child(this.state.qid).update({noOfAns: noOfAns+1});
+//     console.log("props");
+//     this.props.history.push("/a/"+this.state.qid);
+// }

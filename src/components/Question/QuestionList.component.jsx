@@ -33,10 +33,20 @@ class QuestionList extends React.Component {
 
     componentDidMount() {
         
-        this.dataBase();
+        // this.dataBase();
+        //this.addData();
         // console.log("DB");
       }
     
+      addData = async() => {
+        // console.log("Push Data");
+        var x = {username: "Sushma", question: "New Question", id: 0}
+        var q = firebase.database().ref("answers").child("q1").set(x);
+        // console.log("key", k);
+        // var qq = q.push(x.set(key, q.key);
+        // var t = q.key;
+        // console.log(t);
+    }
         dataBase = async() => {
             var x = [];
             var  query = firebase.database().ref("questions").limitToFirst(10);
@@ -55,10 +65,7 @@ class QuestionList extends React.Component {
       var arr = this.state.x;
       var id = arr[idx].id;
       arr.splice(idx,1);
-      // this.setState({ques: arr});
-      this.setState({x: arr});
-      // console.log(arr);
-      
+      this.setState({x: arr});      
       this.removeFromDb(id);
     }
 

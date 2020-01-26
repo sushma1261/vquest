@@ -39,7 +39,7 @@ class AnswerList extends React.Component {
 
 
     componentDidMount() {
-        //this.getAnswers();
+        this.getAnswers();
         console.log("Comments::::");
         console.log(comments1);
     }
@@ -57,55 +57,74 @@ class AnswerList extends React.Component {
         var flag = false;
         var answerKey = "";
         var ref = firebase.database().ref("answers");
-        var query = ref.orderByChild("qid").equalTo(this.state.qid)
+        var query = ref.child("-Ly3cbe5BsEoeazGTABW")
         await query.once("value")
             .then(function (snapshot) {
-                //console.log("snap::", snapshot.key);
-                //ans.push(snapshot.val())
                 snapshot.forEach(function (childSnapshot) {
                     answerKey = childSnapshot.key
-                    childSnapshot.forEach(function (answer) {
-                        if (answer.val().id) {
-                            if(answer.val().likedBy) {
-                                //console.log(answer.val().likedBy);
-                                var x = answer.val().likedBy;
+                    console.log(childSnapshot.val());
+                    if(childSnapshot.val().likedBy) {
+                                var x = childSnapshot.val().likedBy;
                                 for (var key in x) {
                                     if (x.hasOwnProperty(key)) {           
-                                        //console.log(key, x[key]["user"]);
                                         if(x[key]["user"] === localStorage.getItem("username")) {
                                             flag = true;
                                         }
                                     }
                                 }
                             }
-                            var data = answer.val();
-                            data.flag = flag;
-                            ans.push(data);
-                        }
-                        flag = false;
-                    });
+                    var data = childSnapshot.val();
+                    data.flag = flag;
+                    ans.push(data);
+                    flag = false;
                 });
             });
-
         this.setState({ answers: ans, answerKey: answerKey});
         console.log("State::");
-        console.log(this.state);
+        console.log(this.state.answers);
     }
 
     render() {
         //console.log("props"+JSON.stringify(this.props.answers));
         return (
             <div>
-                <Answer key = "1" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo"/>
+                {/* <Answer key = "1" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo"/>
                 <Answer key = "2" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments1}/>
                 <Answer key = "3" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>
-                <Answer key = "4" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>
-                {/* {this.state.answers.map((a) => (
+                <Answer key = "4" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/> */}
+                {this.state.answers.map((a) => (
                     <Answer key = {a.id} id = {a.id} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} flag = {a.flag} answerKey = {this.state.answerKey}/>
-                ))}    */}
+                ))}   
             </div>
         );
     }
 }
 
 export default AnswerList;
+
+
+
+
+
+// childSnapshot.forEach(function (answer) {
+                    //     console.log("Answers::*********");
+                    //     console.log(answer.val());
+                        // if (answer.val().id) {
+                        //     if(answer.val().likedBy) {
+                        //         //console.log(answer.val().likedBy);
+                        //         var x = answer.val().likedBy;
+                        //         for (var key in x) {
+                        //             if (x.hasOwnProperty(key)) {           
+                        //                 //console.log(key, x[key]["user"]);
+                        //                 if(x[key]["user"] === localStorage.getItem("username")) {
+                        //                     flag = true;
+                        //                 }
+                        //             }
+                        //         }
+                        //     }
+                        //     var data = answer.val();
+                        //     data.flag = flag;
+                        //     ans.push(data);
+                        // }
+                        // flag = false;
+                    // });
