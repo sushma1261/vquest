@@ -37,7 +37,7 @@ class NewQuestion extends React.Component {
             var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: "", user: this.state.username};
             var q = firebase.database().ref("questions");
             var k = q.push(data).key;
-            q.child(k).update({"id": k});
+            q.child(k).update({"id": k, "postedOn": "-"+firebase.database.ServerValue.TIMESTAMP.toString});
             this.setState({
                 question: '',
                 tags: ''

@@ -15,6 +15,7 @@ import MyQuestionsPage from './pages/MyQuestionsPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import LikedAnswersPage from './pages/LikedAnswersPage';
 import AdminPage from './pages/AdminPage';
+import ImageUpload from './components/images/ImageUpload';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                   <Route path = "/myQuestions" component = {MyQuestionsPage} />
                   <Route path = "/leaderboard" component = {LeaderboardPage} />
                   <Route path = "/likedAnswers" component = {LikedAnswersPage} />
+                  <Route path = "/img" component = {ImageUpload} />
                   
                 </Switch>
               </Container>

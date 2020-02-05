@@ -49,7 +49,7 @@ class QuestionList extends React.Component {
     }
         dataBase = async() => {
             var x = [];
-            var  query = firebase.database().ref("questions").limitToFirst(10);
+            var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(5);
             await query.once("value")
               .then(function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
@@ -93,7 +93,7 @@ class QuestionList extends React.Component {
                    />
                 )};
                  */}
-                {this.state.x.map(({question, user, tags, noOfAns, id}, idx) => 
+                {this.state.x.reverse().map(({question, user, tags, noOfAns, id}, idx) => 
                     <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} fun1 = {() => {
                       console.log("Clicked");
                       console.log(idx);
