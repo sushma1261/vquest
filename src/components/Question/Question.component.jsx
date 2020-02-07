@@ -24,7 +24,7 @@ class Question extends React.Component {
                         <Grid>
                             <Grid.Column width = {2}>
                             <Image size = "mini"  circular src = {this.props.imageurl}/>
-        <span>{this.props.username}</span>
+        <span><Link to = {"/profileDetails/"+this.props.username}>{this.props.username}</Link></span>
                             </Grid.Column>
                             <Grid.Column width = {12} style = {{color: "black"}}>
                                 <Link to = {
@@ -36,7 +36,6 @@ class Question extends React.Component {
                                         tags: this.props.tags,
                                         noOfAns: this.props.answers
                                     }
-                                    
                                 }
                             }
                             className = "questionText">

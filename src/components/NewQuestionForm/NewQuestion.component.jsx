@@ -2,6 +2,18 @@ import React from 'react';
 import { Header, Form, Button } from 'semantic-ui-react';
 import firebase from '../../Firebase/firebase';
 import { withRouter } from 'react-router-dom';
+import DropdownComponent from '../DropdownComponent';
+
+const tags = [
+    { label: "C", value: 1 },
+    { label: "C++", value: 2 },
+    { label: "DS", value: 3 },
+    { label: "Java", value: 4 },
+    { label: "Python", value: 5 },
+    { label: "React", value: 6 },
+    { label: "Web", value: 7 }
+  ];
+  
 
 class NewQuestion extends React.Component {
     constructor(props) {
@@ -11,7 +23,9 @@ class NewQuestion extends React.Component {
         this.state = {
           question: '',
           tags: '',
-          username: localStorage.getItem("username")
+          k: "",
+          username: localStorage.getItem("username"),
+          selectedOption: []
         };
       }
 
@@ -20,32 +34,55 @@ class NewQuestion extends React.Component {
         console.log(this.state);
       }
 
+      handleChange2 = (selectedOption) => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+        // console.log(selectedOption[0])
+      };
       addToFB = async() => {
-        // console.log("Push Data");
-        // console.log(this.state.question);
-        var userKey = "";
-        var qry = firebase.database().ref("users").orderByChild("username").equalTo(this.state.username);
-        await qry.once("value")
-        .then(function (snapshot) {
-            //console.log("User", snapshot.val());
-            snapshot.forEach(function (childSnapshot) {
-                // console.log(childSnapshot.key);
-                userKey = childSnapshot.key;
-            }); 
+          console.log("Clicked", this.state.selectedOption)
+          const {selectedOption} = this.state;
+        //   console.log(this.state.selectedOption)
+        var x = []
+        selectedOption.forEach(e => {
+            // this.addQuestionToTags();
+            x.push(e["label"]);
         });
-        if(this.state.question !== "" && this.state.tags !== "") {
-            var data = {question: this.state.question, tags: this.state.tags, noOfAns: 0, id: "", user: this.state.username};
+        //   console.log(x);
+        if(this.state.question !== "") {
+            var data = {question: this.state.question, tags: x, noOfAns: 0, id: "", user: this.state.username};
             var q = firebase.database().ref("questions");
             var k = q.push(data).key;
-            q.child(k).update({"id": k, "postedOn": "-"+firebase.database.ServerValue.TIMESTAMP.toString});
+            await q.child(k).update({"id": k, "postedOn": firebase.database.ServerValue.TIMESTAMP});
             this.setState({
                 question: '',
-                tags: ''
+                tags: '',
+                k : k
             });
-            // Code to add to myQuestions user data
-            // var q1 = firebase.database().ref("users/"+userKey+"/myQuestions");
-            // q1.push({id: k});
-            //console.log("x",x);
+            console.log(k)
+            x.forEach(async function (tag) {
+                console.log("k,ele",k,tag)
+                var key = ""
+                var qry = firebase.database().ref("tags").orderByChild("name").equalTo(tag);
+                await qry.once("value")
+                .then(function(s) {
+                    s.forEach(function(c){
+                        key = c.key
+                    })
+                })
+                var questions = [k]
+                var qry = firebase.database().ref("tags").child(key).child("questions");
+                await qry.once("value")
+                .then(function (snapshot) {
+                    console.log("Question", (snapshot.val()));
+                    snapshot.forEach(function(c){
+                        questions.push(c.val())
+                    });
+                });
+                console.log(questions);
+                await firebase.database().ref("tags").child(key).update({questions}); 
+                // this.setState({questions});
+                })
             this.props.history.push("/q");
         }
         else {
@@ -62,10 +99,7 @@ class NewQuestion extends React.Component {
                         value={this.state.question} onChange={this.handleChange}
                         type="text" name="question" className="form-control" id="InputEmail"
                         />
-                <Form.Input fluid placeholder='Tags with comma separated'
-                        value={this.state.tags} onChange={this.handleChange}
-                        type="text" name="tags" className="form-control" id="InputEmail"
-                        />
+                <DropdownComponent options = {tags} handleChange = {this.handleChange2.bind(this)}/>
                 <Button onClick = {this.addToFB.bind(this)} primary>Submit</Button>
                 </Form>
             </div>

@@ -38,15 +38,7 @@ class QuestionList extends React.Component {
         // console.log("DB");
       }
     
-      addData = async() => {
-        // console.log("Push Data");
-        var x = {username: "Sushma", question: "New Question", id: 0}
-        var q = firebase.database().ref("answers").child("q1").set(x);
-        // console.log("key", k);
-        // var qq = q.push(x.set(key, q.key);
-        // var t = q.key;
-        // console.log(t);
-    }
+  
         dataBase = async() => {
             var x = [];
             var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(5);
@@ -65,14 +57,38 @@ class QuestionList extends React.Component {
       var arr = this.state.x;
       var id = arr[idx].id;
       arr.splice(idx,1);
-      this.setState({x: arr});      
-      this.removeFromDb(id);
+      this.setState({x: arr});     
+      console.log("qid",id)
+      //this.removeQuestionFromTagList(id);
+       this.removeFromDb(id);
+    }
+
+    removeQuestionFromTagList = async(id) => {
+      var questions =[]
+      var qry = firebase.database().ref("tags").orderByChild("questions")
+      await qry.once("value")
+        .then(function(snapshot) {
+          //console.log(snapshot.key)
+          snapshot.forEach(function(child) {
+            var k = child.key
+            console.log(k)
+            if(child.val().questions) {
+              questions = child.val().questions.filter(function (el) {
+                return (el != null && el != id);
+              });
+              console.log(questions)
+              firebase.database().ref("tags").child(k).update({questions});
+            }
+          })
+        })
+        
     }
 
     removeFromDb = async(id) => {
       console.log(id);
       await firebase.database().ref("questions").child(id).remove();
       await firebase.database().ref("answers").child(id).remove();
+      this.removeQuestionFromTagList(id)
       notify.show("Deleted Question", "custom", 5000, myColor);
 
     }
@@ -118,6 +134,16 @@ export default QuestionList;
     //     var q = firebase.database().ref("questions");
     //     var k = q.push(x).key;
     //     q.child(k).update({"id": k});
+    //     // console.log("key", k);
+    //     // var qq = q.push(x.set(key, q.key);
+    //     // var t = q.key;
+    //     // console.log(t);
+    // }
+
+      //   addData = async() => {
+    //     // console.log("Push Data");
+    //     var x = {username: "Sushma", question: "New Question", id: 0}
+    //     var q = firebase.database().ref("answers").child("q1").set(x);
     //     // console.log("key", k);
     //     // var qq = q.push(x.set(key, q.key);
     //     // var t = q.key;

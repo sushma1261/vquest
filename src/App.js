@@ -16,6 +16,10 @@ import LeaderboardPage from './pages/LeaderboardPage';
 import LikedAnswersPage from './pages/LikedAnswersPage';
 import AdminPage from './pages/AdminPage';
 import ImageUpload from './components/images/ImageUpload';
+import Dropdown from './components/DropdownComponent';
+import DropdownComponent from './components/DropdownComponent';
+import TagsQuestionPage from './pages/TagsQuestionPage';
+import MyProfile from './pages/MyProfile';
 
 function App() {
   return (
@@ -33,12 +37,14 @@ function App() {
                   <Route path = '/q' component={QuestionPage}/>
                   <Route path = '/newQuestion' component = {NewQuestionPage} />
                   <Route path = "/a/:id" component = {AnswerPage} />
-                  <Route path = "/dummy" component = {Login1} />
+                  <Route path = "/dummy" component = {DropdownComponent} />
                   <Route path = "/newAnswer/:id" component = {NewAnswerPage} />
                   <Route path = "/myQuestions" component = {MyQuestionsPage} />
                   <Route path = "/leaderboard" component = {LeaderboardPage} />
                   <Route path = "/likedAnswers" component = {LikedAnswersPage} />
                   <Route path = "/img" component = {ImageUpload} />
+                  <Route path = "/tags/:id" component = {TagsQuestionPage} />
+                  <Route path = "/myProfile" component = {MyProfile} />
                   
                 </Switch>
               </Container>
