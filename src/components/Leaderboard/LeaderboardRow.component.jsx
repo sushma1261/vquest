@@ -1,19 +1,20 @@
 import React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 import './LeaderboardRow.scss';
+import { Link } from 'react-router-dom';
+
 const style = {fontSize: "20px", width: "800px", padding: "25px", borderBottom: "1px solid black"}
 
 const LeaderBoardRow = ({rank, regd, username, score}) => {
     if(rank === "#1") {
         return (
             <div style = {style} className = "first" >
-            <Grid>
-                
+            <Grid>       
                 <Grid.Column width = {4}>
                     {rank}
                 </Grid.Column>
                 <Grid.Column width = {4}>
-                    {regd}
+                <Link to = {"/myProfile/"+regd}>{regd}</Link>
                 </Grid.Column>
                 <Grid.Column width = {4}>
                     {username}
@@ -21,7 +22,6 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                 <Grid.Column width = {4}>
                     <Icon name = "chess queen" color = "yellow"/>{score}
                 </Grid.Column>
-                
             </Grid>
         </div>
     )
@@ -30,7 +30,6 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
         return (
             <div style = {style}>
             <Grid>
-                
                 <Grid.Column width = {4}>
                     {rank}
                 </Grid.Column>
@@ -41,9 +40,8 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                     {username}
                 </Grid.Column>
                 <Grid.Column width = {4}>
-                    <Icon name = "chess queen" color = "brown"/>{score}
+                    <Icon name = "chess queen" color = "grey"/>{score}
                 </Grid.Column>
-                
             </Grid>
         </div>
     )
@@ -52,7 +50,6 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
             return (
                 <div style = {style}>
                 <Grid>
-                    
                     <Grid.Column width = {4}>
                         {rank}
                     </Grid.Column>
@@ -63,9 +60,8 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                         {username}
                     </Grid.Column>
                     <Grid.Column width = {4}>
-                        <Icon name = "chess queen" color = "grey"/>{score}
+                        <Icon name = "chess queen" color = "brown"/>{score}
                     </Grid.Column>
-                    
                 </Grid>
             </div>
         )
@@ -73,7 +69,6 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
     return (
         <div style = {style}>
             <Grid>
-                
                 <Grid.Column width = {4}>
                     {rank}
                 </Grid.Column>
@@ -86,7 +81,6 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                 <Grid.Column width = {4}>
                     <Icon name = "star"/>{score}
                 </Grid.Column>
-                
             </Grid>
         </div>
     )

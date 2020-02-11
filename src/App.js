@@ -7,7 +7,6 @@ import AnswerPage from './pages/AnswerPage';
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import NewQuestionPage from './pages/NewQuestionPage';
 import SignUp from './components/Login/SignUp.component';
-import Login1 from './components/Login/Login1';
 import HomePage from './pages/HomePage';
 import { Container } from 'semantic-ui-react';
 import NewAnswerPage from './pages/NewAnswerPage';
@@ -16,11 +15,10 @@ import LeaderboardPage from './pages/LeaderboardPage';
 import LikedAnswersPage from './pages/LikedAnswersPage';
 import AdminPage from './pages/AdminPage';
 import ImageUpload from './components/images/ImageUpload';
-import Dropdown from './components/DropdownComponent';
 import DropdownComponent from './components/DropdownComponent';
 import TagsQuestionPage from './pages/TagsQuestionPage';
 import MyProfile from './pages/MyProfile';
-
+import InfoPage from './pages/InfoPage';
 function App() {
   return (
     <BrowserRouter>
@@ -45,6 +43,7 @@ function App() {
                   <Route path = "/img" component = {ImageUpload} />
                   <Route path = "/tags/:id" component = {TagsQuestionPage} />
                   <Route path = "/myProfile" component = {MyProfile} />
+                  <Route path = "/info" component = {InfoPage} />
                   
                 </Switch>
               </Container>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Grid, Image, Button, Icon, Label } from 'semantic-ui-react';
+import { Segment, Grid, Image, Button } from 'semantic-ui-react';
 class LikedAnswer extends React.Component {
     render() {
         return(

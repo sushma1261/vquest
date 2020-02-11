@@ -74,7 +74,7 @@ class QuestionList extends React.Component {
             console.log(k)
             if(child.val().questions) {
               questions = child.val().questions.filter(function (el) {
-                return (el != null && el != id);
+                return (el !== null && el !== id);
               });
               console.log(questions)
               firebase.database().ref("tags").child(k).update({questions});

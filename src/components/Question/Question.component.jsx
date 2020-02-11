@@ -1,5 +1,5 @@
 import React from 'react';
-import {Segment, Grid, Image, Button, Icon} from 'semantic-ui-react';
+import {Segment, Grid, Image, Button} from 'semantic-ui-react';
 import './Question.component.scss';
 import { Link } from 'react-router-dom';
 class Question extends React.Component {

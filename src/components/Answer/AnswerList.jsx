@@ -6,37 +6,37 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 
-const ans = [
-    {
-        number : "1",
-        username: "Sushma" ,
-        answer: "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus" ,
-        imageurl: "https://randomuser.me/api/portraits/women/24.jpg",
-        likes: "4",
-    },
-    {
-        number : "2",
-        username: "Preethi" ,
-        answer: "jhsdjfhii ihisf ie fyewg bfuewgf hjwerb fuwheurf bhgrfuywe uwegf f uge fubeuhfewgugeuyfgu efg uhegfduh f" ,
-        imageurl: "https://randomuser.me/api/portraits/women/29.jpg",
-        likes: "3"
-    }
-]
+// const ans = [
+//     {
+//         number : "1",
+//         username: "Sushma" ,
+//         answer: "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus" ,
+//         imageurl: "https://randomuser.me/api/portraits/women/24.jpg",
+//         likes: "4",
+//     },
+//     {
+//         number : "2",
+//         username: "Preethi" ,
+//         answer: "jhsdjfhii ihisf ie fyewg bfuewgf hjwerb fuwheurf bhgrfuywe uwegf f uge fubeuhfewgugeuyfgu efg uhegfduh f" ,
+//         imageurl: "https://randomuser.me/api/portraits/women/29.jpg",
+//         likes: "3"
+//     }
+// ]
 
-const comments1 = [
-    { username: "Sushma",  comment: "Nice Answer!!!!"},
-    { username: "Naveena", comment: "Nice Answer!!!"},
-    { username: "Ramya", comment: "Nice Answer!"},
-    { username: "Sushma", comment: "Nice Answer!!" },
-    { username: "Naveena", comment: "Nice Answer!!!!!!"}
-];
+// const comments1 = [
+//     { username: "Sushma",  comment: "Nice Answer!!!!"},
+//     { username: "Naveena", comment: "Nice Answer!!!"},
+//     { username: "Ramya", comment: "Nice Answer!"},
+//     { username: "Sushma", comment: "Nice Answer!!" },
+//     { username: "Naveena", comment: "Nice Answer!!!!!!"}
+// ];
 
-const comments2 = [
-    { username: "Sushma",  comment: "Nice Answer!!!!"},
-    { username: "Naveena", comment: "Nice Answer!!!"},
-    { username: "Preethi", comment: "Can you explain more elaborativelywjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu"},
-    { username: "Ramya", comment: "Nice Answer!"},
-]
+// const comments2 = [
+//     { username: "Sushma",  comment: "Nice Answer!!!!"},
+//     { username: "Naveena", comment: "Nice Answer!!!"},
+//     { username: "Preethi", comment: "Can you explain more elaborativelywjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu"},
+//     { username: "Ramya", comment: "Nice Answer!"},
+// ]
 
 class AnswerList extends React.Component {
 
@@ -127,6 +127,7 @@ class AnswerList extends React.Component {
     removeFromDB = async(qid, id) => {
       console.log(qid,id)
       await firebase.database().ref("answers").child(qid).child(id).remove();
+      await firebase.database().ref("comments").child(id).remove();
       var ref = firebase.database().ref("questions").child(qid);
         var noOfAns = 0;
         await ref.once("value")
@@ -148,8 +149,9 @@ class AnswerList extends React.Component {
                 <Answer key = "3" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>
                 <Answer key = "4" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/> */}
                 {this.state.answers.map((a,idx) => (
-                    <Answer key = {a.id} id = {a.id} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} flag = {a.flag} answerKey = {this.state.answerKey}
+                    <Answer key = {a.id} id = {this.state.qid} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} flag = {a.flag} answerKey = {a.id}
                         fun1 = {() => {
+                            //console.log(a.id)
                             console.log("Clicked");
                             console.log(idx);
                             this.submit(idx);

@@ -35,13 +35,31 @@ class NewAnswer extends React.Component {
             }
             var ref = firebase.database().ref("answers")
             var k = ref.child(qid).push(data).key;
-            await ref.child(qid).child(k).update({"id": k});
+            await ref.child(qid).child(k).update({"id": k, "postedOn": firebase.database.ServerValue.TIMESTAMP});
             console.log(k);
             this.setState({
                 answer: ''
-            });   
-            this.updateNoOfAnswers();         
+            });
+            this.updateNoOfAnswers(); 
+            if(localStorage.getItem("role") !== "admin") { 
+              this.updateScore();     
+            }
         }
+   }
+
+   updateScore = async() => {
+    var key = "", score = 0;
+    var ref2 = firebase.database().ref("users")
+    await ref2.orderByChild("username").equalTo(this.state.username).once("value")
+    .then(function (snapshot) {
+        snapshot.forEach(function(f){
+            key = f.key;
+             score = f.val().score;
+        })
+    })
+    console.log(key, score)
+    await ref2.child(key).update({score: score+100});
+    console.log("Done")
    }
 
    updateNoOfAnswers = async() => {

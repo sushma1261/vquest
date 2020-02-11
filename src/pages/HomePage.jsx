@@ -7,6 +7,12 @@ import LoginPage from './LoginPage';
 import Login1 from '../components/Login/Login1';
 
 class HomePage extends React.Component {
+
+    componentDidMount() {
+        localStorage.setItem("username", "");
+        localStorage.setItem("role", "");
+    }
+
     render() {
         return (
             

@@ -2,14 +2,13 @@ import React from 'react';
 import { Segment, Grid, Image, Button, Icon, Label, Form, TextArea } from 'semantic-ui-react';
 import firebase from '../../Firebase/firebase';
 import CommentList from '../Comment/CommentList';
-import { Link } from 'react-router-dom';
-
 class Answer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             likes : this.props.likes,
             flag : this.props.flag,
+            answerKey: this.props.answerKey,
             username: localStorage.getItem("username"),
             comment: "", 
             comments: [],
@@ -18,16 +17,34 @@ class Answer extends React.Component {
     }
 
     handleLikes = async() => {
-        //console.log(this.state.likes);
-        var qry = firebase.database().ref("answers/"+this.props.answerKey+"/"+this.props.id);
-        qry.child("likedBy").push({"user": this.state.username});
+        var qry = firebase.database().ref("answers/"+this.props.id+"/"+this.props.answerKey);
+        await qry.child("likedBy").push({"user": this.state.username});
         var l = this.state.likes + 1
         this.setState({
             likes: l,
             flag: true,
             
         })
-        qry.update({"noOfLikes": l});
+        await qry.update({"noOfLikes": l});
+        console.log("clicked");
+        console.log(this.state.username);
+        var key = "", score = 0;
+        var ref2 = firebase.database().ref("users")
+        await ref2.orderByChild("username").equalTo(this.props.username).once("value")
+        .then(function (snapshot) {
+            snapshot.forEach(function(f){
+                key = f.key;
+                 score = f.val().score;
+            })
+        })
+        console.log(key, score)
+        if(localStorage.getItem("role") === "admin") {
+            await ref2.child(key).update({score: score+50});
+        }
+        else {
+            await ref2.child(key).update({score: score+10});
+        }
+
         // console.log("Answer Key",this.props.answerKey);
         // await qry.once("value")
         //     .then(function (snapshot) {
@@ -48,39 +65,49 @@ class Answer extends React.Component {
                 console.log("pkojqwiosa");
                 console.log(this.state.comments);
             });
+            this.addCommentToDB()
         }
+        // this.addCommentToDB()
+    }
+
+    addCommentToDB = async() => {
+        var ansKey = this.props.answerKey;
+        //console.log(ansKey);
+        var data = {
+            username: this.state.username,
+            comment: this.state.comment
+        }
+        var ref = firebase.database().ref("comments")
+            var k = ref.child(ansKey).push(data).key;
+            await ref.child(ansKey).child(k).update({"id": k, "postedOn": firebase.database.ServerValue.TIMESTAMP});
+            this.setState({
+                answer: ''
+            });
     }
 
     getComments = async () => {
+        var ansKey = this.props.answerKey;
         var commentsList = [];
         var ref = firebase.database().ref("comments");
-        var query = ref.orderByChild("aid").equalTo("-Ly3ngF57XVhPrGx0B-4");
+        var query = ref.child(ansKey);
         await query.once("value")
             .then(function (snapshot) {
-                snapshot.forEach(function (childSnapshot) {
-                    // console.log(childSnapshot.val());
-                    //console.log(childSnapshot.val().username)
-                    childSnapshot.forEach(function(c) {
+                snapshot.forEach(function (c) {
+                    //childSnapshot.forEach(function(c) {
                         console.log(c.val());
-                        if(c.val().id) {
-                            //console.log(c.val().username);
+                        if(c.val()) {
                             commentsList.push(c.val());
-                            // console.log(commentsList);
                         }
-                    });
                 });
             });
             this.setState({comments: commentsList}, () => {
-                // console.log("pkojqwiosa");
                 this.forceUpdate();
             });
-            // this.forceUpdate();
             console.log("Comments are:");
             console.log(this.state.comments);
     }
 
     toggleShowComment() {
-        // console.log(this.state.comments);
         console.log(this.state.showComment);
         this.setState({showComment : !this.state.showComment});
         console.log(this.state.showComment);
@@ -88,15 +115,11 @@ class Answer extends React.Component {
             this.setState({showComment: true}, () => {
                 this.getComments();
                 console.log("get comments true");
-                // console.log(this.state.showComment);
-
             });
             console.log("Fetch from DB");
-            //this.getComments();
         }
         else {
             console.log("Show Normal data");
-            // console.log(this.state.comments);
         }
         console.log("Show Status");
         console.log(this.state.showComment);
@@ -147,6 +170,7 @@ class Answer extends React.Component {
                             !this.state.showComment && 
                             <Button primary onClick = {this.toggleShowComment.bind(this)} style ={{ position: "absolute", left:"10px"}}>Show Comments</Button>
                         }
+
                         {
                             this.state.showComment && 
                             <Button onClick = {this.toggleShowComment.bind(this)} style ={{ position: "absolute", left:"10px"}}>Hide Comments</Button>

@@ -71,8 +71,8 @@ class NewQuestion extends React.Component {
                     })
                 })
                 var questions = [k]
-                var qry = firebase.database().ref("tags").child(key).child("questions");
-                await qry.once("value")
+                var qry2 = firebase.database().ref("tags").child(key).child("questions");
+                await qry2.once("value")
                 .then(function (snapshot) {
                     console.log("Question", (snapshot.val()));
                     snapshot.forEach(function(c){

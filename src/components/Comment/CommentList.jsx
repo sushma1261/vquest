@@ -10,11 +10,10 @@ class CommentList extends React.Component {
     render() {
         return(
             <div>
-                {this.state.comments.map(({username, comment}) => (
-                    <Comment username = {username} comment = {comment} />
+                {this.state.comments.map(({username, comment, id}) => (
+                    <Comment key = {id} username = {username} comment = {comment} />
                 ))}
             </div>
-            
         )
     }
 }

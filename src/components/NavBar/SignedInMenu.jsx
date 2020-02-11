@@ -10,6 +10,7 @@ const SignedInMenu = ({signOut, username}) => {
                     <Dropdown.Item as = {Link} to = "/myQuestions" text = "My Questions" icon = "question circle" />
                     <Dropdown.Item as = {Link} to = "/likedAnswers" text = "Liked Answers" icon = "like" />
                     <Dropdown.Item as = {Link} text = "My Profile" to = "/myprofile" icon = "user" />
+                    <Dropdown.Item as = {Link} text = "About Us" to = "/info" icon = "info circle" />
                     <Dropdown.Item text = "Sign Out" onClick = {signOut} icon = "power" />
                 </Dropdown.Menu>
             </Dropdown>
