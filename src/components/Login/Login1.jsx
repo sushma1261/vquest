@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Grid, Form, Segment, Message, Table, Header, Label } from 'semantic-ui-react';
+import { Button, Image, Form,  Header } from 'semantic-ui-react';
 import image from '../../assests/questions.jpg';
 import './Login.scss';
 import { Link } from 'react-router-dom';

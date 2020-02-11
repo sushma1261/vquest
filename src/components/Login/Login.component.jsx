@@ -80,8 +80,6 @@ class Login extends React.Component {
                             <Button color='teal' fluid size='large' onClick={this.login}>
                                 Login
                         </Button>
-                         <Link to="/adminLogin">Login as Admin</Link>
-                    
                         </Segment>
                     </Form>
                     <Message>

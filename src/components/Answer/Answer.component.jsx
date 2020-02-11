@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Grid, Image, Button, Icon, Label, Form, TextArea } from 'semantic-ui-react';
+import { Segment, Grid, Image, Button, Icon, Label, Form } from 'semantic-ui-react';
 import firebase from '../../Firebase/firebase';
 import CommentList from '../Comment/CommentList';
 class Answer extends React.Component {
@@ -142,7 +142,10 @@ class Answer extends React.Component {
                                 <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px"}}>{this.props.answer}</p>
                             </Grid.Column>
                             <Grid.Column width = {2}>
-                            <Button negative circular icon = "trash" onClick = {this.props.fun1}></Button>
+                            {
+                                localStorage.getItem("role")==="admin" &&
+                                <Button negative circular icon = "trash" onClick = {this.props.fun1}></Button>
+                            }
                             </Grid.Column>
 
                         </Grid>

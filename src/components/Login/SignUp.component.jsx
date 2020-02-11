@@ -13,6 +13,8 @@ class SignUp extends React.Component {
             password1: '',
             password2: '',
             username: '',
+            role: '',
+            style: {color: "red"}
         };
     }
     handleChange(e) {
@@ -38,8 +40,19 @@ class SignUp extends React.Component {
         this.signup(this);
         //console.log("Hello");
         var query1 = firebase.database().ref("users");
-        query1.push({ username: this.state.username, email: this.state.email, password: this.state.password1 });
+        query1.push({ username: this.state.username,
+             email: this.state.email, 
+             password: this.state.password1,
+              role: this.state.role,
+              score: 500
+             });
 
+    }
+
+    fun(e) {
+        this.setState({style: {color: "green"}})
+        this.setState({role: e.target.name});
+        //console.log(e.target.name)
     }
 
     render() {
@@ -54,12 +67,12 @@ class SignUp extends React.Component {
 
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Username'
                                 value={this.state.username} onChange={this.handleChange}
-                                type="name" name="username" class="form-control" id="InputUsername" />
+                                type="name" name="username" className="form-control" id="InputUsername" />
 
 
                             <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail'
                                 value={this.state.email} onChange={this.handleChange}
-                                type="email" name="email" class="form-control" id="InputEmail" />
+                                type="email" name="email" className="form-control" id="InputEmail" />
 
                             <Form.Input
                                 fluid
@@ -70,7 +83,7 @@ class SignUp extends React.Component {
                                 value={this.state.password1}
                                 onChange={this.handleChange}
                                 name="password1"
-                                class="form-control"
+                                className="form-control"
                                 id="InputPassword1"
                             />
                             <Form.Input
@@ -82,17 +95,17 @@ class SignUp extends React.Component {
                                 value={this.state.password2}
                                 onChange={this.handleChange}
                                 name="password2"
-                                class="form-control"
+                                className="form-control"
                                 id="InputPassword2"
                             />
-                             <Button.Group>
-                                <Button>Faculty</Button>
+                             <Button.Group style = {{color: "red"}} onClick={this.fun.bind(this)}>
+                                <Button name = "faculty">Faculty</Button>
                                 <Button.Or />
-                                <Button>Student</Button>
+                                <Button name = "student">Student</Button>
                             </Button.Group>
                             <Button color='teal' fluid size='large'
                                 onClick={this.dataBase.bind(this)}
-                                class="btn btn-primary">
+                                className="btn btn-primary">
                                 Sign Up
                         </Button>
                         </Segment>

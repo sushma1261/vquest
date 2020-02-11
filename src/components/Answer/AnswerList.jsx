@@ -51,6 +51,7 @@ class AnswerList extends React.Component {
         qid : this.props.qid,
         //comments: comments,
         answers: [], 
+        answers1: [],
         flag: false,
         answerKey: "",
         
@@ -76,20 +77,17 @@ class AnswerList extends React.Component {
       };
 
     getAnswers = async() => {
-        //console.log("qid::**::"+this.state.qid)
         var ans = [];
         var flag = false;
         var answerKey = "";
-        var ref = firebase.database().ref("answers");
-        var query = ref.child(this.state.qid)
-        await query.once("value")
+        var d1 = {}
+        var query1 = firebase.database().ref("answers").child(this.state.qid).orderByChild("postedOn").limitToLast(1)
+        await query1.once("value")
             .then(function (snapshot) {
-                // console.log("Child Snap::::")
-                // console.log(snapshot.val())
+               // console.log("Child Snap::::")
+                console.log(snapshot.val())
                 snapshot.forEach(function (childSnapshot) {
                     answerKey = childSnapshot.key
-                    // console.log("Child Snap::::")
-                    // console.log(childSnapshot.val());
                     if(childSnapshot.val().likedBy) {
                                 var x = childSnapshot.val().likedBy;
                                 for (var key in x) {
@@ -100,17 +98,50 @@ class AnswerList extends React.Component {
                                     }
                                 }
                             }
-                    var data = childSnapshot.val();
-                    data.flag = flag;
-                    ans.push(data);
+                    d1 = childSnapshot.val();
+
+                    d1.flag = flag;
                     flag = false;
                 });
             });
-        this.setState({ answers: ans, answerKey: answerKey}, () => {
-            // console.log("State::");
-            // console.log(this.state.answers);
-        });
         
+        var query = firebase.database().ref("answers").child(this.state.qid).orderByChild("noOfLikes").limitToLast(3)
+        await query.once("value")
+            .then(function (snapshot) {
+                console.log("Child Snap::::")
+               // console.log(snapshot.val())
+                snapshot.forEach(function (childSnapshot) {
+                    if(childSnapshot.val().id !== d1.id) {
+                        answerKey = childSnapshot.key
+                        // console.log("Child Snap::::")
+                        console.log(childSnapshot.val().noOfLikes);
+                        if(childSnapshot.val().likedBy) {
+                                    var x = childSnapshot.val().likedBy;
+                                    for (var key in x) {
+                                        if (x.hasOwnProperty(key)) {           
+                                            if(x[key]["user"] === localStorage.getItem("username")) {
+                                                flag = true;
+                                            }
+                                        }
+                                    }
+                                }
+                        var data = childSnapshot.val();
+                        data.flag = flag;
+                        ans.push(data);
+                        flag = false;
+                            }
+                });
+            });
+            ans.push(d1);
+        this.setState({ answers: ans, answerKey: answerKey}, () => {
+            this.reverseArray();
+        });
+    }
+
+    reverseArray() {
+        console.log(typeof(this.state.answers))
+        var r = this.state.answers.reverse()
+        console.log(r)
     }
 
     removeAnswer = (id) => {
@@ -123,6 +154,7 @@ class AnswerList extends React.Component {
         this.setState({answers: arr});      
         this.removeFromDB(this.state.qid,aid);
     }
+
 
     removeFromDB = async(qid, id) => {
       console.log(qid,id)
@@ -137,8 +169,9 @@ class AnswerList extends React.Component {
         });
         console.log(noOfAns);
         await ref.update({noOfAns: noOfAns-1});
-      
     }
+
+
 
     render() {
        // console.log("props"+JSON.stringify(this.state.answers));
@@ -148,7 +181,7 @@ class AnswerList extends React.Component {
                 <Answer key = "2" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments1}/>
                 <Answer key = "3" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>
                 <Answer key = "4" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/> */}
-                {this.state.answers.map((a,idx) => (
+                {this.state.answers.reverse().map((a,idx) => (
                     <Answer key = {a.id} id = {this.state.qid} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} flag = {a.flag} answerKey = {a.id}
                         fun1 = {() => {
                             //console.log(a.id)
@@ -173,6 +206,7 @@ class AnswerList extends React.Component {
         );
     }
 }
+
 
 export default AnswerList;
 

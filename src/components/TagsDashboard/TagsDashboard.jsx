@@ -3,9 +3,6 @@ import { Header, Icon, Segment, List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class TagsDashboard extends React.Component {
-
-    
-
     render() {
         return (
             <Segment.Group>
@@ -21,7 +18,6 @@ class TagsDashboard extends React.Component {
                                     props: {
                                         tag: 'C'
                                     }
-                                    
                                 }
                             }>C
                             </Link></span>
@@ -33,7 +29,6 @@ class TagsDashboard extends React.Component {
                                     props: {
                                         tag: 'C++'
                                     }
-                                    
                                 }
                             }>C++
                             </Link></span>

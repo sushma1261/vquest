@@ -33,7 +33,7 @@ class TagsQuestionPage extends React.Component {
         console.log("clicked");
         var arr = this.state.data;
         console.log(arr[idx])
-        var id = arr[idx].idx;
+        //var id = arr[idx].idx;
         arr.splice(idx,1);
         this.setState({x: arr});    
         this.removeFromDb(idx, dbIdx);
@@ -98,7 +98,6 @@ class TagsQuestionPage extends React.Component {
           this.setState({"key": key})
         x.map((a) => {
             this.fetchQuestion(a.questionId, a.idx, a.key);
-            
         })
         console.log("state",this.state.data)
         

@@ -1,29 +1,57 @@
-import React from 'react';
-import {Segment, Grid, Image, Icon, Form} from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-class MyProfile extends React.Component {
-    render() {
-        return (
-                <Segment style={{backgroundColor: "#b5e6e1"}}>
-                    <Grid>
-                        <Grid.Row  floated = "center"> 
-                            <Image src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" size='small' circular centered/>
+import React from 'react'
+import { Image, Table, Grid, Segment ,Icon} from 'semantic-ui-react'
+
+const MyProfile = () => (
+  <Segment style={{backgroundColor: "#b5e6e1"}}>
+                    <Grid width = {5}>
+                        <Grid.Row  floated = "left" > 
+                            <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTkDzS2j8tsVVAraS8BbBZnUcLuTZmNr2xOSeXLU43AbjXsZ02q" size='small' circular centered/>
                         </Grid.Row>
                         <Grid.Row> 
-                            <Grid floated = "center">
-                                <Grid.Column width = {13}>
-                                    <Icon disabled name='users' size ="large"/>
-                                </Grid.Column>
-                                <Grid.Column width = {2}>
-                                    <h1>Sushma</h1> 
-                                </Grid.Column>
-                            </Grid>
-                        </Grid.Row>
-                    </Grid>
-                </Segment>
-                
-        )
-    }
-}
+                            <Table basic='very'>
+                              <Table.Header>
+                                <Table.Row>
+                                  <Table.HeaderCell textAlign='center' >      
+                                  <h3><Icon disabled name='users' size ="large"/>
+                                        username</h3>
+                                  </Table.HeaderCell>
+                                  <Table.HeaderCell textAlign='left'><h3>sushma </h3></Table.HeaderCell>
+                                </Table.Row>
+                              </Table.Header>
 
-export default MyProfile;
+                              <Table.Body>
+                                <Table.Row>
+                                  <Table.Cell textAlign='center'>
+                                  <h3><Icon disabled name='mail' size ="large"/>
+                                        email</h3>
+                                        
+                                  
+                                  </Table.Cell>
+                                  <Table.Cell textAlign='left'><h3>sushmavarma@gmail.com</h3></Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                  <Table.Cell textAlign='center'>
+                                  <h3><Icon disabled name='registered outline' size ="large"/>
+                                  Regd.No</h3>
+                                        
+                                  
+                                  </Table.Cell>
+                                  <Table.Cell textAlign='left'><h3>16B01A12A2</h3></Table.Cell>
+                                </Table.Row>
+                                <Table.Row>
+                                  <Table.Cell textAlign='center'>
+                                  <h3><Icon disabled name='arrow right' size ="large"/>
+                                      Score</h3>
+                                        
+                                  
+                                  </Table.Cell>
+                                  <Table.Cell textAlign='left'><h3>1000</h3></Table.Cell>
+                                </Table.Row>
+                              </Table.Body>
+                            </Table>
+            </Grid.Row>
+          </Grid>
+          </Segment>
+)
+
+export default MyProfile

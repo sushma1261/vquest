@@ -27,7 +27,11 @@ class QuestionList extends React.Component {
   };
  
   
-    state = {x : [], ques: [{question: "What is an array1"}, {question: "What is an array2"}, {question: "What is an array3"}]};
+    state = {x : [], 
+      ques: [{question: "What is an array1"}, {question: "What is an array2"}, {question: "What is an array3"}],
+      start: 0,
+      end: 3
+    };
 
     
 
@@ -41,6 +45,7 @@ class QuestionList extends React.Component {
   
         dataBase = async() => {
             var x = [];
+
             var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(5);
             await query.once("value")
               .then(function(snapshot) {
@@ -49,6 +54,7 @@ class QuestionList extends React.Component {
               });
             });
             this.setState({x: x});
+            console.log("Type:: ", typeof(x))
             // console.log("state question "+this.state.x)
           }
     
