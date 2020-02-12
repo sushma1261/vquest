@@ -11,10 +11,10 @@ class  DropdownComponent extends React.Component {
   render() {
     return (
       <div className="app">
-    <div className="container">
-      <Select options={this.props.options} isMulti = {true} onChange = {this.props.handleChange} />
+    {/* <div className="container"> */}
+      <Select options={this.props.options} isMulti = {this.props.isMulti} onChange = {this.props.handleChange} placeholder = {this.props.placeholder}/>
       
-    </div>
+    {/* </div> */}
   </div>
     )
   }

@@ -10,17 +10,10 @@ class QuestionPage extends React.Component {
         return (
             <div>
                 <Grid>
-                    <Grid.Column width = {1}>
-                    </Grid.Column>
-                    <Grid.Column width={10}>
+                    <Grid.Column width={16}>
                         <h1>Questions</h1>
-                            <QuestionList />
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                        <TagsDashboard />
                         <Button as = {Link} to = "/newQuestion">Add a Question</Button>
-                    </Grid.Column>
-                    <Grid.Column width = {1}>
+                            <QuestionList />
                     </Grid.Column>
                 </Grid>
             </div>

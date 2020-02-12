@@ -9,7 +9,20 @@ const SignedInMenu = ({signOut, username}) => {
                 <Dropdown.Menu>
                     <Dropdown.Item as = {Link} to = "/myQuestions" text = "My Questions" icon = "question circle" />
                     <Dropdown.Item as = {Link} to = "/likedAnswers" text = "Liked Answers" icon = "like" />
-                    <Dropdown.Item as = {Link} text = "My Profile" to = "/myprofile" icon = "user" />
+                    <Dropdown.Item as = {Link} text = "My Profile" to = 
+                    {
+                        {
+                            pathname: "/myProfile/"+localStorage.getItem("regd"),
+                            props: {
+                                user: localStorage.getItem("regd")
+                            }
+                        }
+                    } 
+                    
+                    icon = "user" />
+                    {localStorage.getItem("role") === "admin" &&
+                        <Dropdown.Item as={Link} to="/suggestedTags" text="Suggested Tags" icon = "settings" />
+                    }
                     <Dropdown.Item as = {Link} text = "About Us" to = "/info" icon = "info circle" />
                     <Dropdown.Item text = "Sign Out" onClick = {signOut} icon = "power" />
                 </Dropdown.Menu>

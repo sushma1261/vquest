@@ -3,9 +3,10 @@ import Answer from './Answer.component';
 import firebase from '../../Firebase/firebase';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import Notifications, {notify} from 'react-notify-toast';
 
 
-
+const myColor = { background: '#0E1717', text: "#FFFFFF" };
 // const ans = [
 //     {
 //         number : "1",
@@ -145,12 +146,9 @@ class AnswerList extends React.Component {
     }
 
     removeAnswer = (id) => {
-        // console.log("Delete clicked");
-        // console.log(this.state.answers);
         var arr = this.state.answers;
         var aid = arr[id].id;
         arr.splice(id,1);
-       
         this.setState({answers: arr});      
         this.removeFromDB(this.state.qid,aid);
     }
@@ -169,6 +167,7 @@ class AnswerList extends React.Component {
         });
         console.log(noOfAns);
         await ref.update({noOfAns: noOfAns-1});
+        notify.show("Deleted Answer", "custom", 5000, myColor);
     }
 
 
@@ -177,6 +176,7 @@ class AnswerList extends React.Component {
        // console.log("props"+JSON.stringify(this.state.answers));
         return (
             <div>
+                <Notifications />
                 {/* <Answer key = "1" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" removeAnswer = {this.removeAnswer}/>
                 <Answer key = "2" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments1}/>
                 <Answer key = "3" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>

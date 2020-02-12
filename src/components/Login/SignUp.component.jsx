@@ -1,9 +1,27 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
+import DropdownComponent from '../DropdownComponent';
+
+const tags = [
+    { label: "C", value: 1 },
+    { label: "C++", value: 2 },
+    { label: "DS", value: 3 },
+    { label: "Java", value: 4 },
+    { label: "Python", value: 5 },
+    { label: "React", value: 6 },
+    { label: "Web", value: 7 }
+  ];
+
+  const role = [
+    { label: "faculty", value: 1 },
+    { label: "student", value: 2 },
+  ]
+  
 
 class SignUp extends React.Component {
+    
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -13,14 +31,25 @@ class SignUp extends React.Component {
             password1: '',
             password2: '',
             username: '',
-            role: '',
-            style: {color: "red"}
+            role: 'select role',
+            selectedOption: []
+            // style: {color: "red"}
         };
     }
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
         //console.log(this.state);
     }
+
+    handleChange2 = (selectedOption) => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+      };
+      handleChange3 = (role) => {
+        this.setState({ role });
+        console.log(`Role: `, role);
+      };
     signup(e) {
         if (this.state.password1 === this.state.password2) {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password1).then((u) => {
@@ -37,20 +66,21 @@ class SignUp extends React.Component {
     };
 
     dataBase = async () => {
-        this.signup(this);
-        //console.log("Hello");
-        var query1 = firebase.database().ref("users");
-        query1.push({ username: this.state.username,
-             email: this.state.email, 
-             password: this.state.password1,
-              role: this.state.role,
-              score: 500
-             });
+        console.log(this.state)
+        // this.signup(this);
+        // //console.log("Hello");
+        // var query1 = firebase.database().ref("users");
+        // query1.push({ username: this.state.username,
+        //      email: this.state.email, 
+        //      password: this.state.password1,
+        //       role: this.state.role,
+        //       score: 500
+        //     });
 
     }
 
     fun(e) {
-        this.setState({style: {color: "green"}})
+       
         this.setState({role: e.target.name});
         //console.log(e.target.name)
     }
@@ -98,11 +128,10 @@ class SignUp extends React.Component {
                                 className="form-control"
                                 id="InputPassword2"
                             />
-                             <Button.Group style = {{color: "red"}} onClick={this.fun.bind(this)}>
-                                <Button name = "faculty">Faculty</Button>
-                                <Button.Or />
-                                <Button name = "student">Student</Button>
-                            </Button.Group>
+                            
+                            <DropdownComponent options = {tags} handleChange = {this.handleChange2.bind(this)} placeholder = "Select Tags" isMulti = {true}/><br />
+                            <DropdownComponent options = {role} handleChange = {this.handleChange3.bind(this)} placeholder = "Select Role" isMulti = {false}/><br />
+                            
                             <Button color='teal' fluid size='large'
                                 onClick={this.dataBase.bind(this)}
                                 className="btn btn-primary">

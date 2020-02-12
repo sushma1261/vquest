@@ -8,7 +8,7 @@ import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import NewQuestionPage from './pages/NewQuestionPage';
 import SignUp from './components/Login/SignUp.component';
 import HomePage from './pages/HomePage';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import NewAnswerPage from './pages/NewAnswerPage';
 import MyQuestionsPage from './pages/MyQuestionsPage';
 import LeaderboardPage from './pages/LeaderboardPage';
@@ -19,6 +19,9 @@ import DropdownComponent from './components/DropdownComponent';
 import TagsQuestionPage from './pages/TagsQuestionPage';
 import MyProfile from './pages/MyProfile';
 import InfoPage from './pages/InfoPage';
+import SuggestedTagsPage from './pages/SuggestedTagsPage';
+import Login1 from './components/Login/Login1';
+import TagsDashboard from './components/TagsDashboard/TagsDashboard';
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +33,10 @@ function App() {
             <div className = "App">
               <Title />
               <Navbar />
+              <Grid>
+                <Grid.Column width = {2}>
+                </Grid.Column>
+              <Grid.Column width = {9}>
               <Container className = "main">
                 <Switch>
                   <Route path = '/q' component={QuestionPage}/>
@@ -42,12 +49,17 @@ function App() {
                   <Route path = "/likedAnswers" component = {LikedAnswersPage} />
                   <Route path = "/img" component = {ImageUpload} />
                   <Route path = "/tags/:id" component = {TagsQuestionPage} />
-                  <Route path = "/myProfile" component = {MyProfile} />
+                  <Route path = "/myProfile/:id" component = {MyProfile} />
                   <Route path = "/info" component = {InfoPage} />
-                  
+                  <Route path = "/suggestedTags" component = {SuggestedTagsPage} />
+                  <Route path = "/login1" component = {Login1} />
                 </Switch>
               </Container>
-              
+              </Grid.Column>
+              <Grid.Column width = {4}>
+                  <TagsDashboard />
+              </Grid.Column>
+              </Grid>
             </div>
           )}/>
         </Switch>

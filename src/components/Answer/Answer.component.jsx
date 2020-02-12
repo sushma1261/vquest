@@ -26,8 +26,8 @@ class Answer extends React.Component {
             
         })
         await qry.update({"noOfLikes": l});
-        console.log("clicked");
-        console.log(this.state.username);
+        // console.log("clicked");
+        // console.log(this.state.username);
         var key = "", score = 0;
         var ref2 = firebase.database().ref("users")
         await ref2.orderByChild("username").equalTo(this.props.username).once("value")

@@ -83,16 +83,19 @@ class TagsQuestionPage extends React.Component {
            snapshot.forEach(
             function(childSnapshot) {
                  key = (childSnapshot.key)
-                console.log(childSnapshot.val().questions)
+                //console.log(childSnapshot.val().questions)
+                
                 var d = childSnapshot.val().questions
-                var filtered = d.filter(function (el) {
-                    return el != null;
-                  });
-                console.log(filtered)
-                d.forEach(function(e, idx){
-                    console.log(e, idx, key)
-                    x.push({"questionId": e, "idx": idx });
-                })
+                if(d){
+                  var filtered = d.filter(function (el) {
+                      return el != null;
+                    });
+                  console.log(filtered)
+                  d.forEach(function(e, idx){
+                      console.log(e, idx, key)
+                      x.push({"questionId": e, "idx": idx });
+                  })
+              }
             });
           });
           this.setState({"key": key})

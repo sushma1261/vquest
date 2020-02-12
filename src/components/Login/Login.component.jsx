@@ -47,6 +47,9 @@ class Login extends React.Component {
                     console.log(role);
                     localStorage.setItem("username", uname);
                     localStorage.setItem("role", role);
+                    if(childSnapshot.val().regd) {
+                        localStorage.setItem("regd", childSnapshot.val().regd);
+                    }
                 });
             });
         this.props.history.push('/q');

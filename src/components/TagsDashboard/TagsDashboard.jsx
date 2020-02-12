@@ -1,8 +1,46 @@
 import React from 'react';
 import { Header, Icon, Segment, List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import firebase from '../../Firebase/firebase';
+const ListItem = ({tag}) => {
+    return (
+        <List.Item>
+                <Link to = {
+                    {
+                        pathname: '/tags/' + tag,
+                        props: {
+                            tag: tag
+                        }
+                    }
+                }>
+                    <Icon name="long arrow alternate right" />{tag}
+                </Link>
+        </List.Item>
+    );
+} 
+
 
 class TagsDashboard extends React.Component {
+    state = {
+        tags: []
+    }
+    componentDidMount() {
+        this.getTagsFormDB()
+    }
+
+    getTagsFormDB = async() => {
+        var tags = []
+        var ref = firebase.database().ref("tags").orderByChild("name");
+        await ref.once("value")
+        .then(function(snapshot){
+            snapshot.forEach(function(child){
+                tags.push({"name":child.val().name})
+            })
+            
+        })
+        console.log(tags)
+        this.setState({tags});
+    }
     render() {
         return (
             <Segment.Group>
@@ -11,30 +49,9 @@ class TagsDashboard extends React.Component {
                 </Segment>
                 <Segment>
                     <List>
-                        <List.Item>
-                            <span><Link to = {
-                                {
-                                    pathname: '/tags/' + 'C',
-                                    props: {
-                                        tag: 'C'
-                                    }
-                                }
-                            }>C
-                            </Link></span>
-                        </List.Item>
-                        <List.Item>
-                            <span><Link to = {
-                                {
-                                    pathname: '/tags/' + 'C++',
-                                    props: {
-                                        tag: 'C++'
-                                    }
-                                }
-                            }>C++
-                            </Link></span>
-                        </List.Item>
-                        <List.Item><Icon name="long arrow alternate right" />Java</List.Item>
-                        <List.Item><Icon name="long arrow alternate right" />ML</List.Item>
+                        {this.state.tags.map(({name}, idx) => 
+                                <ListItem tag = {name} key = {idx}/>
+                        )}
                     </List>
 
                 </Segment>

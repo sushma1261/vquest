@@ -4,15 +4,6 @@ import firebase from '../../Firebase/firebase';
 import { withRouter } from 'react-router-dom';
 import DropdownComponent from '../DropdownComponent';
 
-const tags = [
-    { label: "C", value: 1 },
-    { label: "C++", value: 2 },
-    { label: "DS", value: 3 },
-    { label: "Java", value: 4 },
-    { label: "Python", value: 5 },
-    { label: "React", value: 6 },
-    { label: "Web", value: 7 }
-  ];
   
 
 class NewQuestion extends React.Component {
@@ -24,11 +15,16 @@ class NewQuestion extends React.Component {
           question: '',
           tags: '',
           k: "",
+          otherTags: '',
           username: localStorage.getItem("username"),
-          selectedOption: []
+          selectedOption: [],
+          tagsFromDB: []
         };
       }
 
+      componentDidMount() {
+          this.getTagsFormDB()
+      }
       handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
         console.log(this.state);
@@ -54,12 +50,16 @@ class NewQuestion extends React.Component {
             var q = firebase.database().ref("questions");
             var k = q.push(data).key;
             await q.child(k).update({"id": k, "postedOn": firebase.database.ServerValue.TIMESTAMP});
+            
+            console.log(k)
+
+            var ref = firebase.database().ref("suggestedTags");
+            await ref.push({"question": this.state.question, "name": this.state.otherTags})
             this.setState({
                 question: '',
                 tags: '',
                 k : k
             });
-            console.log(k)
             x.forEach(async function (tag) {
                 console.log("k,ele",k,tag)
                 var key = ""
@@ -90,6 +90,22 @@ class NewQuestion extends React.Component {
         }
     }
 
+    getTagsFormDB = async() => {
+        var tagsFromDB = []
+        var ref = firebase.database().ref("tags").orderByChild("name");
+        await ref.once("value")
+        .then(function(snapshot){
+            var c = 0;
+            snapshot.forEach(function(child){
+                tagsFromDB.push({"label":child.val().name, "value": c})
+                c = c + 1
+            })
+            
+        })
+        // console.log(tagsFromDB)
+        this.setState({tagsFromDB});
+    }
+
     render() {
         return (
             <div>
@@ -99,11 +115,17 @@ class NewQuestion extends React.Component {
                         value={this.state.question} onChange={this.handleChange}
                         type="text" name="question" className="form-control" id="InputEmail"
                         />
-                <DropdownComponent options = {tags} handleChange = {this.handleChange2.bind(this)}/>
+                <DropdownComponent options = {this.state.tagsFromDB} handleChange = {this.handleChange2.bind(this)} isMulti={true} placeholder = "Select tags"/>
+                <br />
+                <Form.Input fluid placeholder='Other tags'
+                        value={this.state.otherTags} onChange={this.handleChange}
+                        type="text" name="otherTags" className="form-control" id="OtherTags"
+                />
                 <Button onClick = {this.addToFB.bind(this)} primary>Submit</Button>
                 </Form>
             </div>
         );
     }
 }
+
 export default withRouter(NewQuestion);

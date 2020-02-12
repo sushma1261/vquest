@@ -1,7 +1,6 @@
 import React from 'react';
 import LikedAnswer from './LikedAnswer.component';
 import { Header } from 'semantic-ui-react';
-
 class LikedAnswersList extends React.Component {
     render() {
         return(

@@ -83,7 +83,7 @@ class AnswerPage extends Component {
                             Add a new answer
                         </Link>
                     </Button>
-                    <TagsDashboard />
+                    
                     </Grid.Column>
                     <Grid.Column width={1}>
                     </Grid.Column>

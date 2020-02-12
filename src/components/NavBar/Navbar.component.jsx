@@ -46,6 +46,9 @@ class Navbar extends React.Component {
                     <Menu.Item as={NavLink} to="/q" className="topic" name="Home" style={style} />
                     <Menu.Item as={NavLink} to="/leaderboard" className="topic" name="Leaderboard" style={style} />
                     <Menu.Item as={SearchBar} />
+                    
+                    
+
                     <Menu.Menu position = "right">
                         <Menu.Item >
                             {this.state.authenticated &&

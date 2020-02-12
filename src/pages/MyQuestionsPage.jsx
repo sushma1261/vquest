@@ -8,16 +8,9 @@ class MyQuestionsPage extends Component {
         return (
             <div>
                  <Grid>
-                    <Grid.Column width = {1}>
-                    </Grid.Column>
-                    <Grid.Column width={10}>
+                    <Grid.Column>
                         <h1>My Questions</h1>
                             <MyQuestionList />
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                        <TagsDashboard />
-                    </Grid.Column>
-                    <Grid.Column width = {1}>
                     </Grid.Column>
                 </Grid>
             </div>
