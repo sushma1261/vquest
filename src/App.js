@@ -29,6 +29,8 @@ function App() {
           <Route exact path = "/" component = {HomePage} />
           <Route exact path = "/signup" component = {SignUp} />
           <Route path = "/adminLogin" component = {AdminPage} />
+          <Route path = "/myProfile/:id" component = {MyProfile} />
+          <Route path = "/info" component = {InfoPage} />
           <Route path = "/(.+)" render = {() => (
             <div className = "App">
               <Title />
@@ -49,8 +51,6 @@ function App() {
                   <Route path = "/likedAnswers" component = {LikedAnswersPage} />
                   <Route path = "/img" component = {ImageUpload} />
                   <Route path = "/tags/:id" component = {TagsQuestionPage} />
-                  <Route path = "/myProfile/:id" component = {MyProfile} />
-                  <Route path = "/info" component = {InfoPage} />
                   <Route path = "/suggestedTags" component = {SuggestedTagsPage} />
                   <Route path = "/login1" component = {Login1} />
                 </Switch>

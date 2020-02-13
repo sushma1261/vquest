@@ -9,7 +9,8 @@ import HomePage from '../../pages/HomePage';
 class Navbar extends React.Component {
     state = {
         username: localStorage.getItem("username"),
-        authenticated: false
+        authenticated: false,
+        picUrl: "",
     }
     handleSignOut = async() => {
         var f = false;
@@ -24,11 +25,23 @@ class Navbar extends React.Component {
         });
         if(f) {
             this.props.history.push('/');
-        }
-        
+        }   
+    }
+
+    getUserDetails = async() => {
+        var picUrl = ""
+        await firebase.database().ref("users").orderByChild("regd").equalTo(localStorage.getItem("regd")).once("value")
+        .then(function(snapshot) {
+            snapshot.forEach(function(c){
+                picUrl = c.val().picURL;
+                console.log("url", picUrl);
+            })
+        })
+        this.setState({picUrl});
     }
 
     componentDidMount() {
+        this.getUserDetails()
         if(this.state.username !== "") {
             this.setState({authenticated: true});
         }
@@ -52,7 +65,7 @@ class Navbar extends React.Component {
                     <Menu.Menu position = "right">
                         <Menu.Item >
                             {this.state.authenticated &&
-                            <SignedInMenu signOut = {this.handleSignOut} username = {this.state.username}/>
+                            <SignedInMenu signOut = {this.handleSignOut} username = {this.state.username} picUrl = {this.state.picUrl}/>
                             }
                         </Menu.Item>
                     </Menu.Menu>

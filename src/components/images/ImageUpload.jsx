@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import firebase from '../../Firebase/firebase';
+import { Input, Button } from 'semantic-ui-react';
 
 class ImageUpload extends Component {
   constructor(props) {
@@ -17,17 +18,23 @@ class ImageUpload extends Component {
   handleChange = e => {
     if (e.target.files[0]) {
       const image = e.target.files[0];
+      console.log(e.target.files[0])
+      console.log(e.target.files[0].name)
       this.setState(() => ({image}));
     }
   }
-  handleUpload = () => {
+  handleUpload = async() => {
     var storageRef = firebase.storage().ref();
-    
     var file = this.state.image;
-    var imgRef = storageRef.child(file.name);
-    imgRef.put(file).then(function(snapshot) {
+    console.log(file.name)
+    var imgRef = storageRef.child("regd");
+    await imgRef.put(file).then(function(snapshot) {
         console.log('Uploaded a blob or file!', snapshot);
     });
+    firebase.storage().ref('regd').getDownloadURL().then(url => {
+              console.log(url);
+          })
+    
   }
 
 
@@ -41,10 +48,14 @@ class ImageUpload extends Component {
     };
     return (
       <div style={style}>
-      <progress value={this.state.progress} max="100"/>
+        <img width = "100" height = "100" src = {this.state.image}/> 
       <br/>
-        <input type="file" onChange={this.handleChange}/>
-        <button onClick={this.handleUpload}>Upload</button>
+        <Input type="file" onChange={this.handleChange} />
+        <Button onClick={this.handleUpload}
+          content="Choose File"
+          labelPosition="left"
+          icon="file"
+        />
         <br/>
       </div>
     )
@@ -72,4 +83,4 @@ export default ImageUpload;
     //         console.log(url);
     //         this.setState({url});
     //     })
-    // });
+    // });"https://firebasestorage.googleapis.com/v0/b/vquest-it12b.appspot.com/o/regd?alt=media&token=5553ae8d-9d22-4d06-be39-357ba26b8bf7"

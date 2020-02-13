@@ -111,9 +111,8 @@ class TagsQuestionPage extends React.Component {
         return (
             <Grid>
                 <Notifications />
-                    <Grid.Column width = {1}>
-                    </Grid.Column>
-                    <Grid.Column width={10}>
+                    
+                    <Grid.Column width = {16}>
                         Tags Question
                         {this.state.data.map((a,idx) => 
                             <Question question = {a.data.question} username = {a.data.user} tags = {a.data.tags} answers = {a.data.noOfAns} key = {idx} id = {a.data.id} fun1 = {() => {
@@ -124,11 +123,7 @@ class TagsQuestionPage extends React.Component {
                             } />
                         )}
                     </Grid.Column>
-                    <Grid.Column width={4}>
-                        <TagsDashboard />
-                    </Grid.Column>
-                    <Grid.Column width = {1}>
-                    </Grid.Column>
+                    
                 </Grid>
             
         )

@@ -53,9 +53,7 @@ class AnswerPage extends Component {
         return (
             <div>
                 <Grid>
-                    <Grid.Column width={1}>
-                    </Grid.Column>
-                    <Grid.Column width={10}>
+                    <Grid.Column>
                         <Grid>
                             <Grid.Column width={1}>
                                 <Image size="mini" circular src="https://randomuser.me/api/portraits/women/24.jpg" />
@@ -70,10 +68,7 @@ class AnswerPage extends Component {
                             </Grid.Column>
                             <Header as="h1" style={{ fontSize: "35px", paddingBottom: "20px" }}>Answers</Header>
                         </Grid>
-                        <AnswerList qid = {this.state.questionDetails.qid}/>
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                    <Button color = "violet"> 
+                        <Button color = "violet"> 
                         <Link to = {
                                     {
                                         pathname: '/newAnswer/' + this.state.qid,
@@ -83,10 +78,9 @@ class AnswerPage extends Component {
                             Add a new answer
                         </Link>
                     </Button>
+                        <AnswerList qid = {this.state.questionDetails.qid}/>
+                    </Grid.Column>
                     
-                    </Grid.Column>
-                    <Grid.Column width={1}>
-                    </Grid.Column>
                 </Grid>
             </div>
         );

@@ -139,7 +139,7 @@ class Answer extends React.Component {
         <span>{this.props.username}</span>
                             </Grid.Column>
                             <Grid.Column width = {12}>
-                                <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px"}}>{this.props.answer}</p>
+                                <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px", whiteSpace : "pre"}}>{this.props.answer}</p>
                             </Grid.Column>
                             <Grid.Column width = {2}>
                             {
@@ -196,7 +196,7 @@ class Answer extends React.Component {
                         {
                             this.state.showComment && 
                             <div>
-                                <CommentList comments = {this.state.comments}/>
+                                <CommentList comments = {this.state.comments} answerId = {this.props.answerKey}/>
                             </div>
                             
                         }

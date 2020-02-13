@@ -4,15 +4,6 @@ import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
 import DropdownComponent from '../DropdownComponent';
 
-const tags = [
-    { label: "C", value: 1 },
-    { label: "C++", value: 2 },
-    { label: "DS", value: 3 },
-    { label: "Java", value: 4 },
-    { label: "Python", value: 5 },
-    { label: "React", value: 6 },
-    { label: "Web", value: 7 }
-  ];
 
   const role = [
     { label: "faculty", value: 1 },
@@ -36,6 +27,11 @@ class SignUp extends React.Component {
             // style: {color: "red"}
         };
     }
+
+    componentDidMount() {
+        this.getTagsFormDB()
+    }
+
 
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -65,9 +61,25 @@ class SignUp extends React.Component {
             alert("Passwords do not match");
     };
 
+    getTagsFormDB = async() => {
+        var tagsFromDB = []
+        var ref = firebase.database().ref("tags").orderByChild("name");
+        await ref.once("value")
+        .then(function(snapshot){
+            var c = 0;
+            snapshot.forEach(function(child){
+                tagsFromDB.push({"label":child.val().name, "value": c})
+                c = c + 1
+            })
+            
+        })
+        // console.log(tagsFromDB)
+        this.setState({tagsFromDB});
+    }
+
     dataBase = async () => {
         console.log(this.state)
-        // this.signup(this);
+        this.signup(this);
         // //console.log("Hello");
         // var query1 = firebase.database().ref("users");
         // query1.push({ username: this.state.username,
@@ -129,7 +141,7 @@ class SignUp extends React.Component {
                                 id="InputPassword2"
                             />
                             
-                            <DropdownComponent options = {tags} handleChange = {this.handleChange2.bind(this)} placeholder = "Select Tags" isMulti = {true}/><br />
+                            <DropdownComponent options = {this.state.tagsFromDB} handleChange = {this.handleChange2.bind(this)} placeholder = "Select expertise tags" isMulti = {true}/><br />
                             <DropdownComponent options = {role} handleChange = {this.handleChange3.bind(this)} placeholder = "Select Role" isMulti = {false}/><br />
                             
                             <Button color='teal' fluid size='large'

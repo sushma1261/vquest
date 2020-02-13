@@ -12,8 +12,6 @@ import firebase from '../Firebase/firebase';
 
 
 class LeaderboardPage extends React.Component {
-
-    
     state = {
         scores: []
     }
@@ -53,7 +51,7 @@ class LeaderboardPage extends React.Component {
                 </Header>
                 <br />
                 <br />
-                <div style = {{color: "black", position: "absolute", backgroundColor: "white", left: "22%" }}>
+                <div style = {{color: "black", position: "absolute", backgroundColor: "white" }}>
                     <div style = {{color: "white", backgroundColor: "black"}}>
                         <LeaderBoardRow rank = "Rank" username = "Username" score = "Score" regd = "Regd" />
                     </div>

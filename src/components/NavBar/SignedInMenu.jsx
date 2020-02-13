@@ -1,10 +1,11 @@
 import React from 'react';
 import {Dropdown, Menu, Image} from 'semantic-ui-react';
 import Link from 'react-router-dom/Link';
-const SignedInMenu = ({signOut, username}) => {
+
+const SignedInMenu = ({signOut, username, picUrl}) => {
     return (
         <Menu.Item position = "right">
-            <Image avatar spaced = "right" />
+            <Image avatar spaced = "right" src = {picUrl}  />
             <Dropdown pointing = "top left" text = {username} style = {{color: 'white'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item as = {Link} to = "/myQuestions" text = "My Questions" icon = "question circle" />
