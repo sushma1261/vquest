@@ -16,7 +16,7 @@ class NewQuestion extends React.Component {
           tags: '',
           k: "",
           otherTags: '',
-          username: localStorage.getItem("username"),
+          username: localStorage.getItem("regd"),
           selectedOption: [],
           tagsFromDB: []
         };
@@ -51,10 +51,11 @@ class NewQuestion extends React.Component {
             var k = q.push(data).key;
             await q.child(k).update({"id": k, "postedOn": firebase.database.ServerValue.TIMESTAMP});
             
-            console.log(k)
-
-            var ref = firebase.database().ref("suggestedTags");
-            await ref.push({"question": this.state.question, "name": this.state.otherTags})
+            console.log(this.state.otherTags)
+            if(this.state.otherTags !== '') {
+                var ref = firebase.database().ref("suggestedTags");
+                await ref.push({"question": this.state.question, "name": this.state.otherTags})
+            }
             this.setState({
                 question: '',
                 tags: '',

@@ -7,37 +7,6 @@ import Notifications, {notify} from 'react-notify-toast';
 
 
 const myColor = { background: '#0E1717', text: "#FFFFFF" };
-// const ans = [
-//     {
-//         number : "1",
-//         username: "Sushma" ,
-//         answer: "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus" ,
-//         imageurl: "https://randomuser.me/api/portraits/women/24.jpg",
-//         likes: "4",
-//     },
-//     {
-//         number : "2",
-//         username: "Preethi" ,
-//         answer: "jhsdjfhii ihisf ie fyewg bfuewgf hjwerb fuwheurf bhgrfuywe uwegf f uge fubeuhfewgugeuyfgu efg uhegfduh f" ,
-//         imageurl: "https://randomuser.me/api/portraits/women/29.jpg",
-//         likes: "3"
-//     }
-// ]
-
-// const comments1 = [
-//     { username: "Sushma",  comment: "Nice Answer!!!!"},
-//     { username: "Naveena", comment: "Nice Answer!!!"},
-//     { username: "Ramya", comment: "Nice Answer!"},
-//     { username: "Sushma", comment: "Nice Answer!!" },
-//     { username: "Naveena", comment: "Nice Answer!!!!!!"}
-// ];
-
-// const comments2 = [
-//     { username: "Sushma",  comment: "Nice Answer!!!!"},
-//     { username: "Naveena", comment: "Nice Answer!!!"},
-//     { username: "Preethi", comment: "Can you explain more elaborativelywjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiuwjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu"},
-//     { username: "Ramya", comment: "Nice Answer!"},
-// ]
 
 class AnswerList extends React.Component {
 
@@ -51,8 +20,7 @@ class AnswerList extends React.Component {
     state = {
         qid : this.props.qid,
         //comments: comments,
-        answers: [], 
-        answers1: [],
+        answers: [],
         flag: false,
         answerKey: "",
         
@@ -85,7 +53,6 @@ class AnswerList extends React.Component {
         var query1 = firebase.database().ref("answers").child(this.state.qid).orderByChild("postedOn").limitToLast(1)
         await query1.once("value")
             .then(function (snapshot) {
-               // console.log("Child Snap::::")
                 console.log(snapshot.val())
                 snapshot.forEach(function (childSnapshot) {
                     answerKey = childSnapshot.key
@@ -93,14 +60,13 @@ class AnswerList extends React.Component {
                                 var x = childSnapshot.val().likedBy;
                                 for (var key in x) {
                                     if (x.hasOwnProperty(key)) {           
-                                        if(x[key]["user"] === localStorage.getItem("username")) {
+                                        if(x[key]["user"] === localStorage.getItem("regd")) {
                                             flag = true;
                                         }
                                     }
                                 }
                             }
                     d1 = childSnapshot.val();
-
                     d1.flag = flag;
                     flag = false;
                 });
@@ -110,17 +76,15 @@ class AnswerList extends React.Component {
         await query.once("value")
             .then(function (snapshot) {
                 console.log("Child Snap::::")
-               // console.log(snapshot.val())
                 snapshot.forEach(function (childSnapshot) {
                     if(childSnapshot.val().id !== d1.id) {
                         answerKey = childSnapshot.key
-                        // console.log("Child Snap::::")
                         console.log(childSnapshot.val().noOfLikes);
                         if(childSnapshot.val().likedBy) {
                                     var x = childSnapshot.val().likedBy;
                                     for (var key in x) {
                                         if (x.hasOwnProperty(key)) {           
-                                            if(x[key]["user"] === localStorage.getItem("username")) {
+                                            if(x[key]["user"] === localStorage.getItem("regd")) {
                                                 flag = true;
                                             }
                                         }
@@ -140,9 +104,11 @@ class AnswerList extends React.Component {
     }
 
     reverseArray() {
-        console.log(typeof(this.state.answers))
-        var r = this.state.answers.reverse()
-        console.log(r)
+        // console.log(typeof(this.state.answers))
+        if(this.state.answers !== []) {
+            var r = this.state.answers.reverse()
+            console.log(r)
+        }
     }
 
     removeAnswer = (id) => {
@@ -192,16 +158,6 @@ class AnswerList extends React.Component {
                     }
                     />
                 ))}   
-                {/* {
-                    ans.map((a, idx) => (
-                        <Answer key = {a.number} id = {a.number} username = {a.username} answer = {a.answer} likes = {a.likes} flag = {false} fun1 = {() => {
-                            console.log("Clicked");
-                            console.log(idx);
-                            this.submit(idx);
-                          }
-                        } />
-                    ))
-                } */}
             </div>
         );
     }

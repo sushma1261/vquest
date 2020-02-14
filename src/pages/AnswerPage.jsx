@@ -39,10 +39,23 @@ class AnswerPage extends Component {
                 });
             });
         this.setState({ questionDetails: q });
+        this.getUserImage()
         //console.log("q", this.state.questionDetails);
     }
 
-    
+    getUserImage = async() => {
+        var username = this.props.username
+        var picUrl = "";
+        await firebase.database().ref("users").orderByChild("regd").equalTo(this.state.questionDetails.user).once("value")
+        .then(function(snapshot) {
+            snapshot.forEach(function(c){
+                picUrl = c.val().picURL;
+                console.log(username, picUrl);
+            })
+        })
+        this.setState({url: picUrl})
+    }
+
 
     render() {
         console.log("Answer Page props");
@@ -56,19 +69,16 @@ class AnswerPage extends Component {
                     <Grid.Column>
                         <Grid>
                             <Grid.Column width={1}>
-                                <Image size="mini" circular src="https://randomuser.me/api/portraits/women/24.jpg" />
+                            <img src = {this.state.url} width = "70" height = "70" style ={{borderRadius: "50%"}}/>
                                 <span>{this.state.questionDetails.user}</span>
                             </Grid.Column>
-                            <Grid.Column width={12} style={{ fontSize: "25px" }}>
+                            <Grid.Column width={11} style={{ fontSize: "25px" }}>
                                 {this.state.questionDetails.question}
                             </Grid.Column>
-                            <Grid.Column width={3}>
+                            <Grid.Column width={4}>
                                 Tags: {this.state.tags}<br />
                                 {this.state.questionDetails.noOfAns} answers
-                            </Grid.Column>
-                            <Header as="h1" style={{ fontSize: "35px", paddingBottom: "20px" }}>Answers</Header>
-                        </Grid>
-                        <Button color = "violet"> 
+                                <Button color = "violet"> 
                         <Link to = {
                                     {
                                         pathname: '/newAnswer/' + this.state.qid,
@@ -78,6 +88,11 @@ class AnswerPage extends Component {
                             Add a new answer
                         </Link>
                     </Button>
+                            </Grid.Column>
+                            
+                            <Header as="h1" style={{ fontSize: "35px", paddingBottom: "20px" }}>Answers</Header>
+                        </Grid>
+                        
                         <AnswerList qid = {this.state.questionDetails.qid}/>
                     </Grid.Column>
                     

@@ -2,28 +2,43 @@ import React from 'react';
 import {Segment, Grid, Image, Button} from 'semantic-ui-react';
 import './Question.component.scss';
 import { Link } from 'react-router-dom';
+import firebase from '../../Firebase/firebase';
 class Question extends React.Component {
-
+    state = {
+        url: "",
+    }
     componentDidMount() {
-        
+        this.getUserImage()
         if(localStorage.getItem("role") === "admin") {
             this.setState({admin: true});
         }
-        
+    }
 
+    getUserImage = async() => {
+        var username = this.props.username
+        var picUrl = "";
+        await firebase.database().ref("users").orderByChild("regd").equalTo(username).once("value")
+        .then(function(snapshot) {
+            snapshot.forEach(function(c){
+                picUrl = c.val().picURL;
+                console.log(username, picUrl);
+            })
+        })
+        this.setState({url: picUrl})
     }
 
     state = {
         username : this.props.username,
         admin : false
     }
+
     render() {
         return (
                 <Segment.Group style={{backgroundColor: "black"}} >
                     <Segment padded style={{backgroundColor: "#b5e6e1"}}>
                         <Grid>
                             <Grid.Column width = {2}>
-                            <Image size = "mini"  circular src = {this.props.imageurl}/>
+                            <img src = {this.state.url} width = "60" height = "60" style ={{borderRadius: "50%"}}/>
         <span><Link to = {"/profileDetails/"+this.props.username}>{this.props.username}</Link></span>
                             </Grid.Column>
                             <Grid.Column width = {12} style = {{color: "black"}}>

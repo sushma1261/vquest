@@ -38,19 +38,19 @@ class QuestionList extends React.Component {
     componentDidMount() {
         this.dataBase();
       }
-    
   
         dataBase = async() => {
             var x = [];
-            var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(5);
+            var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(3);
             await query.once("value")
               .then(function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
+                 snapshot.forEach(function(childSnapshot) {
                   x.push(childSnapshot.val());
               });
             });
             this.setState({x: x});
-            console.log("Type:: ", typeof(x))
+           // this.getUserImage(x);
+            // console.log("Type:: ", typeof(x))
             // console.log("state question "+this.state.x)
           }
     
@@ -100,17 +100,6 @@ class QuestionList extends React.Component {
 
             <div>
               <Notifications />
-                {/* {this.state.ques.map( ({question}, idx) => 
-                    <Question question = {question} fun1 = {() => {
-                     // console.log("Clicked");
-                      // console.log(idx);
-                      this.submit(idx);
-                      //this.removeQuestion(idx)
-                    }
-                    }
-                   />
-                )};
-                 */}
                 {this.state.x.reverse().map(({question, user, tags, noOfAns, id}, idx) => 
                     <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} fun1 = {() => {
                       console.log("Clicked");
@@ -128,26 +117,4 @@ class QuestionList extends React.Component {
 }
 
 export default QuestionList;
-
-
-// addData = async() => {
-    //     // console.log("Push Data");
-    //     var x = {username: "Sushma", question: "New Question", id: 0}
-    //     var q = firebase.database().ref("questions");
-    //     var k = q.push(x).key;
-    //     q.child(k).update({"id": k});
-    //     // console.log("key", k);
-    //     // var qq = q.push(x.set(key, q.key);
-    //     // var t = q.key;
-    //     // console.log(t);
-    // }
-
-      //   addData = async() => {
-    //     // console.log("Push Data");
-    //     var x = {username: "Sushma", question: "New Question", id: 0}
-    //     var q = firebase.database().ref("answers").child("q1").set(x);
-    //     // console.log("key", k);
-    //     // var qq = q.push(x.set(key, q.key);
-    //     // var t = q.key;
-    //     // console.log(t);
-    // }
+    

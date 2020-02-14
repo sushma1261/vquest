@@ -22,6 +22,7 @@ import InfoPage from './pages/InfoPage';
 import SuggestedTagsPage from './pages/SuggestedTagsPage';
 import Login1 from './components/Login/Login1';
 import TagsDashboard from './components/TagsDashboard/TagsDashboard';
+import NotificationsPage from './pages/NotificationPage';
 function App() {
   return (
     <BrowserRouter>
@@ -53,6 +54,7 @@ function App() {
                   <Route path = "/tags/:id" component = {TagsQuestionPage} />
                   <Route path = "/suggestedTags" component = {SuggestedTagsPage} />
                   <Route path = "/login1" component = {Login1} />
+                  <Route path = "/notifications" component = {NotificationsPage} />
                 </Switch>
               </Container>
               </Grid.Column>

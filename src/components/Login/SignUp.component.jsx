@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Message, Segment, Label } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment, Input } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
 import DropdownComponent from '../DropdownComponent';
@@ -22,9 +22,9 @@ class SignUp extends React.Component {
             password1: '',
             password2: '',
             username: '',
+            regd: '',
             role: 'select role',
             selectedOption: []
-            // style: {color: "red"}
         };
     }
 
@@ -32,6 +32,31 @@ class SignUp extends React.Component {
         this.getTagsFormDB()
     }
 
+    handleImageChange = e => {
+        if (e.target.files[0]) {
+          const image = e.target.files[0];
+          console.log(e.target.files[0])
+          console.log(e.target.files[0].name)
+          this.setState(() => ({image}));
+        }
+      }
+      handleUpload = async() => {
+        var storageRef = firebase.storage().ref();
+        var file = this.state.image;
+        console.log(file.name)
+        console.log(this.state.regd)
+        var imgRef = storageRef.child(this.state.regd);
+        await imgRef.put(file).then(function(snapshot) {
+            console.log('Uploaded a blob or file!', snapshot);
+        });
+        var link = ""
+        await firebase.storage().ref(this.state.regd).getDownloadURL().then(url => {
+                  console.log(url);
+                  link = url;
+              })
+        await firebase.database().ref("users").child(this.state.regd).update({picURL: link})
+        
+      }
 
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -49,11 +74,9 @@ class SignUp extends React.Component {
     signup(e) {
         if (this.state.password1 === this.state.password2) {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password1).then((u) => {
-                // console.log(this.props.history);
                 this.props.history.push("/");
 
             }).catch((error) => {
-                // console.log(error.message);
                 alert(error.message);
             })
         }
@@ -79,15 +102,10 @@ class SignUp extends React.Component {
 
     dataBase = async () => {
         console.log(this.state)
+        this.handleUpload();
         this.signup(this);
-        // //console.log("Hello");
-        // var query1 = firebase.database().ref("users");
-        // query1.push({ username: this.state.username,
-        //      email: this.state.email, 
-        //      password: this.state.password1,
-        //       role: this.state.role,
-        //       score: 500
-        //     });
+        var data = {"regd": this.state.regd, "username": this.state.username, "email": this.state.email, "role": this.state.role["label"], "password": this.state.password1, "score": 500}
+        await firebase.database().ref("users").child(this.state.regd).set(data);
 
     }
 
@@ -111,6 +129,9 @@ class SignUp extends React.Component {
                                 value={this.state.username} onChange={this.handleChange}
                                 type="name" name="username" className="form-control" id="InputUsername" />
 
+                            <Form.Input fluid icon='user' iconPosition='left' placeholder='Registration Number'
+                                value={this.state.regd} onChange={this.handleChange}
+                                type="name" name="regd" className="form-control" id="regd" />
 
                             <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail'
                                 value={this.state.email} onChange={this.handleChange}
@@ -143,12 +164,13 @@ class SignUp extends React.Component {
                             
                             <DropdownComponent options = {this.state.tagsFromDB} handleChange = {this.handleChange2.bind(this)} placeholder = "Select expertise tags" isMulti = {true}/><br />
                             <DropdownComponent options = {role} handleChange = {this.handleChange3.bind(this)} placeholder = "Select Role" isMulti = {false}/><br />
-                            
+                            <Input type="file" onChange={this.handleImageChange} />
                             <Button color='teal' fluid size='large'
                                 onClick={this.dataBase.bind(this)}
                                 className="btn btn-primary">
                                 Sign Up
                         </Button>
+                        
                         </Segment>
                     </Form>
                     <Message>

@@ -9,7 +9,7 @@ const SignedInMenu = ({signOut, username, picUrl}) => {
             <Dropdown pointing = "top left" text = {username} style = {{color: 'white'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item as = {Link} to = "/myQuestions" text = "My Questions" icon = "question circle" />
-                    <Dropdown.Item as = {Link} to = "/likedAnswers" text = "Liked Answers" icon = "like" />
+                    <Dropdown.Item as = {Link} to = "/notifications" text = "Notifications" icon = "bell" />
                     <Dropdown.Item as = {Link} text = "My Profile" to = 
                     {
                         {

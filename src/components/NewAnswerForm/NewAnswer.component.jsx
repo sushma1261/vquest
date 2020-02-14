@@ -11,7 +11,7 @@ class NewAnswer extends React.Component {
         this.state = {
           answer: '',
           qid: this.props.qid,
-          username: localStorage.getItem("username"),
+          username: localStorage.getItem("regd"),
           question: '',
         };
 
@@ -50,7 +50,7 @@ class NewAnswer extends React.Component {
    updateScore = async() => {
     var key = "", score = 0;
     var ref2 = firebase.database().ref("users")
-    await ref2.orderByChild("username").equalTo(this.state.username).once("value")
+    await ref2.orderByChild("regd").equalTo(this.state.username).once("value")
     .then(function (snapshot) {
         snapshot.forEach(function(f){
             key = f.key;

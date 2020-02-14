@@ -9,11 +9,25 @@ class Answer extends React.Component {
             likes : this.props.likes,
             flag : this.props.flag,
             answerKey: this.props.answerKey,
-            username: localStorage.getItem("username"),
+            username: localStorage.getItem("regd"),
             comment: "", 
             comments: [],
-            showComment: false
+            showComment: false,
+            url : ""
         }
+    }
+
+    getUserImage = async() => {
+        var username = this.props.username
+        var picUrl = "";
+        await firebase.database().ref("users").orderByChild("regd").equalTo(username).once("value")
+        .then(function(snapshot) {
+            snapshot.forEach(function(c){
+                picUrl = c.val().picURL;
+                console.log(username, picUrl);
+            })
+        })
+        this.setState({url: picUrl})
     }
 
     handleLikes = async() => {
@@ -30,11 +44,12 @@ class Answer extends React.Component {
         // console.log(this.state.username);
         var key = "", score = 0;
         var ref2 = firebase.database().ref("users")
-        await ref2.orderByChild("username").equalTo(this.props.username).once("value")
+        await ref2.orderByChild("regd").equalTo(this.props.username).once("value")
         .then(function (snapshot) {
             snapshot.forEach(function(f){
                 key = f.key;
                  score = f.val().score;
+                 console.log(score)
             })
         })
         console.log(key, score)
@@ -126,6 +141,10 @@ class Answer extends React.Component {
 
     }
 
+    componentDidMount() {
+        this.getUserImage()
+        // console.log(this.props)
+    }
 
     render() {
         return (
@@ -135,11 +154,11 @@ class Answer extends React.Component {
                         <Grid>
                             {/* {this.props.number} */}
                             <Grid.Column width = {2}>
-                            <Image size = "mini"  circular src = {this.props.imageurl}/>
+                            <img src = {this.state.url} width = "60" height = "60" style ={{borderRadius: "50%"}}/>
         <span>{this.props.username}</span>
                             </Grid.Column>
                             <Grid.Column width = {12}>
-                                <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px", whiteSpace : "pre"}}>{this.props.answer}</p>
+                                <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px", whiteSpace : "pre-line"}}>{this.props.answer}</p>
                             </Grid.Column>
                             <Grid.Column width = {2}>
                             {
