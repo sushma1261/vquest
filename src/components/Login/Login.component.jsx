@@ -50,6 +50,9 @@ class Login extends React.Component {
                     if(childSnapshot.val().regd) {
                         localStorage.setItem("regd", childSnapshot.val().regd);
                     }
+                    else {
+                        localStorage.setItem("regd", uname);
+                    }
                 });
             });
         this.props.history.push('/q');

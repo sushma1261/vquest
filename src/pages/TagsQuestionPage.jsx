@@ -1,7 +1,6 @@
 import React from 'react';
 import firebase from '../Firebase/firebase';
-import TagsDashboard from '../components/TagsDashboard/TagsDashboard';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import Question from '../components/Question/Question.component';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -111,9 +110,8 @@ class TagsQuestionPage extends React.Component {
         return (
             <Grid>
                 <Notifications />
-                    
                     <Grid.Column width = {16}>
-                        Tags Question
+                        <Header as = "h2">Questions on {this.props.match.params.id}</Header>
                         {this.state.data.map((a,idx) => 
                             <Question question = {a.data.question} username = {a.data.user} tags = {a.data.tags} answers = {a.data.noOfAns} key = {idx} id = {a.data.id} fun1 = {() => {
                                 console.log("Clicked");
@@ -123,7 +121,6 @@ class TagsQuestionPage extends React.Component {
                             } />
                         )}
                     </Grid.Column>
-                    
                 </Grid>
             
         )

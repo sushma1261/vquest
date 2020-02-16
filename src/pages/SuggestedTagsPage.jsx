@@ -5,7 +5,7 @@ import firebase from '../Firebase/firebase';
 class SuggestedTagsPage extends React.Component {
 
     componentDidMount() {
-        //this.getSuggestedTagsData()
+        this.getSuggestedTagsData()
     }
 
     state = {

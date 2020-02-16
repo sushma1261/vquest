@@ -1,5 +1,6 @@
 import React from 'react';
-import { Header, Grid, Segment, Button } from 'semantic-ui-react';
+import { Header, Grid, Button } from 'semantic-ui-react';
+import firebase from '../Firebase/firebase'
 
 const messages = [
     {message: "Your Question 'What is an array?' was deleted by sushma1261 because of irrelavant content"},
@@ -26,35 +27,94 @@ const Component = ({message, deleteMessage}) => {
     )
 }
 
-
-
 class NotificationsPage extends React.Component {
 
     state = {
-        messages : messages
+        messages2 : [],
+        user: localStorage.getItem("regd"),
+        flag: false
+    }
+
+    componentDidMount() {
+        this.getNotificationsFromFB()
     }
 
     deleteAll = async() => {
-        this.setState({messages: []})
+        this.setState({messages2: []})
+        this.setState({flag: false})
+        await firebase.database().ref("notifications").child(this.state.user).remove()
+        
     }
 
-    deleteMessage = async(idx) => {
-        
-        var m = this.state.messages;
-        console.log(m[idx])
+    deleteMessage = async(idx, key) => {
+        var m = this.state.messages2;
+        // console.log(m[idx])
         m.splice(idx,1);
-        this.setState({messages: m})
+        // console.log("m:", m)
+        this.setState({messages2: m})
+        if(m.length === 0) {
+            this.setState({flag: false})
+        }
+        await firebase.database().ref("notifications").child(this.state.user).child(key).remove()
+        
+        
     }
+
+    getNotificationForRank = async() => {
+        var f = false
+        var user = this.state.user
+        await firebase.database().ref("users").orderByChild("scores").limitToFirst(3).once("value")
+        .then(function(snap){
+            console.log(snap.val())
+            snap.forEach(function(child){
+                if(child.val().regd === user) {
+                    f = true
+                    console.log("You are in top 3 ranks!!")
+                }
+            })
+        })
+        var m = this.state.messages2
+        m.push({"message": "You are in top 3 ranks!!", "key": "noKey"})
+        if(f) {
+            this.setState({messages2: m})
+        }
+        console.log(this.state.messages2)
+    }
+
+    getNotificationsFromFB = async() => {
+        this.getNotificationForRank()
+        var messages2 = this.state.messages2
+        await firebase.database().ref("notifications").child(this.state.user).once("value")
+        .then(function(snap) {
+            snap.forEach(function(child) {
+                var data = {"message": child.val().message, "key": child.key}
+                messages2.push(data)
+                // console.log(child.key)
+            })
+        })
+        if(messages2 !== []) {
+            this.setState({flag: true})
+        }
+        this.setState({messages2})
+    }
+
     
     render() {
         return (
             <div>
                 <Header as = "h2">Notifications
-                <span><Button style = {{right: "20px", position : "absolute"}} negative onClick = {this.deleteAll}>Clear All</Button></span>
+                {
+                    this.state.flag  && 
+                <span>
+                    <Button style = {{right: "20px", position : "absolute"}} negative onClick = {this.deleteAll}>Clear All</Button>
+                    
+                </span>
+                }
                 </Header>
-                {this.state.messages.map(({message}, idx) => (
-                    <Component message = {message} key = {idx} deleteMessage = {() => {
-                        this.deleteMessage(idx);
+                
+                {this.state.messages2.map((m, idx) => (
+                    <Component message = {m.message} key = {idx} deleteMessage = {() => {
+                        this.deleteMessage(idx, m.key);
                 }
                 }/>
                 )

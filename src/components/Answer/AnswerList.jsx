@@ -148,7 +148,9 @@ class AnswerList extends React.Component {
                 <Answer key = "3" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>
                 <Answer key = "4" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/> */}
                 {this.state.answers.reverse().map((a,idx) => (
-                    <Answer key = {a.id} id = {this.state.qid} username = {a.user} answer = {a.answer} likes = {a.noOfLikes} flag = {a.flag} answerKey = {a.id}
+                    <Answer key = {a.id} id = {this.state.qid} username = {a.user} answer = {a.answer}
+                     likes = {a.noOfLikes} flag = {a.flag} answerKey = {a.id}
+                     question = {this.props.question}
                         fun1 = {() => {
                             //console.log(a.id)
                             console.log("Clicked");

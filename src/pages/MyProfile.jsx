@@ -3,6 +3,7 @@ import { Image, Table, Grid, Segment ,Icon, Input, Button} from 'semantic-ui-rea
 import firebase from '../Firebase/firebase';
 import Title from '../components/Title/Title';
 import Navbar from '../components/NavBar/Navbar.component';
+import './MyProfile.css'
 class MyProfile extends React.Component {
 
   constructor(props) {
@@ -20,10 +21,6 @@ class MyProfile extends React.Component {
     }
       
     }
-    this.handleChange = this
-      .handleChange
-      .bind(this);
-      this.handleUpload = this.handleUpload.bind(this);
   }
   
   componentDidMount() {
@@ -42,36 +39,9 @@ class MyProfile extends React.Component {
         data = child.val()
         userKey = child.key
       })
-      
     })
     console.log(data)
     this.setState({data, userKey})
-  }
-
-  handleChange = e => {
-    if (e.target.files[0]) {
-      const image = e.target.files[0];
-      console.log(e.target.files[0])
-      console.log(e.target.files[0].name)
-      this.setState(() => ({image}));
-    }
-  }
-  handleUpload = async() => {
-    var storageRef = firebase.storage().ref();
-    var file = this.state.image;
-    console.log(file.name)
-    var imgRef = storageRef.child(this.state.regd);
-    await imgRef.put(file).then(function(snapshot) {
-        console.log('Uploaded a blob or file!', snapshot);
-    });
-    var link = ""
-    await firebase.storage().ref(this.state.regd).getDownloadURL().then(url => {
-              console.log(url);
-              link = url;
-          })
-    
-    await firebase.database().ref("users").child(this.state.userKey).update({picURL: link})
-    
   }
 
   render() {
@@ -79,12 +49,7 @@ class MyProfile extends React.Component {
       <div className = "App">
         <Title />
         <Navbar />
-        <Input type="file" onChange={this.handleChange} />
-                <Button onClick={this.handleUpload}
-                  content="Upload"
-                  labelPosition="left"
-                  icon="file"
-                />
+       
         <Grid>
       <Grid.Column width = {3}></Grid.Column>
       <Grid.Column width = {10}>
@@ -92,7 +57,7 @@ class MyProfile extends React.Component {
         <Grid width = {5}>
             <Grid.Row  floated = "left" > 
               
-                <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTkDzS2j8tsVVAraS8BbBZnUcLuTZmNr2xOSeXLU43AbjXsZ02q" size='small' circular centered/>
+                <img width = "200" height = "200" className = "centerPic" src = {this.state.data.picURL}/>
             </Grid.Row>
             <Grid.Row> 
                 <Table basic='very'>

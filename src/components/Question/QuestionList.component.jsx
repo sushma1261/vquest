@@ -7,7 +7,7 @@ import Notifications, {notify} from 'react-notify-toast';
 
 const myColor = { background: '#0E1717', text: "#FFFFFF" };
 class QuestionList extends React.Component {
-  submit = (idx) => {
+  submit = (idx, user, question) => {
     console.log("submit");
     confirmAlert({
       title: 'Confirm to submit',
@@ -15,7 +15,7 @@ class QuestionList extends React.Component {
       buttons: [
         {
           label: 'Yes',
-          onClick: () => this.removeQuestion(idx)
+          onClick: () => this.removeQuestion(idx, user, question)
 
         },
         {
@@ -54,15 +54,14 @@ class QuestionList extends React.Component {
             // console.log("state question "+this.state.x)
           }
     
-    removeQuestion = (idx) => {
+    removeQuestion = (idx, user, question) => {
       console.log("clicked");
       var arr = this.state.x;
       var id = arr[idx].id;
       arr.splice(idx,1);
       this.setState({x: arr});     
       console.log("qid",id)
-      //this.removeQuestionFromTagList(id);
-       this.removeFromDb(id);
+       this.removeFromDb(id, user, question);
     }
 
     removeQuestionFromTagList = async(id) => {
@@ -86,8 +85,10 @@ class QuestionList extends React.Component {
         
     }
 
-    removeFromDb = async(id) => {
-      console.log(id);
+    removeFromDb = async(id, user, question) => {
+      console.log(id, user, question);
+      var message = "Your Question " + question + " has been deleted by " + localStorage.getItem("username") + " due to irrelevant content"
+      await firebase.database().ref("notifications").child(user).push({"message": message})
       await firebase.database().ref("questions").child(id).remove();
       await firebase.database().ref("answers").child(id).remove();
       this.removeQuestionFromTagList(id)
@@ -104,7 +105,7 @@ class QuestionList extends React.Component {
                     <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} fun1 = {() => {
                       console.log("Clicked");
                       console.log(idx);
-                      this.submit(idx);
+                      this.submit(idx,user,question);
                     }
                   } />
                 )}

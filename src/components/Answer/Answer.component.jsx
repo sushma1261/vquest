@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, Grid, Image, Button, Icon, Label, Form } from 'semantic-ui-react';
 import firebase from '../../Firebase/firebase';
 import CommentList from '../Comment/CommentList';
+import { Link } from 'react-router-dom';
 class Answer extends React.Component {
     constructor(props) {
         super(props);
@@ -60,6 +61,9 @@ class Answer extends React.Component {
             await ref2.child(key).update({score: score+10});
         }
 
+        var message = "Your answer for the question " + this.props.question + " has been liked by "+ this.state.username
+        await firebase.database().ref("notifications").child(this.props.username).push({"message": message})
+        
         // console.log("Answer Key",this.props.answerKey);
         // await qry.once("value")
         //     .then(function (snapshot) {
@@ -155,7 +159,7 @@ class Answer extends React.Component {
                             {/* {this.props.number} */}
                             <Grid.Column width = {2}>
                             <img src = {this.state.url} width = "60" height = "60" style ={{borderRadius: "50%"}}/>
-        <span>{this.props.username}</span>
+        <span><Link to = {"/myProfile/"+this.props.username}>{this.props.username}</Link></span>
                             </Grid.Column>
                             <Grid.Column width = {12}>
                                 <p style = {{fontFamily : "Gregoria", textAlign : "justify", fontSize : "20px", whiteSpace : "pre-line"}}>{this.props.answer}</p>

@@ -93,7 +93,7 @@ class AnswerPage extends Component {
                             <Header as="h1" style={{ fontSize: "35px", paddingBottom: "20px" }}>Answers</Header>
                         </Grid>
                         
-                        <AnswerList qid = {this.state.questionDetails.qid}/>
+                        <AnswerList question = {this.state.questionDetails.question} qid = {this.state.questionDetails.qid}/>
                     </Grid.Column>
                     
                 </Grid>

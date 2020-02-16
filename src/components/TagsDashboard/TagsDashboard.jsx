@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
 const ListItem = ({tag}) => {
     return (
-        <List.Item>
+        <List.Item style = {{textAlign: "left"}}>
                 <Link to = {
                     {
                         pathname: '/tags/' + tag,
@@ -13,7 +13,7 @@ const ListItem = ({tag}) => {
                         }
                     }
                 }>
-                    <Icon name="long arrow alternate right" />{tag}
+                    <Icon name="long arrow alternate right" /><span style = {{fontSize: "20px"}}>{tag}</span>
                 </Link>
         </List.Item>
     );
