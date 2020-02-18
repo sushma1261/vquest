@@ -5,9 +5,9 @@ import './Title.css';
 class Title extends React.Component {
     render() {
         return (
-            <div style = {{backgroundColor: "#52b1cc", paddingTop: "20px", paddingBottom: "20px"}}>
+            <div style = {{backgroundColor: "#52b1cc", paddingTop: "10px", paddingBottom:"20px"}}>
                 <Header as = "h1" className = 'title' style = {{fontFamily: "Georgia", fontSize: "60px"}}>VQuest</Header>
-                {/* <img src = {require("../../assests/Logo (1).png")} width = "80%" height = "200px" /> */}
+                {/* <img src = {require("../../assests/Logo (1).png")} width = "30%" height = "100px" /> */}
             </div>
         );
     }

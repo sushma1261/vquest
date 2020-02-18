@@ -15,8 +15,6 @@ class AnswerPage extends Component {
             question: "",
             qid: this.props.match.params.id
         }
-        
-
     }
     componentDidMount() {
         this.getQuestion();
@@ -58,8 +56,8 @@ class AnswerPage extends Component {
 
 
     render() {
-        console.log("Answer Page props");
-        console.log(this.props);
+        // console.log("Answer Page props");
+        // console.log(this.props);
         // console.log(this.state
         // console.log(this.props.match.params.id);
         // console.log(this.props.location.props);
@@ -70,7 +68,7 @@ class AnswerPage extends Component {
                         <Grid>
                             <Grid.Column width={1}>
                             <img src = {this.state.url} width = "70" height = "70" style ={{borderRadius: "50%"}}/>
-                                <span>{this.state.questionDetails.user}</span>
+                                <span><Link to = {"/myProfile/"+this.state.questionDetails.user}>{this.state.questionDetails.user}</Link></span>
                             </Grid.Column>
                             <Grid.Column width={11} style={{ fontSize: "25px" }}>
                                 {this.state.questionDetails.question}
@@ -92,8 +90,10 @@ class AnswerPage extends Component {
                             
                             <Header as="h1" style={{ fontSize: "35px", paddingBottom: "20px" }}>Answers</Header>
                         </Grid>
+                        {(this.state.questionDetails.noOfAns !== 0) && 
+                            <AnswerList question = {this.state.questionDetails.question} qid = {this.state.qid}/>
+                        }
                         
-                        <AnswerList question = {this.state.questionDetails.question} qid = {this.state.questionDetails.qid}/>
                     </Grid.Column>
                     
                 </Grid>

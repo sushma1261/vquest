@@ -8,7 +8,8 @@ class Question extends React.Component {
         url: "",
     }
     componentDidMount() {
-        this.getUserImage()
+        console.log(this.props)
+        // this.getUserImage()
         if (localStorage.getItem("role") === "admin") {
             this.setState({ admin: true });
         }

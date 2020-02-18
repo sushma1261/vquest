@@ -41,7 +41,7 @@ class Navbar extends React.Component {
     }
 
     componentDidMount() {
-        this.getUserDetails()
+        // this.getUserDetails()
         if(this.state.username !== "") {
             this.setState({authenticated: true});
         }
@@ -58,11 +58,9 @@ class Navbar extends React.Component {
                     <Menu.Item />
                     <Menu.Item as={NavLink} to="/q" className="topic" name="Home" style={style} />
                     <Menu.Item as={NavLink} to="/leaderboard" className="topic" name="Leaderboard" style={style} />
-                    <Menu.Item as={SearchBar} />
                     
-                    
-
                     <Menu.Menu position = "right">
+                    <Menu.Item as={SearchBar} />
                         <Menu.Item >
                             {this.state.authenticated &&
                             <SignedInMenu signOut = {this.handleSignOut} username = {this.state.username} picUrl = {this.state.picUrl}/>

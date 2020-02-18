@@ -4,6 +4,9 @@ import firebase from '../../Firebase/firebase';
 import CommentList from '../Comment/CommentList';
 import { Link } from 'react-router-dom';
 class Answer extends React.Component {
+
+    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -123,6 +126,7 @@ class Answer extends React.Component {
                 this.forceUpdate();
             });
             console.log("Comments are:");
+            console.log(this.state.showComment)
             console.log(this.state.comments);
     }
 
@@ -142,11 +146,11 @@ class Answer extends React.Component {
         }
         console.log("Show Status");
         console.log(this.state.showComment);
-
     }
 
     componentDidMount() {
-        this.getUserImage()
+        this.getComments()
+        // this.getUserImage()
         // console.log(this.props)
     }
 
@@ -218,6 +222,7 @@ class Answer extends React.Component {
                         <br />
                         {
                             this.state.showComment && 
+                            // console.log("CC",this.state.comments) &&
                             <div>
                                 <CommentList comments = {this.state.comments} answerId = {this.props.answerKey}/>
                             </div>

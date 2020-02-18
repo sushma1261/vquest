@@ -14,7 +14,7 @@ class AnswerList extends React.Component {
     componentDidMount() {
         this.getAnswers();
         console.log("Comments::::");
-        console.log(this.props.qid);
+        console.log(this.props);
     }
 
     state = {
@@ -49,7 +49,8 @@ class AnswerList extends React.Component {
         var ans = [];
         var flag = false;
         var answerKey = "";
-        var d1 = {}
+        var d1 = {};
+        
         var query1 = firebase.database().ref("answers").child(this.state.qid).orderByChild("postedOn").limitToLast(1)
         await query1.once("value")
             .then(function (snapshot) {

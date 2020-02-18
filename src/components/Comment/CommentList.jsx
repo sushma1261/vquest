@@ -8,6 +8,9 @@ import Notifications, {notify} from 'react-notify-toast';
 const myColor = { background: '#0E1717', text: "#FFFFFF" };
 class CommentList extends React.Component {
 
+  componentDidMount() {
+    console.log("Comment list******************************")
+  }
     state = {
         comments: this.props.comments
     }

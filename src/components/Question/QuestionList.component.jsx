@@ -16,7 +16,6 @@ class QuestionList extends React.Component {
         {
           label: 'Yes',
           onClick: () => this.removeQuestion(idx, user, question)
-
         },
         {
           label: 'No',
