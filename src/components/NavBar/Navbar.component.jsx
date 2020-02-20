@@ -41,7 +41,7 @@ class Navbar extends React.Component {
     }
 
     componentDidMount() {
-        // this.getUserDetails()
+        this.getUserDetails()
         if(this.state.username !== "") {
             this.setState({authenticated: true});
         }

@@ -150,7 +150,7 @@ class Answer extends React.Component {
 
     componentDidMount() {
         this.getComments()
-        // this.getUserImage()
+        this.getUserImage()
         // console.log(this.props)
     }
 

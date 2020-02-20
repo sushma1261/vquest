@@ -25,7 +25,7 @@ class TagsDashboard extends React.Component {
         tags: []
     }
     componentDidMount() {
-        // this.getTagsFormDB()
+        this.getTagsFormDB()
     }
 
     getTagsFormDB = async() => {

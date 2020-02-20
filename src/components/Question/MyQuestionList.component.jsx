@@ -65,11 +65,21 @@ class MyQuestionList extends React.Component {
   
       removeFromDb = async(id) => {
         console.log(id);
+        var x = []
+        await firebase.database().ref("answers").child(id).once("value")
+        .then(function(snapshot){
+          snapshot.forEach(function(child){
+            x.push(child.key)
+          })
+        })
+        console.log(x)
+        x.forEach(async function(a) {
+          await firebase.database().ref("comments").child(a).remove();
+        })
         await firebase.database().ref("questions").child(id).remove();
         await firebase.database().ref("answers").child(id).remove();
         this.removeQuestionFromTagList(id)
         notify.show("Deleted Question", "custom", 5000, myColor);
-  
       }
 
     getQuestions = async() => {

@@ -44,7 +44,7 @@ class Login extends React.Component {
                     var uname = childSnapshot.val().username;
                     // console.log(uname);
                     var role = childSnapshot.val().role;
-                    console.log(role);
+                    // console.log(role);
                     localStorage.setItem("username", uname);
                     localStorage.setItem("role", role);
                     if(childSnapshot.val().regd) {

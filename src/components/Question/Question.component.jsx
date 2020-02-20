@@ -9,7 +9,7 @@ class Question extends React.Component {
     }
     componentDidMount() {
         console.log(this.props)
-        // this.getUserImage()
+        this.getUserImage()
         if (localStorage.getItem("role") === "admin") {
             this.setState({ admin: true });
         }

@@ -40,8 +40,19 @@ class TagsQuestionPage extends React.Component {
   
       removeFromDb = async(id, dbIdx) => {
         console.log(id);
-        // await firebase.database().ref("questions").child(id).remove();
-        // await firebase.database().ref("answers").child(id).remove();
+        var x = []
+        await firebase.database().ref("answers").child(id).once("value")
+        .then(function(snapshot){
+          snapshot.forEach(function(child){
+            x.push(child.key)
+          })
+        })
+        console.log(x)
+        x.forEach(async function(a) {
+          await firebase.database().ref("comments").child(a).remove();
+        })
+        await firebase.database().ref("questions").child(id).remove();
+        await firebase.database().ref("answers").child(id).remove();
         console.log(id, dbIdx, this.state.key)
         await firebase.database().ref("tags").child(this.state.key).child("questions").child(dbIdx).remove();
         notify.show("Deleted Question", "custom", 5000, myColor);

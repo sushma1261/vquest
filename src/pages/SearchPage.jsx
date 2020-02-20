@@ -62,6 +62,17 @@ class SearchPage extends React.Component {
   
       removeFromDb = async(id, user, question) => {
         console.log(id, user, question);
+        var x = []
+        await firebase.database().ref("answers").child(id).once("value")
+        .then(function(snapshot){
+            snapshot.forEach(function(child){
+            x.push(child.key)
+            })
+        })
+      console.log(x)
+      x.forEach(async function(a) {
+        await firebase.database().ref("comments").child(a).remove();
+      })
         var message = "Your Question " + question + " has been deleted by " + localStorage.getItem("username") + " due to irrelevant content"
         await firebase.database().ref("notifications").child(user).push({"message": message})
         await firebase.database().ref("questions").child(id).remove();

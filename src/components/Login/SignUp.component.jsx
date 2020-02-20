@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Message, Segment, Input } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment, Input, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
 import DropdownComponent from '../DropdownComponent';
@@ -127,14 +127,17 @@ class SignUp extends React.Component {
 
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Username'
                                 value={this.state.username} onChange={this.handleChange}
-                                type="name" name="username" className="form-control" id="InputUsername" />
+                                type="name" name="username" className="form-control" id="InputUsername"
+                                required />
 
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Registration Number'
                                 value={this.state.regd} onChange={this.handleChange}
+                                required
                                 type="name" name="regd" className="form-control" id="regd" />
 
                             <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail'
                                 value={this.state.email} onChange={this.handleChange}
+                                required
                                 type="email" name="email" className="form-control" id="InputEmail" />
 
                             <Form.Input
@@ -148,6 +151,7 @@ class SignUp extends React.Component {
                                 name="password1"
                                 className="form-control"
                                 id="InputPassword1"
+                                required
                             />
                             <Form.Input
                                 fluid
@@ -160,12 +164,14 @@ class SignUp extends React.Component {
                                 name="password2"
                                 className="form-control"
                                 id="InputPassword2"
+                                required
                             />
                             
                             <DropdownComponent options = {this.state.tagsFromDB} handleChange = {this.handleChange2.bind(this)} placeholder = "Select expertise tags" isMulti = {true}/><br />
                             <DropdownComponent options = {role} handleChange = {this.handleChange3.bind(this)} placeholder = "Select Role" isMulti = {false}/><br />
-                            <Input type="file" onChange={this.handleImageChange} />
-                            <Button color='teal' fluid size='large'
+                            Choose profile picture:<Input type="file" onChange={this.handleImageChange} />
+                            <br /><br />
+                            <Button type = "submit" color='teal' fluid size='large'
                                 onClick={this.dataBase.bind(this)}
                                 className="btn btn-primary">
                                 Sign Up

@@ -4,32 +4,42 @@ import firebase from '../../Firebase/firebase';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Notifications, {notify} from 'react-notify-toast';
+import { Modal, Header, Button } from 'semantic-ui-react';
+import DropdownComponent from '../DropdownComponent';
 
 const myColor = { background: '#0E1717', text: "#FFFFFF" };
 class QuestionList extends React.Component {
   submit = (idx, user, question) => {
-    console.log("submit");
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure you want to delete this question?',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => this.removeQuestion(idx, user, question)
-        },
-        {
-          label: 'No',
-          onClick: () => console.log("No clicked")
-        }
-      ]
-    });
+    this.setState({showModal: true})
+    this.setState({selectedIdx: idx,user: user,selectedQuestion: question})
+    // console.log("submit");
+    // confirmAlert({
+    //   title: 'Confirm to submit',
+    //   message: 'Are you sure you want to delete this question?',
+    //   buttons: [
+    //     {
+    //       label: 'Yes',
+    //       onClick: () => this.removeQuestion(idx, user, question)
+    //     },
+    //     {
+    //       label: 'No',
+    //       onClick: () => console.log("No clicked")
+    //     }
+    //   ]
+    // });
   };
  
   
     state = {x : [], 
       ques: [{question: "What is an array1"}, {question: "What is an array2"}, {question: "What is an array3"}],
-      start: 0,
-      end: 3
+      showModal: false,
+      options: [
+        {"label": "Inappropriate Question", "value": 0},
+        {"label": "Question Already Exists", "value": 1},
+     ],
+     selectedIdx: 0,
+     user: "",
+     selectedQuestion: ""
     };
 
     
@@ -53,13 +63,19 @@ class QuestionList extends React.Component {
             // console.log("state question "+this.state.x)
           }
     
-    removeQuestion = (idx, user, question) => {
+    removeQuestion = () => {
+      this.setState({showModal: false})
       console.log("clicked");
+      var idx = this.state.selectedIdx
+      var user = this.state.user
+      var question = this.state.selectedQuestion;
       var arr = this.state.x;
       var id = arr[idx].id;
       arr.splice(idx,1);
       this.setState({x: arr});     
-      console.log("qid",id)
+      console.log("qid",id);
+      // console.log(this.state.selectedOption.label)
+      
        this.removeFromDb(id, user, question);
     }
 
@@ -85,15 +101,34 @@ class QuestionList extends React.Component {
     }
 
     removeFromDb = async(id, user, question) => {
+      console.log(this.state.selectedOption)
       console.log(id, user, question);
-      var message = "Your Question " + question + " has been deleted by " + localStorage.getItem("username") + " due to irrelevant content"
+      var message = "Your Question " + question + " has been deleted by " + localStorage.getItem("username") + " because " + this.state.selectedOption.label
       await firebase.database().ref("notifications").child(user).push({"message": message})
+      var x = []
+      await firebase.database().ref("answers").child(id).once("value")
+      .then(function(snapshot){
+        snapshot.forEach(function(child){
+          x.push(child.key)
+        })
+      })
+      console.log(x)
+      x.forEach(async function(a) {
+        await firebase.database().ref("comments").child(a).remove();
+      })
       await firebase.database().ref("questions").child(id).remove();
       await firebase.database().ref("answers").child(id).remove();
+      
       this.removeQuestionFromTagList(id)
+
       notify.show("Deleted Question", "custom", 5000, myColor);
 
     }
+
+    handleChange2 = (selectedOption) => {
+      this.setState({ selectedOption });
+      console.log(`Option selected:`, selectedOption);
+    };
 
     render() {
         return (
@@ -108,6 +143,17 @@ class QuestionList extends React.Component {
                     }
                   } />
                 )}
+                <Modal open = {this.state.showModal} closeIcon onClose={() => {this.setState({showModal : !this.state.showModal})}}>
+                    <Modal.Content image>
+                    <Modal.Description>
+                        <Header>Select why you want to delete the question?</Header><br />
+                        <DropdownComponent options = {this.state.options} handleChange = {this.handleChange2.bind(this)} isMulti={false} placeholder = "Select option"/><br />
+                        <div style = {{position: "absolute", right:"10px"}}>
+                          <Button onClick = {this.removeQuestion} negative style = {{textAlign: "right"}}>Delete</Button></div>
+                        <br /><br />
+                    </Modal.Description>
+                    </Modal.Content>
+                </Modal>
                 
             </div>
 
