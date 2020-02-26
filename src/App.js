@@ -25,6 +25,7 @@ import TagsDashboard from './components/TagsDashboard/TagsDashboard';
 import NotificationsPage from './pages/NotificationPage';
 import Dummy from './components/Dummy';
 import SearchPage from './pages/SearchPage';
+import EditProfilePage from './pages/EditProfilePage';
 
 class App extends React.Component {
   render() {
@@ -34,8 +35,9 @@ class App extends React.Component {
             <Route exact path = "/" component = {HomePage} />
             <Route exact path = "/signup" component = {SignUp} />
             <Route path = "/adminLogin" component = {AdminPage} />
-            <Route path = "/myProfile/:id" component = {MyProfile} />
+            <Route path = "/myProfile/:id" component = {withRouter(MyProfile)} />
             <Route path = "/info" component = {InfoPage} />
+            <Route path = "/dummy" component = {Dummy} />
             <Route path = "/(.+)" render = {() => (
               <div className = "App">
                 <Title />
@@ -49,7 +51,7 @@ class App extends React.Component {
                     <Route path = '/q' component={QuestionPage}/>
                     <Route path = '/newQuestion' component = {NewQuestionPage} />
                     <Route path = "/a/:id" component = {AnswerPage} />
-                    <Route path = "/dummy" component = {Dummy} />
+                    
                     <Route path = "/newAnswer/:id" component = {NewAnswerPage} />
                     <Route path = "/myQuestions" component = {MyQuestionsPage} />
                     <Route path = "/leaderboard" component = {LeaderboardPage} />
@@ -60,6 +62,7 @@ class App extends React.Component {
                     <Route path = "/login1" component = {Login1} />
                     <Route path = "/notifications" component = {NotificationsPage} />
                     <Route path = "/search/:id" component = {withRouter(SearchPage)} />
+                    <Route path = "/editProfile/:id" component = {EditProfilePage} />
                   </Switch>
                 </Container>
                 </Grid.Column>

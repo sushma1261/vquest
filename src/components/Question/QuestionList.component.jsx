@@ -118,9 +118,7 @@ class QuestionList extends React.Component {
       })
       await firebase.database().ref("questions").child(id).remove();
       await firebase.database().ref("answers").child(id).remove();
-      
       this.removeQuestionFromTagList(id)
-
       notify.show("Deleted Question", "custom", 5000, myColor);
 
     }

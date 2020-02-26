@@ -67,7 +67,15 @@ class TagsQuestionPage extends React.Component {
 
     state = {
         questionsId : [],
-        data: []
+        data: [],
+        showModal: false,
+        options: [
+          {"label": "Inappropriate Question", "value": 0},
+          {"label": "Question Already Exists", "value": 1},
+       ],
+       selectedIdx: 0,
+       user: "",
+       selectedQuestion: ""
     }
 
     fetchQuestion = async(qid, idx) => {
@@ -116,11 +124,18 @@ class TagsQuestionPage extends React.Component {
         
     }
 
+    handleChange2 = (selectedOption) => {
+      this.setState({ selectedOption });
+      console.log(`Option selected:`, selectedOption);
+    };
+
+
 
     render() {
         return (
+          <div>
+            <Notifications />
             <Grid>
-                <Notifications />
                     <Grid.Column width = {16}>
                         <Header as = "h2">Questions on {this.props.match.params.id}</Header>
                         {this.state.data.map((a,idx) => 
@@ -133,6 +148,18 @@ class TagsQuestionPage extends React.Component {
                         )}
                     </Grid.Column>
                 </Grid>
+                {/* <Modal open = {this.state.showModal} closeIcon onClose={() => {this.setState({showModal : !this.state.showModal})}}>
+                    <Modal.Content image>
+                    <Modal.Description>
+                        <Header>Select why you want to delete the question?</Header><br />
+                        <DropdownComponent options = {this.state.options} handleChange = {this.handleChange2.bind(this)} isMulti={false} placeholder = "Select option"/><br />
+                        <div style = {{position: "absolute", right:"10px"}}>
+                          <Button onClick = {this.removeQuestion} negative style = {{textAlign: "right"}}>Delete</Button></div>
+                        <br /><br />
+                    </Modal.Description>
+                    </Modal.Content>
+                </Modal> */}
+          </div>
             
         )
     }

@@ -14,7 +14,7 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                     {rank}
                 </Grid.Column>
                 <Grid.Column width = {4}>
-                <Link to = {"/myProfile/"+regd}>{regd}</Link>
+                <Link to = {"/myProfile/"+regd}><div style = {{color: "white"}}>{regd}</div></Link>
                 </Grid.Column>
                 <Grid.Column width = {4}>
                     {username}

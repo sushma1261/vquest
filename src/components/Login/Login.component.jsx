@@ -21,9 +21,7 @@ class Login extends React.Component {
     }
 
     login(e) {
-        e.preventDefault();
-        // console.log("hi");
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
             // console.log(this.props.history);
             this.dataBase();
         }).catch((error) => {
@@ -31,6 +29,8 @@ class Login extends React.Component {
             alert(error.message);
         });
     }
+
+    
 
     dataBase = async () => {
         // console.log("HiiiHello");
