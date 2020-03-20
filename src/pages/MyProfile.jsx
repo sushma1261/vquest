@@ -42,7 +42,7 @@ class MyProfile extends React.Component {
         })
       })
     console.log(data)
-    this.setState({ data, userKey })
+    this.setState({ data, userKey });
   }
 
   render() {
@@ -52,8 +52,12 @@ class MyProfile extends React.Component {
         <Navbar />
         <div style={{ position: "absolute", paddingTop: "8%", paddingLeft: "28%" }}>
           <div style={{ width: "260px", float: "left", height: "310px", backgroundColor: "#b5e6e1" }}>
-            <img src="" style={{ height: "250px", width: "250px", paddingTop: "10px" }} />
-            <Button primary>Change Image</Button>
+            <img src={this.state.data.picURL} style={{ height: "250px", width: "250px", paddingTop: "10px" }} />
+            {/* {this.state.regd == localStorage.getItem("regd") && 
+              <div>Choose profile picture:
+                <Input type="file" onChange={this.handleImageChange} />
+              </div>
+            } */}
           </div>
           <div style={{ width: "450px", float: "left", backgroundColor: "#b5e6e1", height: "310px", textAlign: "center", paddingTop: "50px", paddingLeft: "-20px" }}>
             <Table basic='very'>

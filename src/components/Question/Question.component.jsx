@@ -3,6 +3,9 @@ import { Segment, Grid, Image, Button } from 'semantic-ui-react';
 import './Question.component.scss';
 import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
+const style1 = {backgroundColor : "#e8bac4"};
+const style2 = {backgroundColor : "#b5e6e1"};
+var style;
 class Question extends React.Component {
     state = {
         url: "",
@@ -12,6 +15,15 @@ class Question extends React.Component {
         this.getUserImage()
         if (localStorage.getItem("role") === "admin") {
             this.setState({ admin: true });
+        }
+        console.log(this.props.deleted)
+        if(this.props.deleted !== true) {
+            style = style2
+            console.log("hii")
+        }
+        else {
+            //style = style1
+            console.log("hello")
         }
     }
 
@@ -33,10 +45,18 @@ class Question extends React.Component {
         admin: false
     }
 
+
+
     render() {
+        if(this.props.deleted) {
+            style = style1
+        }
+        else {
+            style = style2;
+        }
         return (
             <Segment.Group style={{ backgroundColor: "black" }} >
-                <Segment padded style={{ backgroundColor: "#b5e6e1" }}>
+                <Segment padded style={style}>
                     <Grid>
                         <Grid.Column width={2}>
                             <img src={this.state.url} width="60" height="60" style={{ borderRadius: "50%" }} />
@@ -50,7 +70,8 @@ class Question extends React.Component {
                                         username: this.props.username,
                                         question: this.props.question,
                                         tags: this.props.tags,
-                                        noOfAns: this.props.answers
+                                        noOfAns: this.props.answers,
+                                        deleted: this.props.deleted
                                     }
                                 }
                             }
@@ -59,14 +80,14 @@ class Question extends React.Component {
                             </Link>
 
                         </Grid.Column>
-                        {this.state.admin &&
+                        {this.state.admin && !this.props.deleted &&
                             <Grid.Column width={2}>
                                 <Button negative circular icon="trash" onClick={this.props.fun1}></Button>
                             </Grid.Column>
                         }
                     </Grid>
                 </Segment>
-                <Segment style={{ backgroundColor: "#b5e6e1" }}>
+                <Segment style={style}>
                     <Grid>
                         <Grid.Column width={5} floated="left">
 
@@ -95,3 +116,6 @@ class Question extends React.Component {
 }
 
 export default Question;
+
+
+// e8bac4

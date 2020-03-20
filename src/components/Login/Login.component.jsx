@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 
 
 class Login extends React.Component {
@@ -12,7 +12,7 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             email: '',
-            password: ''
+            password: '',
         };
     }
     handleChange(e) {
@@ -20,8 +20,8 @@ class Login extends React.Component {
         //console.log(this.state);
     }
 
-    login(e) {
-         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+    login = async (e) => {
+         await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
             // console.log(this.props.history);
             this.dataBase();
         }).catch((error) => {
@@ -55,8 +55,11 @@ class Login extends React.Component {
                     }
                 });
             });
+        console.log(localStorage.getItem("username"))
         this.props.history.push('/q');
     }
+
+    
 
     render() {
         return (
@@ -92,7 +95,9 @@ class Login extends React.Component {
                         New to us? <Link to="/signup"> Sign Up</Link>
                     </Message>
                 </Grid.Column>
+                
             </Grid>
+            
         );
     }
 }

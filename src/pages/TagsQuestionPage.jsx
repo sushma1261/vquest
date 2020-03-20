@@ -139,7 +139,7 @@ class TagsQuestionPage extends React.Component {
                     <Grid.Column width = {16}>
                         <Header as = "h2">Questions on {this.props.match.params.id}</Header>
                         {this.state.data.map((a,idx) => 
-                            <Question question = {a.data.question} username = {a.data.user} tags = {a.data.tags} answers = {a.data.noOfAns} key = {idx} id = {a.data.id} fun1 = {() => {
+                            <Question deleted = {a.data.deleted} question = {a.data.question} username = {a.data.user} tags = {a.data.tags} answers = {a.data.noOfAns} key = {idx} id = {a.data.id} fun1 = {() => {
                                 console.log("Clicked");
                                 console.log(idx, a.idx);
                                 this.submit(idx, a.idx);

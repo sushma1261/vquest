@@ -5,7 +5,6 @@ class SuggestedTags extends React.Component {
     render() {
         return(
             <div>
-
                 <Grid >
                     <Grid.Column width = {5}>
                     </Grid.Column>
@@ -19,10 +18,8 @@ class SuggestedTags extends React.Component {
                                 <Button negative circular icon = "trash" onClick = {this.props.delete}></Button>
                             </Segment>
                         </Segment.Group>
-                        
                     </Grid.Column>
                     <Grid.Column width = {4}>
-
                     </Grid.Column>
                     
                 </Grid>

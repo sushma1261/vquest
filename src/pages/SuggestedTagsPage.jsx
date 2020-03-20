@@ -49,6 +49,15 @@ class SuggestedTagsPage extends React.Component {
                 "questions": {0: question}
             }
             );
+        var tags = [];
+        await firebase.database().ref("questions").child(question).once("value")
+            .then(function(snapshot){
+                 tags = snapshot.val().tags;
+                console.log(tags)
+            })
+        tags.push(name);
+        console.log("tags:: "+tags);
+        await firebase.database().ref("questions").child(question).update({"tags": tags});
         await firebase.database().ref("suggestedTags").child(key).remove();
     }
 
@@ -58,7 +67,7 @@ class SuggestedTagsPage extends React.Component {
         arr.splice(idx,1);
         this.setState({x: arr});
         console.log("Wrong", idx);
-        await firebase.database().ref("suggestedTags").child(key).remove();
+        // await firebase.database().ref("suggestedTags").child(key).remove();
         
     }
 

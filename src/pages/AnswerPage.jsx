@@ -14,12 +14,19 @@ class AnswerPage extends Component {
             tags: "",
             question: "",
             qid: this.props.match.params.id
-        }
+        },
+        deleted: false
     }
     componentDidMount() {
         this.getQuestion();
         //this.getAnswers();
         console.log(this.state.qid);
+        console.log("Deleted",this.props.location.props)
+        if (this.props.location.props !== undefined) {
+            if(this.props.location.props.deleted === true)
+                this.setState({deleted: true})
+            // console.log("Undefined*************************")
+        }
     }
 
    
@@ -76,7 +83,7 @@ class AnswerPage extends Component {
                             <Grid.Column width={4}>
                                 Tags: {this.state.tags}<br />
                                 {this.state.questionDetails.noOfAns} answers
-                                <Button color = "violet"> 
+                                <Button color = "violet"  disabled = {this.state.deleted}> 
                         <Link to = {
                                     {
                                         pathname: '/newAnswer/' + this.state.qid,

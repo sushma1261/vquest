@@ -5,10 +5,10 @@ import LoginPage from './LoginPage';
 
 class HomePage extends React.Component {
 
-    componentDidMount() {
-        localStorage.setItem("username", "");
-        localStorage.setItem("role", "");
-    }
+    // componentDidMount() {
+    //     localStorage.setItem("username", "");
+    //     localStorage.setItem("role", "");
+    // }
 
     render() {
         return (

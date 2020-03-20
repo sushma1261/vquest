@@ -105,8 +105,8 @@ class MyQuestionList extends React.Component {
         return (
             <div>
                 <Notifications />
-                {this.state.questions.map( ({question, user, tags, noOfAns, id}, idx) => 
-                    <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} 
+                {this.state.questions.map( ({question, user, tags, noOfAns, id, deleted}, idx) => 
+                    <Question deleted = {deleted} question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} 
                     fun1 = {() => {
                         console.log("Clicked");
                         console.log(idx);

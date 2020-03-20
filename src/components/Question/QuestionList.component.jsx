@@ -50,11 +50,12 @@ class QuestionList extends React.Component {
   
         dataBase = async() => {
             var x = [];
-            var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(3);
+            var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(5);
             await query.once("value")
               .then(function(snapshot) {
                  snapshot.forEach(function(childSnapshot) {
                   x.push(childSnapshot.val());
+                  
               });
             });
             this.setState({x: x});
@@ -63,7 +64,7 @@ class QuestionList extends React.Component {
             // console.log("state question "+this.state.x)
           }
     
-    removeQuestion = () => {
+    removeQuestion = async() => {
       this.setState({showModal: false})
       console.log("clicked");
       var idx = this.state.selectedIdx
@@ -71,12 +72,34 @@ class QuestionList extends React.Component {
       var question = this.state.selectedQuestion;
       var arr = this.state.x;
       var id = arr[idx].id;
-      arr.splice(idx,1);
-      this.setState({x: arr});     
-      console.log("qid",id);
-      // console.log(this.state.selectedOption.label)
+      var noOfAns = arr[idx].noOfAns;
+      console.log(noOfAns);
+      var score = 0;
+      if(noOfAns === 0) {
+        arr.splice(idx,1);
+        this.setState({x: arr});
+        await firebase.database().ref("users").child(user).once("value")
+        .then(function (snapshot) {
+          score = snapshot.val().score;
+        });
+        this.removeFromDb(id, user, question);
+      }
+      else {
+      console.log(this.state.selectedOption)
+      console.log(id, user, question);
+      var message = "Your Question " + question + " has been deleted by " + localStorage.getItem("username") + " because " + this.state.selectedOption.label
+      await firebase.database().ref("notifications").child(user).push({"message": message})
       
-       this.removeFromDb(id, user, question);
+      await firebase.database().ref("questions").child(id).update({deleted: true});
+        //decrease score
+      await firebase.database().ref("users").child(user).once("value")
+      .then(function (snapshot) {
+        score = snapshot.val().score;
+      });
+      }
+      console.log("Score", score);
+      await firebase.database().ref("users").child(user).update({score: score - 200});
+      notify.show("Deleted Question", "custom", 5000, myColor);
     }
 
     removeQuestionFromTagList = async(id) => {
@@ -133,10 +156,11 @@ class QuestionList extends React.Component {
 
             <div>
               <Notifications />
-                {this.state.x.reverse().map(({question, user, tags, noOfAns, id}, idx) => 
-                    <Question question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} fun1 = {() => {
+                {this.state.x.reverse().map(({question, user, tags, noOfAns, id, deleted}, idx) => 
+                    <Question deleted = {deleted} question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} fun1 = {() => {
                       console.log("Clicked");
-                      console.log(idx);
+                      console.log(question);
+                      console.log(deleted)
                       this.submit(idx,user,question);
                     }
                   } />

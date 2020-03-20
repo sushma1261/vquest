@@ -9,7 +9,6 @@ import DropdownComponent from '../DropdownComponent';
 class NewQuestion extends React.Component {
     constructor(props) {
         super(props);
-        //this.login = this.login.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
           question: '',
@@ -43,18 +42,20 @@ class NewQuestion extends React.Component {
         selectedOption.forEach(e => {
             // this.addQuestionToTags();
             x.push(e["label"]);
+
         });
         //   console.log(x);
-        if(this.state.question !== "") {
+        if(this.state.question !== "" && x.length !== 0) {
+            
             var data = {question: this.state.question, tags: x, noOfAns: 0, id: "", user: this.state.username};
             var q = firebase.database().ref("questions");
             var k = q.push(data).key;
-            await q.child(k).update({"id": k, "postedOn": firebase.database.ServerValue.TIMESTAMP});
+            await q.child(k).update({"id": k, "postedOn": firebase.database.ServerValue.TIMESTAMP, "deleted": false});
             
             console.log(this.state.otherTags)
             if(this.state.otherTags !== '') {
                 var ref = firebase.database().ref("suggestedTags");
-                await ref.push({"question": this.state.question, "name": this.state.otherTags})
+                await ref.push({"question": k, "name": this.state.otherTags})
             }
             this.setState({
                 question: '',
@@ -101,9 +102,7 @@ class NewQuestion extends React.Component {
                 tagsFromDB.push({"label":child.val().name, "value": c})
                 c = c + 1
             })
-            
         })
-        // console.log(tagsFromDB)
         this.setState({tagsFromDB});
     }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Grid, Button} from 'semantic-ui-react';
 import QuestionList from '../components/Question/QuestionList.component';
-import TagsDashboard from '../components/TagsDashboard/TagsDashboard';
 import { Link } from 'react-router-dom';
 
 class QuestionPage extends React.Component {
