@@ -22,9 +22,20 @@ const SignedInMenu = ({signOut, username, picUrl}) => {
                     
                     icon = "user" />
                     {localStorage.getItem("role") === "admin" &&
-                        <Dropdown.Item as={Link} to="/suggestedTags" text="Suggested Tags" icon = "settings" />
+                        <Dropdown.Item as={Link} to="/suggestedTags" text="Suggested Tags" icon = "tags" />
                     }
                     <Dropdown.Item as = {Link} text = "About Us" to = "/info" icon = "info circle" />
+                    <Dropdown.Item as = {Link} text = "Change Password"
+                     to = {
+                        {
+                            pathname: "/changePassword/",
+                            props: {
+                                user: localStorage.getItem("email")
+                            }
+                        }
+                    }
+                     
+                     icon = "settings" />
                     <Dropdown.Item text = "Sign Out" onClick = {signOut} icon = "power" />
                 </Dropdown.Menu>
             </Dropdown>

@@ -149,8 +149,8 @@ class Answer extends React.Component {
     }
 
     componentDidMount() {
-        this.getComments()
-        this.getUserImage()
+        // this.getComments()
+        // this.getUserImage()
         // console.log(this.props)
     }
 

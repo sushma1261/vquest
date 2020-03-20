@@ -109,7 +109,7 @@ class MyProfile extends React.Component {
                     email: this.state.data.email,
 
                 }
-              }}>Edit profie</Button>
+              }}>Edit profile</Button>
             } */}
           </div>
           

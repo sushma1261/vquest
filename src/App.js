@@ -26,6 +26,8 @@ import NotificationsPage from './pages/NotificationPage';
 import Dummy from './components/Dummy';
 import SearchPage from './pages/SearchPage';
 import EditProfilePage from './pages/EditProfilePage';
+import ForgotPassword from './pages/ForgotPassword';
+import ChangePasswordPage from './pages/ChangePasswordPage';
 
 class App extends React.Component {
   render() {
@@ -34,6 +36,8 @@ class App extends React.Component {
           <Switch>
             <Route exact path = "/" component = {HomePage} />
             <Route exact path = "/signup" component = {SignUp} />
+            <Route exact path = "/forgotPassword" component = {ForgotPassword} />
+            <Route exact path = "/changePassword" component = {ChangePasswordPage} />
             <Route path = "/adminLogin" component = {AdminPage} />
             <Route path = "/myProfile/:id" component = {withRouter(MyProfile)} />
             <Route path = "/info" component = {InfoPage} />

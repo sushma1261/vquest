@@ -20,6 +20,8 @@ class Login extends React.Component {
         //console.log(this.state);
     }
 
+    
+
     login = async (e) => {
          await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
             // console.log(this.props.history);
@@ -35,6 +37,7 @@ class Login extends React.Component {
     dataBase = async () => {
         // console.log("HiiiHello");
         var email = this.state.email;
+        localStorage.setItem("email", email);
         // console.log("***&&&***");
         var ref = firebase.database().ref("users");
         await ref.orderByChild("email").equalTo(email).once("value")
@@ -47,6 +50,7 @@ class Login extends React.Component {
                     // console.log(role);
                     localStorage.setItem("username", uname);
                     localStorage.setItem("role", role);
+                    
                     if(childSnapshot.val().regd) {
                         localStorage.setItem("regd", childSnapshot.val().regd);
                     }
@@ -88,7 +92,8 @@ class Login extends React.Component {
                             />
                             <Button color='teal' fluid size='large' onClick={this.login}>
                                 Login
-                        </Button>
+                            </Button>
+                            <Link to = "/forgotPassword">Forgot Password</Link>
                         </Segment>
                     </Form>
                     <Message>

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../App.css'
 import { Button, Form, Grid, Header, Message, Segment, Input, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import firebase from '../../Firebase/firebase';
@@ -117,6 +118,7 @@ class SignUp extends React.Component {
 
     render() {
         return (
+            <div className = "App">
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450, backgroundColor: "white" }} >
                     <Header as='h2' color='teal' textAlign='center'>
@@ -184,6 +186,7 @@ class SignUp extends React.Component {
                     </Message>
                 </Grid.Column>
             </Grid>
+            </div>
         );
     }
 }
