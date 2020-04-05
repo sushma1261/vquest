@@ -43,7 +43,6 @@ class ChangePasswordPage extends React.Component {
         return (
         
             <div className = "App">
-                <Title />
                 <NavbarComponent />
                 <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450, backgroundColor: "white" }} >

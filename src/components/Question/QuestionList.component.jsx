@@ -50,7 +50,7 @@ class QuestionList extends React.Component {
   
         dataBase = async() => {
             var x = [];
-            var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(5);
+            var  query = firebase.database().ref("questions").orderByChild("postedOn").limitToLast(2);
             await query.once("value")
               .then(function(snapshot) {
                  snapshot.forEach(function(childSnapshot) {

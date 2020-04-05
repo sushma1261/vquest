@@ -44,7 +44,7 @@ class App extends React.Component {
             <Route path = "/dummy" component = {Dummy} />
             <Route path = "/(.+)" render = {() => (
               <div className = "App">
-                <Title />
+                {/* <Title /> */}
                 <Navbar />
                 <Grid>
                   <Grid.Column width = {2}>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Image, Table, Grid, Segment, Icon, Input, Button } from 'semantic-ui-react'
 import firebase from '../Firebase/firebase';
-import Title from '../components/Title/Title';
 import Navbar from '../components/NavBar/Navbar.component';
 import './MyProfile.css'
 import { Link } from 'react-router-dom';
@@ -18,7 +17,8 @@ class MyProfile extends React.Component {
         email: "",
         score: 0,
         regd: this.props.match.params.id,
-        username: ""
+        username: "",
+        role: "admin"
       }
 
     }
@@ -48,7 +48,6 @@ class MyProfile extends React.Component {
   render() {
     return (
       <div className="App">
-        <Title />
         <Navbar />
         <div style={{ position: "absolute", paddingTop: "8%", paddingLeft: "28%" }}>
           <div style={{ width: "260px", float: "left", height: "310px", backgroundColor: "#b5e6e1" }}>
@@ -76,27 +75,31 @@ class MyProfile extends React.Component {
                   <Table.Cell textAlign='center'>
                     <h3><Icon disabled name='mail' size="large" />
                       Email: </h3>
-
-
                   </Table.Cell>
                   <Table.Cell textAlign='left'><h3>{this.state.data.email}</h3></Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell textAlign='center'>
+                    <h3><Icon disabled name='user' size="large" />
+                      Role: </h3>
+                  </Table.Cell>
+                  <Table.Cell textAlign='left'><h3>{this.state.data.role}</h3></Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell textAlign='center'>
                     <h3><Icon disabled name='registered outline' size="large" />
                       Regd.No: </h3>
-
-
                   </Table.Cell>
                   <Table.Cell textAlign='left'><h3>{this.state.data.regd}</h3></Table.Cell>
                 </Table.Row>
-                <Table.Row>
+                {this.state.data.role !== "admin" && 
+                  <Table.Row>
                   <Table.Cell textAlign='center'>
                     <h3><Icon disabled name='star' size="large" />
                       Score: </h3>
                   </Table.Cell>
                   <Table.Cell textAlign='left'><h3>{this.state.data.score}</h3></Table.Cell>
-                </Table.Row>
+                </Table.Row>}
               </Table.Body>
             </Table>
             {/* {

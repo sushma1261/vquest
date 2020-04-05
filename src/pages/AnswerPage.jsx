@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Image, Header, Button } from 'semantic-ui-react';
+import { Grid, Image, Header, Button, Icon } from 'semantic-ui-react';
 import AnswerList from '../components/Answer/AnswerList';
 import TagsDashboard from '../components/TagsDashboard/TagsDashboard';
 import firebase from '../Firebase/firebase';
@@ -74,16 +74,18 @@ class AnswerPage extends Component {
                     <Grid.Column>
                         <Grid>
                             <Grid.Column width={1}>
-                            <img src = {this.state.url} width = "70" height = "70" style ={{borderRadius: "50%"}}/>
-                                <span><Link to = {"/myProfile/"+this.state.questionDetails.user}>{this.state.questionDetails.user}</Link></span>
+                                <Link to = {"/myProfile/"+this.state.questionDetails.user}><img src = {this.state.url} width = "70" height = "70" style ={{borderRadius: "50%"}}/>
+                                    <span><div style = {{color: "white", textAlign: "center"}}>{this.state.questionDetails.user}</div></span>
+                                </Link>
                             </Grid.Column>
                             <Grid.Column width={11} style={{ fontSize: "25px" }}>
                                 {this.state.questionDetails.question}
                             </Grid.Column>
                             <Grid.Column width={4}>
-                                Tags: {this.state.tags}<br />
+                                Tags: {this.state.questionDetails.tags}<br />
                                 {this.state.questionDetails.noOfAns} answers
-                                <Button color = "violet"  disabled = {this.state.deleted}> 
+                                <Button size = "tiny" color = "violet"  disabled = {this.state.deleted}> 
+                                <Icon name = "plus"></Icon>
                         <Link to = {
                                     {
                                         pathname: '/newAnswer/' + this.state.qid,
