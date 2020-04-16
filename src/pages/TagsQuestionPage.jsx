@@ -5,6 +5,7 @@ import Question from '../components/Question/Question.component';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Notifications, {notify} from 'react-notify-toast';
+import NoDataFound from '../components/NoDataFound.component';
 
 const myColor = { background: '#0E1717', text: "#FFFFFF" };
 
@@ -137,8 +138,8 @@ class TagsQuestionPage extends React.Component {
             <Notifications />
             <Grid>
                     <Grid.Column width = {16}>
-                        <Header as = "h2">Questions on {this.props.match.params.id}</Header>
-                        {this.state.data.map((a,idx) => 
+                        {this.state.data.length !== 0 && <div><Header as = "h2">Questions on {this.props.match.params.id}</Header>
+                         {this.state.data.map((a,idx) => 
                             <Question deleted = {a.data.deleted} question = {a.data.question} username = {a.data.user} tags = {a.data.tags} answers = {a.data.noOfAns} key = {idx} id = {a.data.id} fun1 = {() => {
                                 console.log("Clicked");
                                 console.log(idx, a.idx);
@@ -146,6 +147,15 @@ class TagsQuestionPage extends React.Component {
                               }
                             } />
                         )}
+                          </div>
+                          }
+                          {this.state.data.length === 0 && 
+                          <div>
+                            <Header as = "h2">Questions on {this.props.match.params.id}</Header>
+                            <NoDataFound message = "No questions available for this tag" />
+                          </div>
+                          }
+                          
                     </Grid.Column>
                 </Grid>
                 {/* <Modal open = {this.state.showModal} closeIcon onClose={() => {this.setState({showModal : !this.state.showModal})}}>

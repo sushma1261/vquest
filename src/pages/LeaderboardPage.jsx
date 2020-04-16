@@ -39,7 +39,9 @@ class LeaderboardPage extends React.Component {
                 }
             });
         });
-        console.log(scores)
+        // console.log(scores);
+        const scores1 = scores.reverse();
+        // console.log(scores1);
         this.setState({scores})
     }
 
@@ -55,7 +57,7 @@ class LeaderboardPage extends React.Component {
                     <div style = {{color: "white", backgroundColor: "black"}}>
                         <LeaderBoardRow rank = "Rank" username = "Username" score = "Score" regd = "Regd" />
                     </div>
-                    {this.state.scores.reverse().map(({username, score, regd}, idx) => ( 
+                    {this.state.scores.map(({username, score, regd}, idx) => ( 
                         <LeaderBoardRow key = {idx} rank = {"#"+(idx+1)} username = {username} regd = {regd} score = {score}/>
                     ))}
                 

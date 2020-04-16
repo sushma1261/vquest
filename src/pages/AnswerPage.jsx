@@ -4,6 +4,7 @@ import AnswerList from '../components/Answer/AnswerList';
 import TagsDashboard from '../components/TagsDashboard/TagsDashboard';
 import firebase from '../Firebase/firebase';
 import { Link } from 'react-router-dom';
+import NoDataFound from '../components/NoDataFound.component';
 
 class AnswerPage extends Component {
     state = {
@@ -41,9 +42,13 @@ class AnswerPage extends Component {
                 snapshot.forEach(function (childSnapshot) {
                     console.log(childSnapshot.val());
                     q = childSnapshot.val();
+                    // console.log(q.tags.join(', '));
+                    q["tags"] =  q.tags.join(', ');
+                    
                 });
             });
         this.setState({ questionDetails: q });
+        // console.log(q.tags.join(', '));
         this.getUserImage()
         //console.log("q", this.state.questionDetails);
     }
@@ -101,6 +106,9 @@ class AnswerPage extends Component {
                         </Grid>
                         {(this.state.questionDetails.noOfAns !== 0) && 
                             <AnswerList question = {this.state.questionDetails.question} qid = {this.state.qid}/>
+                        }
+                        {(this.state.questionDetails.noOfAns === 0) && 
+                            <NoDataFound message = "No answers posted yet!!" content = "Be the first one to post an answer." />
                         }
                         
                     </Grid.Column>
