@@ -44,7 +44,7 @@ class SignUp extends React.Component {
       handleUpload = async() => {
         var storageRef = firebase.storage().ref();
         var file = this.state.image;
-        console.log(file.name)
+        console.log(this.state)
         console.log(this.state.regd)
         var imgRef = storageRef.child(this.state.regd);
         await imgRef.put(file).then(function(snapshot) {
@@ -102,12 +102,19 @@ class SignUp extends React.Component {
     }
 
     dataBase = async () => {
-        console.log(this.state)
+        // console.log(this.state.file);
+        if(this.state.file) {
         this.handleUpload();
+        }
         this.signup(this);
-        var data = {"regd": this.state.regd, "username": this.state.username, "email": this.state.email, "role": this.state.role["label"], "password": this.state.password1, "score": 500}
-        await firebase.database().ref("users").child(this.state.regd).set(data);
-
+        
+            var regd = this.state.regd.toUpperCase();
+            console.log(regd);
+            if(this.state.role["label"] === "faculty") {
+                regd = this.state.username;
+            }
+            var data = {"regd": regd, "username": this.state.username, "email": this.state.email, "role": this.state.role["label"], "password": this.state.password1, "score": 500}
+            await firebase.database().ref("users").child(this.state.regd).set(data);
     }
 
     fun(e) {
@@ -130,13 +137,22 @@ class SignUp extends React.Component {
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Username'
                                 value={this.state.username} onChange={this.handleChange}
                                 type="name" name="username" className="form-control" id="InputUsername"
-                                required />
+                            />
 
+                            { this.state.role["label"] === "faculty"
+                            &&
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Registration Number'
                                 value={this.state.regd} onChange={this.handleChange}
                                 required
-                                type="name" name="regd" className="form-control" id="regd" />
-
+                                disabled = {true}
+                                type="name" name="regd" className="form-control" id="regd" />}
+                            { this.state.role["label"] !== "faculty"
+                            &&
+                            <Form.Input fluid icon='user' iconPosition='left' placeholder='Registration Number'
+                                value={this.state.regd} onChange={this.handleChange}
+                                required
+                                disabled = {false}
+                                type="name" name="regd" className="form-control" id="regd" />}
                             <Form.Input fluid icon='mail' iconPosition='left' placeholder='E-mail'
                                 value={this.state.email} onChange={this.handleChange}
                                 required

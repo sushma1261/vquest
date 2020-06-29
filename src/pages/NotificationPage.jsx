@@ -63,19 +63,22 @@ class NotificationsPage extends React.Component {
     getNotificationForRank = async() => {
         var f = false
         var user = this.state.user
-        await firebase.database().ref("users").orderByChild("scores").limitToFirst(3).once("value")
+        console.log("User" + user)
+        await firebase.database().ref("users").orderByChild("score").limitToLast(3).once("value")
         .then(function(snap){
             console.log(snap.val())
             snap.forEach(function(child){
                 if(child.val().regd === user) {
                     f = true
+                    console.log("f = true");
                     console.log("You are in top 3 ranks!!")
                 }
             })
         })
         var m = this.state.messages2
-        m.push({"message": "You are in top 3 ranks!!", "key": "noKey"})
+        
         if(f) {
+            m.push({"message": "You are in top 3 ranks!!", "key": "noKey"})
             this.setState({messages2: m})
         }
         console.log(this.state.messages2)

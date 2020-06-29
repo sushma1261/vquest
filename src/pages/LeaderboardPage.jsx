@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+import { Header, Grid, Icon } from 'semantic-ui-react';
 import LeaderBoardRow from '../components/Leaderboard/LeaderboardRow.component';
 import firebase from '../Firebase/firebase';
 // const leaderboard = [
@@ -54,8 +54,21 @@ class LeaderboardPage extends React.Component {
                 <br />
                 <br />
                 <div style = {{color: "black", position: "absolute", backgroundColor: "white" }}>
-                    <div style = {{color: "white", backgroundColor: "black"}}>
-                        <LeaderBoardRow rank = "Rank" username = "Username" score = "Score" regd = "Regd" />
+                    <div style = {{color: "white", backgroundColor: "black", fontSize: "20px", width: "800px", padding: "25px", borderBottom: "1px solid black"}}>
+                    <Grid>       
+                        <Grid.Column width = {4}>
+                            Rank
+                        </Grid.Column>
+                        <Grid.Column width = {4}>
+                            Regd. Number
+                        </Grid.Column>
+                        <Grid.Column width = {4}>
+                            Username
+                        </Grid.Column>
+                        <Grid.Column width = {4}>
+                            <Icon name = "star"/>Score
+                        </Grid.Column>
+                    </Grid>
                     </div>
                     {this.state.scores.map(({username, score, regd}, idx) => ( 
                         <LeaderBoardRow key = {idx} rank = {"#"+(idx+1)} username = {username} regd = {regd} score = {score}/>

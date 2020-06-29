@@ -59,7 +59,7 @@ class Login extends React.Component {
                     }
                 });
             });
-        console.log(localStorage.getItem("username"))
+        // console.log(localStorage.getItem("username"))
         this.props.history.push('/q');
     }
 
