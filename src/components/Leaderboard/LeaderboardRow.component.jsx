@@ -34,7 +34,7 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                     {rank}
                 </Grid.Column>
                 <Grid.Column width = {4}>
-                    {regd}
+                    <Link to = {"/myProfile/"+regd}><div style = {{color: "black"}}>{regd}</div></Link>
                 </Grid.Column>
                 <Grid.Column width = {4}>
                     {username}
@@ -54,7 +54,7 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                         {rank}
                     </Grid.Column>
                     <Grid.Column width = {4}>
-                        {regd}
+                        <Link to = {"/myProfile/"+regd}><div style = {{color: "black"}}>{regd}</div></Link>
                     </Grid.Column>
                     <Grid.Column width = {4}>
                         {username}
@@ -73,7 +73,7 @@ const LeaderBoardRow = ({rank, regd, username, score}) => {
                     {rank}
                 </Grid.Column>
                 <Grid.Column width = {4}>
-                    {regd}
+                    <Link to = {"/myProfile/"+regd}><div style = {{color: "black"}}>{regd}</div></Link>
                 </Grid.Column>
                 <Grid.Column width = {4}>
                     {username}

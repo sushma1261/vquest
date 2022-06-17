@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Grid, Image, Header, Button } from 'semantic-ui-react';
+import { Grid, Image, Header, Button, Icon } from 'semantic-ui-react';
 import AnswerList from '../components/Answer/AnswerList';
 import TagsDashboard from '../components/TagsDashboard/TagsDashboard';
 import firebase from '../Firebase/firebase';
 import { Link } from 'react-router-dom';
+import NoDataFound from '../components/NoDataFound.component';
 
 class AnswerPage extends Component {
     state = {
@@ -41,9 +42,13 @@ class AnswerPage extends Component {
                 snapshot.forEach(function (childSnapshot) {
                     console.log(childSnapshot.val());
                     q = childSnapshot.val();
+                    // console.log(q.tags.join(', '));
+                    q["tags"] =  q.tags.join(', ');
+                    
                 });
             });
         this.setState({ questionDetails: q });
+        // console.log(q.tags.join(', '));
         this.getUserImage()
         //console.log("q", this.state.questionDetails);
     }
@@ -74,16 +79,18 @@ class AnswerPage extends Component {
                     <Grid.Column>
                         <Grid>
                             <Grid.Column width={1}>
-                            <img src = {this.state.url} width = "70" height = "70" style ={{borderRadius: "50%"}}/>
-                                <span><Link to = {"/myProfile/"+this.state.questionDetails.user}>{this.state.questionDetails.user}</Link></span>
+                                <Link to = {"/myProfile/"+this.state.questionDetails.user}><img src = {this.state.url} width = "70" height = "70" style ={{borderRadius: "50%"}}/>
+                                    <span><div style = {{color: "white", textAlign: "center"}}>{this.state.questionDetails.user}</div></span>
+                                </Link>
                             </Grid.Column>
                             <Grid.Column width={11} style={{ fontSize: "25px" }}>
                                 {this.state.questionDetails.question}
                             </Grid.Column>
                             <Grid.Column width={4}>
-                                Tags: {this.state.tags}<br />
+                                Tags: {this.state.questionDetails.tags}<br />
                                 {this.state.questionDetails.noOfAns} answers
-                                <Button color = "violet"  disabled = {this.state.deleted}> 
+                                <Button size = "tiny" color = "violet"  disabled = {this.state.deleted}> 
+                                <Icon name = "plus"></Icon>
                         <Link to = {
                                     {
                                         pathname: '/newAnswer/' + this.state.qid,
@@ -99,6 +106,9 @@ class AnswerPage extends Component {
                         </Grid>
                         {(this.state.questionDetails.noOfAns !== 0) && 
                             <AnswerList question = {this.state.questionDetails.question} qid = {this.state.qid}/>
+                        }
+                        {(this.state.questionDetails.noOfAns === 0) && 
+                            <NoDataFound message = "No answers posted yet!!" content = "Be the first one to post an answer." />
                         }
                         
                     </Grid.Column>

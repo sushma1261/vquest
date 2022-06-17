@@ -28,23 +28,48 @@ import SearchPage from './pages/SearchPage';
 import EditProfilePage from './pages/EditProfilePage';
 import ForgotPassword from './pages/ForgotPassword';
 import ChangePasswordPage from './pages/ChangePasswordPage';
-
+import firebase from './Firebase/firebase';
 class App extends React.Component {
+  state = {
+    authenticated: false
+  }
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((authenticated) => {
+      authenticated
+        ? this.setState(() => ({
+            authenticated: true,
+          }), console.log(this.state))
+        : this.setState(() => ({
+            authenticated: false,
+          }));
+    });
+    console.log("Auth"+this.state.authenticated)
+  }
   render() {
     return (
+      <div>
       <BrowserRouter>
           <Switch>
-            <Route exact path = "/" component = {HomePage} />
-            <Route exact path = "/signup" component = {SignUp} />
-            <Route exact path = "/forgotPassword" component = {ForgotPassword} />
-            <Route exact path = "/changePassword" component = {ChangePasswordPage} />
-            <Route path = "/adminLogin" component = {AdminPage} />
-            <Route path = "/myProfile/:id" component = {withRouter(MyProfile)} />
-            <Route path = "/info" component = {InfoPage} />
-            <Route path = "/dummy" component = {Dummy} />
-            <Route path = "/(.+)" render = {() => (
+    {!this.state.authenticated &&
+      <Switch>
+              <Route exact path = "/signup" component = {SignUp} />
+              <Route exact path = "/forgotPassword" component = {ForgotPassword} />
+              <Route path = "/" component = {HomePage} /> 
+              <Route path = "/adminLogin" component = {AdminPage} />
+              <Route path = "/info" component = {InfoPage} />
+              <Route path = "/dummy" component = {Dummy} />
+      </Switch>
+  }
+            {
+        this.state.authenticated && 
+        <Switch>
+           <Route exact path = "/changePassword" component = {ChangePasswordPage} />
+              <Route path = "/adminLogin" component = {AdminPage} />
+              <Route path = "/info" component = {InfoPage} />
+              <Route path = "/myProfile/:id" component = {withRouter(MyProfile)} />
+        <Route path = "/(.+)" render = {() => (
               <div className = "App">
-                <Title />
+                {/* <Title /> */}
                 <Navbar />
                 <Grid>
                   <Grid.Column width = {2}>
@@ -52,6 +77,7 @@ class App extends React.Component {
                 <Grid.Column width = {9}>
                 <Container className = "main">
                   <Switch>
+                    
                     <Route path = '/q' component={QuestionPage}/>
                     <Route path = '/newQuestion' component = {NewQuestionPage} />
                     <Route path = "/a/:id" component = {AnswerPage} />
@@ -76,8 +102,10 @@ class App extends React.Component {
                 </Grid>
               </div>
             )}/>
+            </Switch>}
           </Switch>
       </BrowserRouter>
+    </div>
     );
   }
   

@@ -99,18 +99,10 @@ class AnswerList extends React.Component {
                 });
             });
             ans.push(d1);
-        this.setState({ answers: ans, answerKey: answerKey}, () => {
-            this.reverseArray();
-        });
+        this.setState({ answers: ans.reverse(), answerKey: answerKey})
     }
 
-    reverseArray() {
-        // console.log(typeof(this.state.answers))
-        if(this.state.answers !== []) {
-            var r = this.state.answers.reverse()
-            console.log(r)
-        }
-    }
+    
 
     removeAnswer = (id) => {
         var arr = this.state.answers;
@@ -148,7 +140,7 @@ class AnswerList extends React.Component {
                 <Answer key = "2" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments1}/>
                 <Answer key = "3" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/>
                 <Answer key = "4" id = "q12" username = "Sushma" answer = "wjehsadihawiewnuwg igw egeuyf ufg qg\n ergfyerf eiuyrf \n iuh wiu" likes = {5} flag = {false} answerKey = "oshfdo" comments = {comments2}/> */}
-                {this.state.answers.reverse().map((a,idx) => (
+                {this.state.answers.map((a,idx) => (
                     <Answer key = {a.id} id = {this.state.qid} username = {a.user} answer = {a.answer}
                      likes = {a.noOfLikes} flag = {a.flag} answerKey = {a.id}
                      question = {this.props.question}

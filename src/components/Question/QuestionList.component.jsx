@@ -58,6 +58,8 @@ class QuestionList extends React.Component {
                   
               });
             });
+            console.log(x);
+            x.reverse();
             this.setState({x: x});
            // this.getUserImage(x);
             // console.log("Type:: ", typeof(x))
@@ -66,7 +68,7 @@ class QuestionList extends React.Component {
     
     removeQuestion = async() => {
       this.setState({showModal: false})
-      console.log("clicked");
+      // console.log("clicked");
       var idx = this.state.selectedIdx
       var user = this.state.user
       var question = this.state.selectedQuestion;
@@ -85,8 +87,8 @@ class QuestionList extends React.Component {
         this.removeFromDb(id, user, question);
       }
       else {
-      console.log(this.state.selectedOption)
-      console.log(id, user, question);
+      // console.log(this.state.selectedOption)
+      // console.log(id, user, question);
       var message = "Your Question " + question + " has been deleted by " + localStorage.getItem("username") + " because " + this.state.selectedOption.label
       await firebase.database().ref("notifications").child(user).push({"message": message})
       
@@ -115,7 +117,7 @@ class QuestionList extends React.Component {
               questions = child.val().questions.filter(function (el) {
                 return (el !== null && el !== id);
               });
-              console.log(questions)
+              // console.log(questions)
               firebase.database().ref("tags").child(k).update({questions});
             }
           })
@@ -135,7 +137,7 @@ class QuestionList extends React.Component {
           x.push(child.key)
         })
       })
-      console.log(x)
+      // console.log(x)
       x.forEach(async function(a) {
         await firebase.database().ref("comments").child(a).remove();
       })
@@ -156,7 +158,7 @@ class QuestionList extends React.Component {
 
             <div>
               <Notifications />
-                {this.state.x.reverse().map(({question, user, tags, noOfAns, id, deleted}, idx) => 
+                {this.state.x.map(({question, user, tags, noOfAns, id, deleted}, idx) => 
                     <Question deleted = {deleted} question = {question} username = {user} tags = {tags} answers = {noOfAns} key = {id} id = {id} fun1 = {() => {
                       console.log("Clicked");
                       console.log(question);

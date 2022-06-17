@@ -22,12 +22,12 @@ class SearchBar extends React.Component {
     render() {
         return (
             <Form>
-                <Input icon = "search" size = "large" style={{width: "500px"}}
+                <span style = {{paddingRight: "10px"}}><Input icon = "search" size = "large" style={{width: "500px"}}
                  onChange = {this.handleOnChange.bind(this)}
                  value={this.state.searchQuery}
                  name = "searchQuery"
-                 /> &nbsp; &nbsp;
-                <Button as = {Link} to = {"/search/"+this.state.searchQuery} primary>Search</Button>
+                 /></span>
+                <span><Button as = {Link} to = {"/search/"+this.state.searchQuery} primary>Search</Button></span>
             </Form>
         );
     }

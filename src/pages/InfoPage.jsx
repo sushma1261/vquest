@@ -5,7 +5,6 @@ import Navbar from '../components/NavBar/Navbar.component';
 
 const InfoPage = () => (
   <div className = "App">
-    <Title />
     <Navbar /><br />
     <Grid>
       <Grid.Column width = {3}></Grid.Column>
